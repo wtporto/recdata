@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
+
 
 public class TelaAbertura extends Activity implements Runnable{
 
@@ -26,7 +25,7 @@ public class TelaAbertura extends Activity implements Runnable{
 		@Override
 		public void run() {
 		
-		        Intent minha_acao = new Intent(this, Tela2.class);
+		        Intent minha_acao = new Intent(this, TelaLogin.class);
 		        
 		        startActivity(minha_acao);
 		        

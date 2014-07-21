@@ -1,0 +1,79 @@
+/* Estilização da pagina principal*/
+
+body.inicio {
+	background-image: url("image/background.jpg");
+	background-size: 100%;
+}
+
+div.boxLogin {
+	margin: auto;
+	width: 30%;
+	border: 2px solid black;
+	text-align: center;
+	border-radius: 10px;
+}
+
+div.topo{
+	color: white;
+	font-size: 20px;
+	text-align: center;
+	margin: -10px -10px;
+	width: 102%;
+	background-color: gray;
+	border: 1px solid white;
+}
+h1 {
+	color: blue;
+	text-align: center;
+	font-size: 60px;
+	text-shadow: 0.05em 0.05em 0.02em #333;
+}
+
+img {
+	border-radius: 100%;
+}
+p.midBranco {
+	color: white;
+	text-align: center;
+	font-style: italic;
+	font-size: 20px;
+}
+
+p.midBlack {
+	text-align: center;
+	font-style: italic;
+	font-size: 20px;
+}
+table {
+	text-align: left;
+	margin: auto;
+}
+
+div.button{
+	background-color: blue;
+	border: 3px solid white;
+	border-radius: 10px;
+	width: 130px;
+	margin: auto;
+	text-align: center;	
+	background-color: green;
+}
+
+div.button:hover {
+	background: linear-gradient(white, green);
+}
+
+a.none {
+	color: black;
+	text-decoration: none;
+}
+
+a.whiter {
+	color: white;
+	text-shadow: 0.03em 0.03em 0.005em black;
+	text-decoration: none;
+}
+
+a.whiter:hover {
+	color: blue;
+}

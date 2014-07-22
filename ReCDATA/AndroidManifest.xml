@@ -39,8 +39,14 @@
             android:name="br.edu.ifpb.TelaConsultar"
             android:label="@string/app_name" >
         </activity>
+        
         <activity
             android:name="br.edu.ifpb.TelaReservar"
+            android:label="@string/app_name" >
+        </activity>
+        
+         <activity
+            android:name="br.edu.ifpb.TelaFeedBack"
             android:label="@string/app_name" >
         </activity>
     </application>

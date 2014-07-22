@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" 
+    >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -62,28 +64,23 @@
             android:text="Seleciona o Item:"
             android:textColor="#000000"
             android:typeface="monospace" />
-
-        <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chave"
-            android:typeface="monospace" />
-
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DataShow"
-            android:typeface="monospace" />
     </LinearLayout>
+
+     <Spinner
+        android:id="@+id/Spinner_Seleciona_Item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout2"
+      />
 
     <Button
         android:id="@+id/BuscaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_below="@+id/linearLayout2"
+        android:layout_alignTop="@+id/Spinner_Seleciona_Item"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
         android:text="Buscar Item" />
 
 </RelativeLayout>

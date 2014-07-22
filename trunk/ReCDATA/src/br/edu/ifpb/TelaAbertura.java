@@ -25,7 +25,7 @@ public class TelaAbertura extends Activity implements Runnable{
 		@Override
 		public void run() {
 		
-		        Intent minha_acao = new Intent(this, TelaLogin.class);
+		        Intent minha_acao = new Intent(this, TelaTipoUsuario.class);
 		        
 		        startActivity(minha_acao);
 		        

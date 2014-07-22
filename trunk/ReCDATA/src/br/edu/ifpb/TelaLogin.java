@@ -1,5 +1,6 @@
 package br.edu.ifpb;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,11 +28,21 @@ public class TelaLogin extends Activity {
 				System.out.println("Nome Login:"+nomeUsuario);
 				
 			    Toast.makeText(getApplicationContext(),"Bem Vindo "+nomeUsuario, Toast.LENGTH_LONG).show(); 				 
-			    Intent chamarLista = new Intent(TelaLogin.this, TelaListaFuncionalidades.class);
+			    Intent chamarLista = new Intent(TelaLogin.this, TelaListaFuncionalidadesPersonalizada.class);
 			    startActivity(chamarLista);
 			}
 		});
-        
+        final Button limparbutton = (Button) findViewById(R.id.Limpar);
+        limparbutton.setOnClickListener( new  OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				EditText login = (EditText) findViewById(R.id.LoginApp);
+				login.setText("");
+				EditText senha = (EditText) findViewById(R.id.SenhaApp);
+				senha.setText("");
+			}
+		});
 	}
    
 }

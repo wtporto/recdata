@@ -1,0 +1,79 @@
+a.button {
+		padding: 5px 10px 5px 10px;
+		position: relative;
+		text-decoration: none;
+		background-color: #4169E1;
+		border-radius: 10px;
+		border: 2px solid black;
+		color: black;
+		font-size: 20px;
+}
+
+a.button:hover {
+		background-color: #1E90FF;
+		color: white;
+}
+
+a.button:active {
+		top: 2px;
+		left: 2px;
+		color: white;
+}
+
+p.bigWhite {
+	font-weight: bold;
+	margin-top: 50px;
+	color: white;
+	text-align: center;
+	font-family: Arial;
+}
+
+div.box_black_transp {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 70%;
+	margin-top: -200px;
+	margin-left: -35%;
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: rgba(0,0,0,.7);
+}
+
+img.photo_middle {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-left: 50%;
+	position: relative;
+	left: -50px;
+}
+
+h1.white {
+	text-align: center;
+	color: white;
+}
+
+body.back {
+	background: url(images/back_index.jpg) no-repeat center center;
+	background-size: cover;
+}
+
+nav.menu_link {
+	background-color: gray;
+	text-align: center;
+	padding: 25px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+div.box {
+	padding:10px;
+	margin: auto;
+	width: 30%;
+	border: 2px solid black;
+	border-radius: 10px;
+	text-align: center;
+}

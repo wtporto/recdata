@@ -28,6 +28,15 @@ p.bigWhite {
 	font-family: Arial;
 }
 
+div.box {
+	padding:10px;
+	margin: auto;
+	width: 30%;
+	border: 2px solid black;
+	border-radius: 10px;
+	text-align: center;
+}
+
 div.box_black_transp {
 	position: absolute;
 	top: 50%;
@@ -49,6 +58,11 @@ img.photo_middle {
 	left: -50px;
 }
 
+img.opc {
+	padding: 10px;
+	width: 70px;
+}
+
 h1.white {
 	text-align: center;
 	color: white;
@@ -67,13 +81,4 @@ nav.menu_link {
 	left: 0;
 	right: 0;
 	top: 0;
-}
-
-div.box {
-	padding:10px;
-	margin: auto;
-	width: 30%;
-	border: 2px solid black;
-	border-radius: 10px;
-	text-align: center;
 }

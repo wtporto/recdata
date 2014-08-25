@@ -17,6 +17,6 @@ public class HelloReCDATA {
 	@GET
 	@Produces("text/html")
 	public String showOnlineServer(){
-		return "<h1>TESTE POST CONSUMES<h1>";
+		return "<h1>Servidor Online<h1>";
 	}
 }

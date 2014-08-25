@@ -138,8 +138,7 @@ public class ItemDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// seta os valores
-			//stmt.setInt(1, item.getStatusItem() ? 0:1);
+
 			
 			// envia para o Banco e fecha o objeto
 			stmt.execute();

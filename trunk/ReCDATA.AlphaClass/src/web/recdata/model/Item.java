@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Item implements Entidade {
-
+//está classe vai ter que virar abestrata
 	private int idItem;
 	private boolean statusItem;
 

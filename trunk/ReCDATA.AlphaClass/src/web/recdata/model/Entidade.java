@@ -1,0 +1,5 @@
+package web.recdata.model;
+
+public interface Entidade {
+
+}

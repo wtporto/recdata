@@ -5,14 +5,12 @@ package web.recdata.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import principal.Banco;
+import web.recdata.factory.ConnectionFactory;
+import web.recdata.model.Entidade;
+import web.recdata.model.Monitor;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-
-import entidades.Entidade;
-import entidades.Monitor;
-import excecoes.ClasseInvalidaException;
 
 public class MonitorDAO implements DAO {
 
@@ -21,13 +19,13 @@ public class MonitorDAO implements DAO {
 
 	private UsuarioDAO usuarioDAO;
 
-	public MonitorDAO(Banco banco) {
+	public MonitorDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 		usuarioDAO = new UsuarioDAO(banco);
 	}
 
 	@Override
-	public void creat(Entidade entidade) throws ClasseInvalidaException {
+	public void creat(Entidade entidade) {
 		if (entidade instanceof Monitor) {
 
 			Monitor monitor = (Monitor) entidade;
@@ -62,14 +60,11 @@ public class MonitorDAO implements DAO {
 			} else
 				System.err.println("Não foi possível inserir Monitor!");
 
-		} else {
-			throw new ClasseInvalidaException();
 		}
-
 	}
 
 	@Override
-	public void readById(Entidade entidade) throws ClasseInvalidaException {
+	public void readById(Entidade entidade) {
 		if (entidade instanceof Monitor) {
 
 			Monitor monitor = (Monitor) entidade;
@@ -99,14 +94,11 @@ public class MonitorDAO implements DAO {
 				throw new RuntimeException(sqle);
 			}
 
-		} else {
-			throw new ClasseInvalidaException();
-		}
-
+		} 
 	}
 
 	@Override
-	public void update(Entidade entidade) throws ClasseInvalidaException {
+	public void update(Entidade entidade)  {
 		if (entidade instanceof Monitor) {
 
 			Monitor monitor = (Monitor) entidade;
@@ -134,14 +126,11 @@ public class MonitorDAO implements DAO {
 				throw new RuntimeException(sqle);
 			}
 
-		} else {
-			throw new ClasseInvalidaException();
 		}
-
 	}
 
 	@Override
-	public void delete(Entidade entidade) throws ClasseInvalidaException {
+	public void delete(Entidade entidade) {
 		if (entidade instanceof Monitor) {
 
 			Monitor monitor = (Monitor) entidade;

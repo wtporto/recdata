@@ -1,16 +1,16 @@
-package dao;
+package web.recdata.dao;
+
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import principal.Banco;
+import web.recdata.factory.ConnectionFactory;
+import web.recdata.model.Entidade;
+import web.recdata.model.Notebook;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-
-import entidades.Entidade;
-import entidades.Notebook;
-import excecoes.ClasseInvalidaException;
 
 public class NotebookDAO implements DAO {
 
@@ -19,13 +19,13 @@ public class NotebookDAO implements DAO {
 
 	private ItemDAO itemDAO;
 
-	public NotebookDAO(Banco banco) {
+	public NotebookDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 		itemDAO = new ItemDAO(banco);
 	}
 
 	@Override
-	public void creat(Entidade entidade) throws ClasseInvalidaException {
+	public void creat(Entidade entidade)  {
 		if (entidade instanceof Notebook) {
 
 			Notebook notebook = (Notebook) entidade;
@@ -58,16 +58,13 @@ public class NotebookDAO implements DAO {
 			} else
 				System.err.println("Não foi possível inserir Notebook!");
 
-		} else {
-			throw new ClasseInvalidaException();
 		}
-
 
 		
 	}
 
 	@Override
-	public void readById(Entidade entidade) throws ClasseInvalidaException {
+	public void readById(Entidade entidade) {
 		if (entidade instanceof Notebook) {
 
 			Notebook notebook = (Notebook) entidade;
@@ -103,16 +100,12 @@ public class NotebookDAO implements DAO {
 				throw new RuntimeException(sqle);
 			}
 
-		} else {
-			throw new ClasseInvalidaException();
 		}
-		
-
 		
 	}
 
 	@Override
-	public void update(Entidade entidade) throws ClasseInvalidaException {
+	public void update(Entidade entidade) {
 		if (entidade instanceof Notebook) {
 
 			Notebook notebook = (Notebook) entidade;
@@ -137,15 +130,12 @@ public class NotebookDAO implements DAO {
 				throw new RuntimeException(sqle);
 			}
 
-		} else {
-			throw new ClasseInvalidaException();
 		}
-		
 		
 	}
 
 	@Override
-	public void delete(Entidade entidade) throws ClasseInvalidaException {
+	public void delete(Entidade entidade) {
 		if (entidade instanceof Notebook) {
 
 			Notebook notebook = (Notebook) entidade;

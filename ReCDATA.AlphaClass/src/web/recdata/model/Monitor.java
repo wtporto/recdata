@@ -1,4 +1,6 @@
-package entidades;
+package web.recdata.model;
+
+
 
 public class Monitor extends Usuario implements Entidade {
 

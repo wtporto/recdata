@@ -38,8 +38,7 @@ public class ItemResource {
 		int x = new ItemController().creat(item);
 		return "Criado com sucesso: " + x;
 	}
-	
-	
+	  
 	//NADA A VER APRIMORAR
 	@POST
 	@Path("/leitor")

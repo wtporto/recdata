@@ -1,16 +1,16 @@
-package dao;
+package web.recdata.dao;
+
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import principal.Banco;
+import web.recdata.factory.ConnectionFactory;
+import web.recdata.model.Entidade;
+import web.recdata.model.Professor;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-
-import entidades.Entidade;
-import entidades.Professor;
-import excecoes.ClasseInvalidaException;
 
 public class ProfessorDAO implements DAO {
 
@@ -19,13 +19,13 @@ public class ProfessorDAO implements DAO {
 
 	private UsuarioDAO usuarioDAO;
 
-	public ProfessorDAO(Banco banco) {
+	public ProfessorDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 		usuarioDAO = new UsuarioDAO(banco);
 	}
 
 	@Override
-	public void creat(Entidade entidade) throws ClasseInvalidaException {
+	public void creat(Entidade entidade) {
 
 		if (entidade instanceof Professor) {
 
@@ -63,14 +63,12 @@ public class ProfessorDAO implements DAO {
 			} else
 				System.err.println("Não foi possível inserir Professor!");
 
-		} else {
-			throw new ClasseInvalidaException();
-		}
+		} 
 
 	}
 
 	@Override
-	public void readById(Entidade entidade) throws ClasseInvalidaException {
+	public void readById(Entidade entidade){
 
 		if (entidade instanceof Professor) {
 
@@ -100,14 +98,12 @@ public class ProfessorDAO implements DAO {
 				throw new RuntimeException(sqle);
 			}
 
-		} else {
-			throw new ClasseInvalidaException();
 		}
 
 	}
 
 	@Override
-	public void update(Entidade entidade) throws ClasseInvalidaException {
+	public void update(Entidade entidade){
 		if (entidade instanceof Professor) {
 
 			Professor professor = (Professor) entidade;
@@ -135,13 +131,11 @@ public class ProfessorDAO implements DAO {
 				throw new RuntimeException(sqle);
 			}
 
-		} else {
-			throw new ClasseInvalidaException();
-		}
+		} 
 	}
 
 	@Override
-	public void delete(Entidade entidade) throws ClasseInvalidaException {
+	public void delete(Entidade entidade)  {
 		if (entidade instanceof Professor) {
 
 			Professor professor = (Professor) entidade;

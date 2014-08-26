@@ -1,15 +1,14 @@
-package dao;
+package web.recdata.dao;
 
 import java.sql.SQLException;
 
-import principal.Banco;
+import web.recdata.factory.ConnectionFactory;
+import web.recdata.model.Chave;
+import web.recdata.model.Entidade;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-import entidades.Chave;
-import entidades.Entidade;
-import excecoes.ClasseInvalidaException;
 
 public class ReservaDAO implements DAO{
 	
@@ -17,13 +16,13 @@ public class ReservaDAO implements DAO{
 	public Connection connection;
 
 
-	public ReservaDAO(Banco banco) {
+	public ReservaDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 	}
 
 
 	@Override
-	public void creat(Entidade entidade) throws ClasseInvalidaException {
+	public void creat(Entidade entidade)  {
 		if (entidade instanceof Chave) {
 
 			Chave chaveItem = (Chave) entidade;
@@ -38,7 +37,7 @@ public class ReservaDAO implements DAO{
 							.prepareStatement(sql);
 
 					// seta os valores
-					stmt.setInt(1, 
+					//stmt.setInt(1, 
 					stmt.setString(2, chaveItem.getLocalChave());
 					stmt.setString(3, chaveItem.getDescricaoChave());
 
@@ -52,26 +51,24 @@ public class ReservaDAO implements DAO{
 
 			} else
 				System.err.println("Não foi possível inserir Chave!");
-		{
-			throw new ClasseInvalidaException();
-		}
-
+		
+		
 	}
 
 	@Override
-	public void readById(Entidade entidade) throws ClasseInvalidaException {
+	public void readById(Entidade entidade) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void update(Entidade entidade) throws ClasseInvalidaException {
+	public void update(Entidade entidade){
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Entidade entidade) throws ClasseInvalidaException {
+	public void delete(Entidade entidade) {
 		// TODO Auto-generated method stub
 		
 	}

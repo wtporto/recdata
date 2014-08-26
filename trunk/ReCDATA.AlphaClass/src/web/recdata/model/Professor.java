@@ -1,4 +1,4 @@
-package entidades;
+package web.recdata.model;
 
 public class Professor extends Usuario implements Entidade{
 

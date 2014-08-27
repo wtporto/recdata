@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logoprojeto"
+    tools:context="${packageName}.${activityClass}" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="Login:"
+                android:textColor="#000000"
+                android:typeface="monospace" />
+
+            <EditText
+                android:id="@+id/LoginApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Senha:"
+                android:textColor="#000000"
+                android:typeface="monospace" />
+
+            <EditText
+                android:id="@+id/SenhaApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="Bem Vindo(a) ao RecData"
+            android:textColor="#000000"
+            android:textStyle="normal"
+            android:typeface="monospace" />
+
+        <Button
+            android:id="@+id/LoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/linearLayout1"
+            android:text="Logar"
+            android:background="#87CEFA"
+            android:textColor="#000000"
+            android:typeface="monospace" />
+
+        <Button
+            android:id="@+id/Limpar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/LoginButton"
+            android:layout_alignBottom="@+id/LoginButton"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_marginRight="22dp"
+            android:background="#87CEFA"
+            android:text="Limpar"
+            android:textColor="#000000"
+            android:typeface="monospace" />
+    
+</RelativeLayout>

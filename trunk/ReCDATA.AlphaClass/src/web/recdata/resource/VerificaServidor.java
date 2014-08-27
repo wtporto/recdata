@@ -8,7 +8,7 @@ import web.recdata.model.Server;
 
 
 
-@Path("servicos")
+@Path("/servicos")
 public class VerificaServidor {
 // está classe serve para  a verificação se o servidor esta online ou não
 	@GET
@@ -20,7 +20,5 @@ public class VerificaServidor {
             server.setOnline(true);
             
             return server;
-
-    }
-	
+    }	
 }

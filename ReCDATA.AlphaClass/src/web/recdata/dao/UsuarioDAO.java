@@ -25,6 +25,7 @@ import com.mysql.jdbc.PreparedStatement;
   `endereco_usuario` VARCHAR(70) NULL,
   `data_nasc_usuario` DATE NOT NULL,
   `sexo_usuario` VARCHAR(1) NOT NULL,
+   idtipousuario, descricaousuario;
  * 
  * */
 public class UsuarioDAO {
@@ -59,13 +60,11 @@ public class UsuarioDAO {
 
 			// Define um insert com os atributos e cada valor do atributo é
 			// representado por ?
-			String sql = "INSERT INTO `usuario` (`Nome_Usuario`,`E-mail_Usuario`,`Telefone_Usuario`,`Idade_Usuario`,`Sexo_Usuario`,`Senha_Usuario`,"
-									+ "`Login_Usuario`,`Cpf_Usuario`,`Endereco_Usuario`) VALUES(? , ?, ?, ?, ?, ?, ?, ?, ?)",
-							+user.getNomeUsuario()+ user.getEmailUsuario()+
-							+user.getTelefoneUsuario()+ user.getIdadeUsuario(),
-							+user.getSexoUsuario(), user.getSenhaUsuario(),
-							+user.getLoginUsuario(), user.getCpfUsuario(),
-							+user.getEnderecoUsuario());
+			String sql = "INSERT INTO `usuario` (`login_usuario`,`senha_usuario`,`nome_usuario`,`email_usuario`,`telefone_usuario`," +
+					"                           `cpf_usuario`,`endereco_usuario`,`data_nasc_usuario`,`sexo_usuario`) VALUES"+user.getNomeUsuario()+ 
+					user.getEmailUsuario()+	user.getTelefoneUsuario()+ 
+					user.getIdadeUsuario()+	user.getSexoUsuario()+ user.getSenhaUsuario()+
+					user.getLoginUsuario()+ user.getCpfUsuario()+user.getEnderecoUsuario();
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection

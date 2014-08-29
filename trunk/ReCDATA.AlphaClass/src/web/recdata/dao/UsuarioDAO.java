@@ -55,9 +55,7 @@ public class UsuarioDAO {
 
 			// Define um insert com os atributos e cada valor do atributo é
 			// representado por ?
-			String sql = String
-					.format("%s %s %s (%d) (%c) %s %s %s %s   ",
-							"INSERT INTO `usuario` (`Nome_Usuario`,`E-mail_Usuario`,`Telefone_Usuario`,`Idade_Usuario`,`Sexo_Usuario`,`Senha_Usuario`,"
+			String sql = "INSERT INTO `usuario` (`Nome_Usuario`,`E-mail_Usuario`,`Telefone_Usuario`,`Idade_Usuario`,`Sexo_Usuario`,`Senha_Usuario`,"
 									+ "`Login_Usuario`,`Cpf_Usuario`,`Endereco_Usuario`) VALUES(? , ?, ?, ?, ?, ?, ?, ?, ?)",
 							user.getNomeUsuario(), user.getEmailUsuario(),
 							user.getTelefoneUsuario(), user.getIdadeUsuario(),

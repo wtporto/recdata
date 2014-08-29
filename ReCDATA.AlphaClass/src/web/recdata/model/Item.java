@@ -30,9 +30,10 @@ public class Item implements Entidade {
 	}
 
 	// construtor pra creat
-	public Item(String descricaoItem, String descricaoCategora){
+	public Item(String descricaoItem, int idCategoria, String descricaoCategora){
 		
 		setDescricaoItem(descricaoItem);
+		setIdCategoria(idCategoria);
 		setDescricaoCategoria(descricaoCategora);
 		
 	}

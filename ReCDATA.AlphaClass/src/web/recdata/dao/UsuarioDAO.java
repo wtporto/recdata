@@ -12,7 +12,33 @@ import web.recdata.model.Usuario;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
+/*
+ * tabela usuario
+ * 
+ * `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `login_usuario` VARCHAR(40) NOT NULL,
+  `senha_usuario` VARCHAR(23) NOT NULL,
+  `nome_usuario` VARCHAR(50) NOT NULL,
+  `email_usuario` VARCHAR(45) NOT NULL,
+  `telefone_usuario` VARCHAR(10) NOT NULL,
+  `cpf_usuario` VARCHAR(11) NOT NULL,
+  `endereco_usuario` VARCHAR(70) NULL,
+  `data_nasc_usuario` DATE NOT NULL,
+  `sexo_usuario` VARCHAR(1) NOT NULL,
+ * 
+ * */
 public class UsuarioDAO {
+
+	static ConnectionFactory banco;
+	private static UsuarioDAO instance;
+	
+	public static UsuarioDAO getInstance(){
+		if(instance == null){
+			banco = new ConnectionFactory();
+			instance = new UsuarioDAO(banco);
+		}
+		return instance;
+	}
 
 	// a conexão com o banco de dados
 	public Connection connection;
@@ -20,34 +46,12 @@ public class UsuarioDAO {
 	public UsuarioDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 	}
-
-	public ArrayList<Entidade> listarTodos() throws SQLException{
-		ArrayList<Entidade> users = new ArrayList<Entidade>();
-		// e passado por parrametro um objeto generico para facilitar a nossa vida ;)
-		String sql = String
-		.format("%s",
-				"SELECT * FROM `usuario`");
-		
-		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
-
-		ResultSet rs = stmt.executeQuery(sql);
 	
-		while(rs.next()){
-			/*Usuario user = new Usuario(); 
-			user.getNomeUsuario(), user.getEmailUsuario(),
-			user.getTelefoneUsuario(), user.getIdadeUsuario(),
-			user.getSexoUsuario(), user.getSenhaUsuario(),
-			user.getLoginUsuario(), user.getCpfUsuario(),
-			user.getEnderecoUsuario());
-			users.add();
-			*/
-			
-			
-		}
+	public UsuarioDAO() {
 		
-		return users;
 	}
-	public int creat(Usuario user)  {
+
+		public int creat(Usuario user)  {
 
 		int chave = 0;
 
@@ -57,11 +61,11 @@ public class UsuarioDAO {
 			// representado por ?
 			String sql = "INSERT INTO `usuario` (`Nome_Usuario`,`E-mail_Usuario`,`Telefone_Usuario`,`Idade_Usuario`,`Sexo_Usuario`,`Senha_Usuario`,"
 									+ "`Login_Usuario`,`Cpf_Usuario`,`Endereco_Usuario`) VALUES(? , ?, ?, ?, ?, ?, ?, ?, ?)",
-							user.getNomeUsuario(), user.getEmailUsuario(),
-							user.getTelefoneUsuario(), user.getIdadeUsuario(),
-							user.getSexoUsuario(), user.getSenhaUsuario(),
-							user.getLoginUsuario(), user.getCpfUsuario(),
-							user.getEnderecoUsuario());
+							+user.getNomeUsuario()+ user.getEmailUsuario()+
+							+user.getTelefoneUsuario()+ user.getIdadeUsuario(),
+							+user.getSexoUsuario(), user.getSenhaUsuario(),
+							+user.getLoginUsuario(), user.getCpfUsuario(),
+							+user.getEnderecoUsuario());
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -107,7 +111,7 @@ public class UsuarioDAO {
 					user.setNomeUsuario(rs.getString("Nome_Usuario")); 
 					user.setEmailUsuario(rs.getString("E-mail_Usuario"));
 					user.setTelefoneUsuario(rs.getString("Telefone_Usuario"));
-					user.setIdadeUsuario(rs.getInt("Idade_Usuario"));
+					user.setIdadeUsuario(rs.getDate("Idade_Usuario"));
 					user.setSexoUsuario(rs.getString("Sexo_Usuario"));
 					user.setSenhaUsuario(rs.getString("Senha_Usuario"));
 					user.setLoginUsuario(rs.getString("Login_Usuario"));
@@ -167,6 +171,38 @@ public class UsuarioDAO {
 			sqle.printStackTrace();
 		}
 
+	}
+
+	public ArrayList<Usuario> listarTodos() throws SQLException{
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		
+		String sql = String
+		.format("%s",
+				"SELECT * FROM `usuario`");
+		
+		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery(sql);
+	
+		while(rs.next()){
+			
+			Usuario user = new Usuario(){}; 
+			user.setUsuarioId(rs.getInt("idUsuario"));
+			user.setLoginUsuario(rs.getString("login_usuario"));
+			user.setSenhaUsuario(rs.getString("senha_usuario"));
+			user.setNomeUsuario(rs.getString("nome_usuario"));
+			user.setEmailUsuario(rs.getString("email_usuario"));
+			user.setTelefoneUsuario(rs.getString("telefone_usuario"));
+			user.setCpfUsuario(rs.getString("cpf_usuario"));
+			user.setEnderecoUsuario(rs.getString("endereco_usuario"));
+			user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
+			user.setSexoUsuario(rs.getString("sexo_usuario"));		
+		
+			users.add(user);
+
+		}
+		
+		return users;
 	}
 
 }

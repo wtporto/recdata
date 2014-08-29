@@ -1,5 +1,7 @@
 package web.recdata.model;
 
+import java.util.Date;
+
 
 
 public abstract class Usuario implements Entidade {
@@ -8,13 +10,16 @@ public abstract class Usuario implements Entidade {
 	private String nomeUsuario;
 	private String emailUsuario;
 	private String telefoneUsuario;
-	private int idadeUsuario;
+	private Date idadeUsuario;
 	private String sexoUsuario;
 	private String cpfUsuario;
 	private String enderecoUsuario;
 	private String loginUsuario;
 	private String senhaUsuario;
 	
+	private int idTipoUsuario;
+	private String descricao_tipoUsuario;
+
 	
 	public Usuario(int usuarioId){
 		setUsuarioId(usuarioId);
@@ -24,19 +29,24 @@ public abstract class Usuario implements Entidade {
 		
 	}
 	
-	public Usuario(String nome, String email, 
-			       String telefone, int idade, String sexo, String cpf, String endereco, 
-			       String login , String senha) {
+	public Usuario(String login , String senha, String nome, String email, 
+			       String telefone, String cpf, String endereco, Date idade, String sexo, 
+			       int idTipoUsuario, String descricao_tipoUsuario) {
 		
+		setLoginUsuario(login);
+		setSenhaUsuario(senha);
 		setNomeUsuario(nome);
 		setEmailUsuario(email);
 		setTelefoneUsuario(telefone);
-		setIdadeUsuario(idade);
-		setSexoUsuario(sexo);
 		setCpfUsuario(cpf);
 		setEnderecoUsuario(endereco);
-		setLoginUsuario(login);
-		setSenhaUsuario(senha);
+		setIdadeUsuario(idade);
+		setSexoUsuario(sexo);
+		setIdTipoUsuario(idTipoUsuario);
+		setDescricao_tipoUsuario(descricao_tipoUsuario);
+		
+		
+		
 	}
 	
 	
@@ -64,10 +74,10 @@ public abstract class Usuario implements Entidade {
 	public void setTelefoneUsuario(String telefoneUsuario) {
 		this.telefoneUsuario = telefoneUsuario;
 	}
-	public int getIdadeUsuario() {
+	public Date getIdadeUsuario() {
 		return idadeUsuario;
 	}
-	public void setIdadeUsuario(int idadeUsuario) {
+	public void setIdadeUsuario(Date idadeUsuario) {
 		this.idadeUsuario = idadeUsuario;
 	}
 	public String getSexoUsuario() {
@@ -102,7 +112,18 @@ public abstract class Usuario implements Entidade {
 	public void setEnderecoUsuario(String enderecoUsuario) {
 		this.enderecoUsuario = enderecoUsuario;
 	}
-
+	public int getIdTipoUsuario() {
+		return idTipoUsuario;
+	}
+	public void setIdTipoUsuario(int idTipoUsuario) {
+		this.idTipoUsuario = idTipoUsuario;
+	}
+	public String getDescricao_tipoUsuario() {
+		return descricao_tipoUsuario;
+	}
+	public void setDescricao_tipoUsuario(String descricao_tipoUsuario) {
+		this.descricao_tipoUsuario = descricao_tipoUsuario;
+	}
 	@Override
 	public String toString() {
 		return "Usuario [usuarioId=" + usuarioId + ", nomeUsuario="
@@ -111,9 +132,12 @@ public abstract class Usuario implements Entidade {
 				+ idadeUsuario + ", sexoUsuario=" + sexoUsuario
 				+ ", cpfUsuario=" + cpfUsuario + ", enderecoUsuario="
 				+ enderecoUsuario + ", loginUsuario=" + loginUsuario
-				+ ", senhaUsuario=" + senhaUsuario + "]";
+				+ ", senhaUsuario=" + senhaUsuario + ", idTipoUsuario="
+				+ idTipoUsuario + ", descricao_tipoUsuario="
+				+ descricao_tipoUsuario + "]";
 	}
 
+	
 	
 	
 	

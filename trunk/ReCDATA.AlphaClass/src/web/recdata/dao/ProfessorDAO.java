@@ -12,7 +12,7 @@ import web.recdata.model.Professor;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class ProfessorDAO implements DAO {
+public class ProfessorDAO implements GenericDAO {
 
 	// a conexão com o banco de dados
 	public Connection connection;

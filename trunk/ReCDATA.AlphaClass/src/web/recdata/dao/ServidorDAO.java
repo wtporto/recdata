@@ -11,7 +11,7 @@ import web.recdata.model.Servidor;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class ServidorDAO implements DAO {
+public class ServidorDAO implements GenericDAO {
 	// a conexão com o banco de dados
 	public Connection connection;
 

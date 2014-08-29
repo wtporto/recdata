@@ -1,4 +1,4 @@
-package web.recdata.model;
+package web.recdata.resource;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

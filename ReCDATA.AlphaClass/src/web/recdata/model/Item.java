@@ -4,9 +4,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Item implements Entidade {
-//está classe vai ter que virar abestrata
+/*   Tabela Categoria  
+ *    `IdCategoria` INT NOT NULL AUTO_INCREMENT,
+	  `descricao_categoria` VARCHAR(45) NOT NULL,
+	  
+	  tabela item
+			`idItem` INT NOT NULL AUTO_INCREMENT,
+  			`tb_categoria_IdCategoria` INT NOT NULL,
+  	`descricao_item` VARCHAR(60) NOT NULL,
+  
+*/
 	private int idItem;
-	private boolean statusItem;
+	private String descricaoItem;
+	private int idCategoria;
+	private String descricaoCategoria; 
+	
 
 	public Item(){
 		
@@ -17,11 +29,14 @@ public class Item implements Entidade {
 		setIdItem(itemId);
 	}
 
-	// onstrutor pra creat
-	public Item(boolean status) {
-		setStatusItem(status);
+	// construtor pra creat
+	public Item(String descricaoItem, String descricaoCategora){
+		
+		setDescricaoItem(descricaoItem);
+		setDescricaoCategoria(descricaoCategora);
+		
 	}
-
+	
 	public int getIdItem() {
 		return idItem;
 	}
@@ -30,17 +45,35 @@ public class Item implements Entidade {
 		this.idItem = idItem;
 	}
 
-	public boolean getStatusItem() {
-		return statusItem;
+	public String getDescricaoItem() {
+		return descricaoItem;
 	}
 
-	public void setStatusItem(boolean statusItem) {
-		this.statusItem = statusItem;
+	public void setDescricaoItem(String descricaoItem) {
+		this.descricaoItem = descricaoItem;
+	}
+
+	public int getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public String getDescricaoCategoria() {
+		return descricaoCategoria;
+	}
+
+	public void setDescricaoCategoria(String descricaoCategoria) {
+		this.descricaoCategoria = descricaoCategoria;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [itemId=" + idItem + ", statusItem=" + statusItem + "]";
+		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
+				+ ", idCategoria=" + idCategoria + ", descricaoCategoria="
+				+ descricaoCategoria + "]";
 	}
-
+	
 }

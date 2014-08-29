@@ -4,6 +4,7 @@ package web.recdata.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import web.recdata.factory.ConnectionFactory;
 import web.recdata.model.Entidade;
@@ -12,7 +13,7 @@ import web.recdata.model.Monitor;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class MonitorDAO implements DAO {
+public class MonitorDAO implements GenericDAO {
 
 	// a conexão com o banco de dados
 	public Connection connection;
@@ -24,7 +25,7 @@ public class MonitorDAO implements DAO {
 		usuarioDAO = new UsuarioDAO(banco);
 	}
 
-	@Override
+
 	public void creat(Entidade entidade) {
 		if (entidade instanceof Monitor) {
 
@@ -63,7 +64,7 @@ public class MonitorDAO implements DAO {
 		}
 	}
 
-	@Override
+
 	public void readById(Entidade entidade) {
 		if (entidade instanceof Monitor) {
 
@@ -97,7 +98,7 @@ public class MonitorDAO implements DAO {
 		} 
 	}
 
-	@Override
+
 	public void update(Entidade entidade)  {
 		if (entidade instanceof Monitor) {
 
@@ -129,7 +130,7 @@ public class MonitorDAO implements DAO {
 		}
 	}
 
-	@Override
+
 	public void delete(Entidade entidade) {
 		if (entidade instanceof Monitor) {
 
@@ -159,6 +160,36 @@ public class MonitorDAO implements DAO {
 			}
 		}
 
+	}
+
+	@Override
+	public void creat(Object entidade) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void readById(Object entidade) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Object entidade) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Object entidade) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List listarTodos(Object entidade) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

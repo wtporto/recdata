@@ -10,7 +10,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 
-public class ReservaDAO implements DAO{
+public class ReservaDAO implements GenericDAO{
 	
 	// a conexão com o banco de dados
 	public Connection connection;

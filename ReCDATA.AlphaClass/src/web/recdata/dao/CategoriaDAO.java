@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
 import web.recdata.model.Categoria;
-import web.recdata.model.Item;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -89,12 +88,12 @@ public class CategoriaDAO {
 	
 	public Categoria readById(Categoria categoria) {
 		
-		Item itemAux = null;
+		Categoria categoriaAux= null;
 		
 		try {
 
-			String sql = "SELECT * FROM `tb_categoria` C  WHERE " + item.getIdItem()+
-			              "I.`tb_categoria_idCategoria` = C.`idCategoria` ";
+			String sql = "SELECT * FROM `tb_categoria` C  WHERE  C.`idCategoria =`" +categoria.getIdCategoria();
+			              
 			
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -103,30 +102,28 @@ public class CategoriaDAO {
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				itemAux = new Item();
-				itemAux.setIdItem(rs.getInt("idItem"));
-				itemAux.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
-				itemAux.setDescricaoItem(rs.getString("descricao_item"));
-				itemAux.setDescricaoCategoria(rs.getString("descricao_categoria"));
+				categoriaAux = new Categoria();
+				categoriaAux.setIdCategoria(rs.getInt("idCategoria"));
+				categoriaAux.setDescricao_categoria(rs.getString("descricao_categoria"));
 			}
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
 		
-		return itemAux;
+		return categoriaAux;
 	}
 
 	
-	public void update(Item item) {
+	public void update (Categoria categoria) {
 
 		try {
 
 			// Define um update com os atributos e cada valor é representado por
 			// ?
 			
-			String sql = "UPDATE `tb_item` SET `descricao_item`=" + item.getDescricaoItem()
-					+ " WHERE `idItem`=" + item.getIdItem();
+			String sql = "UPDATE `tb_categoria` SET `descricao_categoria`=" + categoria.getDescricao_categoria()
+					+ " WHERE `idCategoria`=" + categoria.getIdCategoria();
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -145,17 +142,17 @@ public class CategoriaDAO {
 
 	}
 
-	public void delete(Item item) {
+	public void delete(Categoria categoria) {
 
 		try {
 
-			String sql = "DELETE FROM `tb_item` WHERE `idItem`=?";
+			String sql = "DELETE FROM `tb_categoria` WHERE `idCategoria`=?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			// seta os valores
-			stmt.setInt(1, item.getIdItem());
+			stmt.setInt(1, categoria.getIdCategoria());
 
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
@@ -167,30 +164,27 @@ public class CategoriaDAO {
 
 	}
 
-	public ArrayList<Item> listarTodos() throws SQLException{
-		ArrayList<Item> itens = new ArrayList<Item>();
+	public ArrayList<Categoria> listarTodos() throws SQLException{
+		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 		
-		String sql = String
-		.format("%s",
-				"SELECT * FROM `tb_item`,`tb_categoria`" +
-				"WHERE tb_categoria_id_catoria = idCategoria");
+		String sql = "SELECT * FROM `tb_categoria`";
 
 		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery(sql);
 	
 		while(rs.next()){
-			Item item = new Item();
-			item.setIdItem(rs.getInt("idItem"));
-			item.setDescricaoItem(rs.getString("descricao_item"));
-			item.setIdCategoria(rs.getInt("tb_categoria_id_catoria")); 
-			item.setDescricaoCategoria(rs.getString("descricao_categoria"));
-			itens.add(item);
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(rs.getInt("idCategoria"));
+			categoria.setDescricao_categoria(rs.getString("descricao_categoria"));
+			
+			categorias.add(categoria);
 		}
 		
-		return itens;
+		stmt.execute();
+		stmt.close();
+		
+		return categorias;
 	}
 	
-
-
 }

@@ -2,7 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-
 CREATE SCHEMA IF NOT EXISTS `recdata` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `recdata` ;
 
@@ -27,6 +26,12 @@ CREATE TABLE IF NOT EXISTS `recdata`.`tb_item` (
 ENGINE = InnoDB;
 
 
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_tipousuario` (
+  `idTipousuario` INT NOT NULL AUTO_INCREMENT,
+  `descricao_tipousuario` VARCHAR(40) NOT NULL,
+  PRIMARY KEY (`idTipousuario`))
+ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `recdata`.`tb_usuario` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `login_usuario` VARCHAR(40) NOT NULL,
@@ -38,43 +43,12 @@ CREATE TABLE IF NOT EXISTS `recdata`.`tb_usuario` (
   `endereco_usuario` VARCHAR(70) NULL,
   `data_nasc_usuario` DATE NOT NULL,
   `sexo_usuario` VARCHAR(1) NOT NULL,
-  PRIMARY KEY (`idUsuario`))
-ENGINE = InnoDB;
-
-
-CREATE TABLE IF NOT EXISTS `recdata`.`tb_monitor` (
-  `tb_usuario_idUsuario` INT NOT NULL,
-  `serie_monitor` VARCHAR(45) NOT NULL,
-  `curso_monitor` VARCHAR(30) NOT NULL,
-  `disciplina_monitor` VARCHAR(30) NOT NULL,
-  PRIMARY KEY (`tb_usuario_idUsuario`),
-  CONSTRAINT `fk_tb_monitor_tb_usuario1`
-    FOREIGN KEY (`tb_usuario_idUsuario`)
-    REFERENCES `recdata`.`tb_usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-CREATE TABLE IF NOT EXISTS `recdata`.`tb_professor` (
-  `formacao_professor` VARCHAR(40) NOT NULL,
-  `tb_usuario_idUsuario` INT NOT NULL,
-  PRIMARY KEY (`tb_usuario_idUsuario`),
-  CONSTRAINT `fk_tb_professor_tb_usuario1`
-    FOREIGN KEY (`tb_usuario_idUsuario`)
-    REFERENCES `recdata`.`tb_usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-CREATE TABLE IF NOT EXISTS `recdata`.`tb_servidor` (
-  `privilegio_servidor` TINYINT(1) NOT NULL,
-  `tb_usuario_idUsuario` INT NOT NULL,
-  PRIMARY KEY (`tb_usuario_idUsuario`),
-  CONSTRAINT `fk_tb_servidor_tb_usuario1`
-    FOREIGN KEY (`tb_usuario_idUsuario`)
-    REFERENCES `recdata`.`tb_usuario` (`idUsuario`)
+  `tb_tipousuario_idTipousuario` INT NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  INDEX `fk_tb_usuario_tb_tipousuario1_idx` (`tb_tipousuario_idTipousuario` ASC),
+  CONSTRAINT `fk_tb_usuario_tb_tipousuario1`
+    FOREIGN KEY (`tb_tipousuario_idTipousuario`)
+    REFERENCES `recdata`.`tb_tipousuario` (`idTipousuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

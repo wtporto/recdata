@@ -2,7 +2,6 @@ package web.recdata.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
@@ -34,57 +33,6 @@ public class CategoriaDAO {
 	public CategoriaDAO() {
 		this.connection = (Connection) banco.getConnection();
 	}	
-
-	public int creat(Categoria categoria) {
-
-		int chave = 0;
-
-		try {
-
-			// Define um insert com os atributos e cada valor do atributo é
-			// representado por ?
-			String sql = "INSERT INTO `tb_categoria` (`descricao_categoria`) VALUES"
-				+categoria.getDescricao_categoria();
-
-			// prepared statement para inserção
-			PreparedStatement stmt = (PreparedStatement) connection
-					.prepareStatement(sql);
-
-			// envia para o Banco e fecha o objeto
-			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-
-			// recuperar a chave
-			ResultSet rs = stmt.getGeneratedKeys();
-
-			// recupera a chave como um inteiro
-			if (rs.next()) {
-				chave = rs.getInt(1);
-			}
-
-			stmt.close();
-			
-			// insere os valores de categoria do item
-			 sql = "INSERT INTO `tb_categoria` (`descricao_categoria`) VALUES"
-				 +categoria.getDescricao_categoria();
-
-			 stmt = (PreparedStatement) connection.prepareStatement(sql);
-			 
-			// seta os valores
-             stmt.setInt(1, chave);
-             stmt.setString(3,categoria.getDescricao_categoria());
-
-             // envia para o Banco e fecha o objeto
-             stmt.execute();
-             stmt.close();
-
-			 
-		} catch (SQLException sqle) {
-			throw new RuntimeException(sqle);
-		}
-
-		return chave;
-
-	}
 	
 	public Categoria readById(Categoria categoria) {
 		

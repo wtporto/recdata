@@ -2,7 +2,6 @@ package web.recdata.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
@@ -37,7 +36,7 @@ public class ItemDAO {
 		return instance;
 	}
 
-	// a conexão com o banco de dados
+	// a conexÃ£o com o banco de dados
 	public Connection connection;
 
 	public ItemDAO(ConnectionFactory banco) {
@@ -48,72 +47,39 @@ public class ItemDAO {
 		this.connection = (Connection) banco.getConnection();
 	}	
 
-	public int creat(Item item) {
-
-		int chave = 0;
+	public void creat(Item item) {
 
 		try {
+			
+			String sql = "INSERT INTO tb_item  VALUES (" + item.getIdItem() 
+					+ "," + item.getIdCategoria() + ",\"" + item.getDescricaoItem() + "\")";
 
-			// Define um insert com os atributos e cada valor do atributo é
-			// representado por ?
-			String sql = "INSERT INTO `tb_item` (`descricao_item`) VALUES"+item.getDescricaoItem();
-
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
-
-			// envia para o Banco e fecha o objeto
-			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-
-			// recuperar a chave
-			ResultSet rs = stmt.getGeneratedKeys();
-
-			// recupera a chave como um inteiro
-			if (rs.next()) {
-				chave = rs.getInt(1);
-			}
-
+			
+			stmt.execute();
 			stmt.close();
 			
-			// insere os valores de categoria do item
-			 sql = "INSERT INTO `tb_categoria` (`descricao_categoria`) VALUES"
-				 +item.getDescricaoCategoria();
-
-			 stmt = (PreparedStatement) connection.prepareStatement(sql);
-			 
-			// seta os valores
-             stmt.setInt(1, chave);
-             stmt.setInt(2, item.getIdCategoria());
-             stmt.setString(3,item.getDescricaoItem());
-
-             // envia para o Banco e fecha o objeto
-             stmt.execute();
-             stmt.close();
-
-			 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
 
-		return chave;
-
 	}
-	
 	public Item readById(Item item) {
 		
 		Item itemAux = null;
 		
 		try {
-
-			String sql = "SELECT * FROM `tb_item` I,`tb_categoria` C  WHERE I.`idItem`= " + item.getIdItem()+
-			              "I.`tb_categoria_idCategoria` = C.`idCategoria` ";
 			
-			// prepared statement para inserção
+			String sql = "SELECT * FROM tb_item I, tb_categoria C WHERE I.idItem = " + item.getIdItem() + 
+			             " AND I.tb_categoria_idCategoria = C.idCategoria";    
+			
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
-
-			ResultSet rs = stmt.executeQuery(sql);
-
+			
+			ResultSet rs = stmt.executeQuery();
+			
 			while (rs.next()) {
 				itemAux = new Item();
 				itemAux.setIdItem(rs.getInt("idItem"));
@@ -128,19 +94,18 @@ public class ItemDAO {
 		
 		return itemAux;
 	}
-
 	
 	public void update(Item item) {
 
 		try {
 
-			// Define um update com os atributos e cada valor é representado por
+			// Define um update com os atributos e cada valor Ã© representado por
 			// ?
 			
 			String sql = "UPDATE `tb_item` SET `descricao_item`=" + item.getDescricaoItem()
 					+ " WHERE `idItem`=" + item.getIdItem();
 
-			// prepared statement para inserção
+			// prepared statement para inserÃ§Ã£o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 

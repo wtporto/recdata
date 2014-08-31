@@ -1,12 +1,11 @@
 package web.recdata.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
-import web.recdata.model.Entidade;
 import web.recdata.model.Usuario;
 
 import com.mysql.jdbc.Connection;
@@ -32,7 +31,7 @@ public class UsuarioDAO {
 
 	static ConnectionFactory banco;
 	private static UsuarioDAO instance;
-	
+
 	public static UsuarioDAO getInstance(){
 		if(instance == null){
 			banco = new ConnectionFactory();
@@ -54,33 +53,39 @@ public class UsuarioDAO {
 
 		public int creat(Usuario user)  {
 
+		
+			
 		int chave = 0;
-
+		
 		try {
 
 			// Define um insert com os atributos e cada valor do atributo é
 			// representado por ?
-			String sql = "INSERT INTO `usuario` (`login_usuario`,`senha_usuario`,`nome_usuario`,`email_usuario`,`telefone_usuario`," +
-					"                           `cpf_usuario`,`endereco_usuario`,`data_nasc_usuario`,`sexo_usuario`) VALUES"+user.getNomeUsuario()+ 
-					user.getEmailUsuario()+	user.getTelefoneUsuario()+ 
-					user.getIdadeUsuario()+	user.getSexoUsuario()+ user.getSenhaUsuario()+
-					user.getLoginUsuario()+ user.getCpfUsuario()+user.getEnderecoUsuario();
+			String sql = "INSERT INTO `tb_usuario` (`login_usuario`,`senha_usuario`,`nome_usuario`,`email_usuario`,`telefone_usuario`," +
+					"                           `cpf_usuario`,`endereco_usuario`,`data_nasc_usuario`,`sexo_usuario`) " +
+					"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
+			// seta os valores
+			stmt.setString(1,user.getLoginUsuario());
+			stmt.setString(2,user.getSenhaUsuario());
+			stmt.setString(3,user.getNomeUsuario()); 
+			stmt.setString(4,user.getEmailUsuario());	
+			stmt.setString(5,user.getTelefoneUsuario());
+			stmt.setString(6,user.getCpfUsuario());
+			stmt.setString(7,user.getEnderecoUsuario());
+			stmt.setDate(8,(Date) user.getIdadeUsuario());	
+			stmt.setString(9,user.getSexoUsuario());
+			//tou com dúvida nessa parte aqui :(
+			stmt.setInt(10, user.getIdTipoUsuario());
+			
+			
 			// envia para o Banco e fecha o objeto
-			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-
-			// recuperar a chave
-			ResultSet rs = stmt.getGeneratedKeys();
-
-			// recupera a chave como um inteiro
-			if (rs.next()) {
-				chave = rs.getInt(1);
-			}
-
+			
+			stmt.execute();
 			stmt.close();
 
 		} catch (SQLException sqle) {
@@ -95,7 +100,7 @@ public class UsuarioDAO {
 		try {
 
 			String sql = String.format("%s %d",
-					"SELECT * FROM `usuario` I WHERE I.`idUsuario`=",
+					"SELECT * FROM `tb_usuario` I WHERE I.`idUsuario`=",
 					user.getUsuarioId());
 
 			// prepared statement para inserção
@@ -105,17 +110,20 @@ public class UsuarioDAO {
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				// tabela  usuario
+				// tabela  usuario MUDAR Está parte aqui!
 					user.setUsuarioId(rs.getInt("idUsuario"));
-					user.setNomeUsuario(rs.getString("Nome_Usuario")); 
-					user.setEmailUsuario(rs.getString("E-mail_Usuario"));
-					user.setTelefoneUsuario(rs.getString("Telefone_Usuario"));
-					user.setIdadeUsuario(rs.getDate("Idade_Usuario"));
-					user.setSexoUsuario(rs.getString("Sexo_Usuario"));
-					user.setSenhaUsuario(rs.getString("Senha_Usuario"));
-					user.setLoginUsuario(rs.getString("Login_Usuario"));
-					user.setCpfUsuario(rs.getString("Cpf_Usuario"));
-					user.setEnderecoUsuario(rs.getString("Endereco_Usuario"));
+					user.setLoginUsuario(rs.getString("login_usuario"));
+					user.setSenhaUsuario(rs.getString("senha_usuario"));
+					user.setNomeUsuario(rs.getString("nome_Usuario")); 
+					user.setEmailUsuario(rs.getString("email_Usuario"));
+					user.setTelefoneUsuario(rs.getString("telefone_usuario"));
+					user.setCpfUsuario(rs.getString("cpf_usuario"));
+					user.setEnderecoUsuario(rs.getString("endereco_usuario"));
+					user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
+					user.setSexoUsuario(rs.getString("sexo_usuario"));
+					user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuariob"));
+				
+				
 			}
 
 		} catch (SQLException sqle) {
@@ -130,7 +138,7 @@ public class UsuarioDAO {
 
 			// Define um update com os atributos e cada valor é representado por
 			// ?
-			String sql = "UPDATE `usuario` SET `Senha_Usuario`=?"
+			String sql = "UPDATE `tb_usuario` SET `senha_usuario`=?"
 					+ " WHERE `idUsuario`=?";
 
 			// prepared statement para inserção
@@ -154,7 +162,7 @@ public class UsuarioDAO {
 
 		try {
 
-			String sql = "DELETE FROM `usuario` WHERE `idUsuario`=?";
+			String sql = "DELETE FROM `tb_usuario` WHERE `idUsuario`=?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -177,7 +185,7 @@ public class UsuarioDAO {
 		
 		String sql = String
 		.format("%s",
-				"SELECT * FROM `usuario`");
+				"SELECT * FROM `tb_usuario`,`tb_tipousuario`");
 		
 		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 
@@ -196,7 +204,11 @@ public class UsuarioDAO {
 			user.setEnderecoUsuario(rs.getString("endereco_usuario"));
 			user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
 			user.setSexoUsuario(rs.getString("sexo_usuario"));		
-		
+
+			user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuariob"));
+			user.setDescricao_tipoUsuario(rs.getString("descricao_tipousuario"));
+
+
 			users.add(user);
 
 		}

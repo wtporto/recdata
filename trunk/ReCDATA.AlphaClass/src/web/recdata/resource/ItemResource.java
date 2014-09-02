@@ -17,7 +17,7 @@ import web.recdata.model.Item;
 @Path("/item")
 public class ItemResource {
 	
-	//CRIAÇÃO A MAIS
+	//CRIAï¿½ï¿½O A MAIS
 	@GET
 	@Path("/listar")
 	@Produces("text/xml")
@@ -35,8 +35,8 @@ public class ItemResource {
 	@Consumes("text/xml")
 	@Produces("text/plain")
 	public String creat(Item item){
-		int x = new ItemController().creat(item);
-		return "Criado com sucesso: " + x;
+		new ItemController().creat(item);
+		return "Criado com sucesso: " ;
 	}
 	  
 	//NADA A VER APRIMORAR
@@ -56,7 +56,7 @@ public class ItemResource {
 	@Produces("text/plain")
 	public String update(Item item){
 		new ItemController().update(item);
-		return "Atualização concluida com sucesso!";
+		return "Atualizaï¿½ï¿½o concluida com sucesso!";
 	}
 	
 	//FUNCIONANDO

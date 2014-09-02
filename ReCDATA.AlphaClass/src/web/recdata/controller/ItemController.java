@@ -12,8 +12,8 @@ public class ItemController {
 		return ItemDAO.getInstance().listarTodos();
 	}
 	
-	public int creat(Item item){
-		return ItemDAO.getInstance().creat(item);
+	public void creat(Item item){
+		ItemDAO.getInstance().creat(item);
 	}
 	
 	public Item readById(Item item){

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TelaLogin extends Activity {
@@ -33,17 +34,21 @@ public class TelaLogin extends Activity {
 			    finish();
 			}
 		});
-        final Button limparbutton = (Button) findViewById(R.id.Limpar);
-        limparbutton.setOnClickListener( new  OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				EditText login = (EditText) findViewById(R.id.LoginApp);
-				login.setText("");
-				EditText senha = (EditText) findViewById(R.id.SenhaApp);
-				senha.setText("");
-			}
-		});
+        
+        
+        final TextView txtCadastrar =(TextView) findViewById(R.id.textview_cadastrar);
+        
+        txtCadastrar.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+            	 Intent chamarCadastro = new Intent(TelaLogin.this, TelaCadastraUsuario.class);
+ 			    startActivity(chamarCadastro);
+ 			    finish();
+            }
+        });
+        
+        
 	}
    
 }

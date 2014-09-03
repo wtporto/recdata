@@ -4,30 +4,27 @@ import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.edu.ifpb.R;
-import br.edu.ifpb.TelaLogin;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+import br.edu.ifpb.TelaTipoUsuario;
 
-public class VerificaServidorON extends
-AsyncTask<Void, Integer, JSONObject>{
+public class VerificaServidorON extends AsyncTask<Void, Integer, JSONObject> {
 
 	private Activity activity;
 
 	public VerificaServidorON(Activity activity) {
-	
+
 		this.activity = activity;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		// TODO Auto-generated method stub
+
 		super.onPreExecute();
-		activity.setContentView(R.layout.activity_tela_abertura);
+
 	}
 
 	@Override
@@ -60,18 +57,19 @@ AsyncTask<Void, Integer, JSONObject>{
 	protected void onPostExecute(JSONObject result) {
 
 		try {
+
 			boolean online = result.getBoolean("online");
 
 			Log.i("AsyncTaskKJson", "Servidor conectado: " + online);
 
-			if (online) {
+			if (online == true) {
 
-				Intent intent = new Intent(activity, TelaLogin.class);
+				Intent intent = new Intent(activity, TelaTipoUsuario.class);
 				activity.startActivity(intent);
 				activity.finish();
 			} else {
 
-				String texto = "Não foi possível estabelecer a conexão com o servidor.";
+				String texto = "Não foi possível estabelecer a conexão: Servidor em Manutenção";
 				int duracao = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(activity.getApplicationContext(),
 						texto, duracao);
@@ -85,4 +83,3 @@ AsyncTask<Void, Integer, JSONObject>{
 	}
 
 }
-

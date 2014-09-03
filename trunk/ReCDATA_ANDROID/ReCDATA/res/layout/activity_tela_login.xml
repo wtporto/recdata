@@ -2,16 +2,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logoprojeto"
+    
+    android:background="#87CEFA"
     tools:context="${packageName}.${activityClass}" >
+
+        <TextView
+            android:id="@+id/textview_cadastrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:layout_alignLeft="@+id/LoginButton"
+            android:layout_below="@+id/LoginButton"
+            android:text="Cadastre-se"
+            android:textColor="#000000"
+            android:textStyle="italic"
+            android:textSize="18dp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textview_cadastrar"
+            android:layout_alignLeft="@+id/textview_cadastrar"
+            android:text="______________________" />
+
+        <Button
+            android:id="@+id/LoginButton"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/linearLayout1"
+            android:layout_alignRight="@+id/linearLayout1"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_marginTop="10dp"
+            android:text="Logar"
+            android:textColor="#000000"
+            android:background="#FFF"
+            android:typeface="monospace" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/logoprojeto" />
 
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/imageView1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
             android:orientation="vertical" >
 
             <TextView
@@ -25,63 +69,33 @@
 
             <EditText
                 android:id="@+id/LoginApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="240dp"
+                android:layout_height="35dp"
+                android:layout_weight="0.28"
+                android:background="#FFFFFF"
                 android:ems="10"
-                android:textColor="#000000" />
+                android:textColor="#000000" >
+
+                <requestFocus />
+            </EditText>
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="15dp"
                 android:text="Senha:"
                 android:textColor="#000000"
                 android:typeface="monospace" />
 
             <EditText
                 android:id="@+id/SenhaApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="240dp"
+                android:layout_height="35dp"
+                android:background="#FFFFFF"
                 android:ems="10"
                 android:inputType="textPassword"
                 android:textColor="#000000" />
-
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Bem Vindo(a) ao RecData"
-            android:textColor="#000000"
-            android:textStyle="normal"
-            android:typeface="monospace" />
-
-        <Button
-            android:id="@+id/LoginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/linearLayout1"
-            android:text="Logar"
-            android:background="#87CEFA"
-            android:textColor="#000000"
-            android:typeface="monospace" />
-
-        <Button
-            android:id="@+id/Limpar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/LoginButton"
-            android:layout_alignBottom="@+id/LoginButton"
-            android:layout_alignRight="@+id/textView2"
-            android:layout_marginRight="22dp"
-            android:background="#87CEFA"
-            android:text="Limpar"
-            android:textColor="#000000"
-            android:typeface="monospace" />
     
 </RelativeLayout>

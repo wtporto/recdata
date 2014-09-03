@@ -36,6 +36,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="br.edu.ifpb.TelaCadastraUsuario"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="br.edu.ifpb.TelaListaFuncionalidadesPersonalizada"
             android:label="@string/app_name" >
         </activity>
@@ -48,7 +52,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.TelaFeedBack"
+            android:name="br.edu.ifpb.TelaFeedback"
             android:label="@string/app_name" >
         </activity>
      

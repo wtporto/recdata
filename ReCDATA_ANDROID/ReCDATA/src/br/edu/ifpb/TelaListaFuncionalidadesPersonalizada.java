@@ -1,15 +1,12 @@
 package br.edu.ifpb;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class TelaListaFuncionalidadesPersonalizada extends Activity  {
@@ -28,7 +25,7 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity  {
         	ItemModel item2 = new ItemModel();
         	item2.setNome("Reservar Item");
         	ItemModel item3 = new ItemModel();
-        	item3.setNome("Reedback");
+        	item3.setNome("Feedback");
         	ItemModel item4 = new ItemModel();
         	item4.setNome("Voltar");       	
         	

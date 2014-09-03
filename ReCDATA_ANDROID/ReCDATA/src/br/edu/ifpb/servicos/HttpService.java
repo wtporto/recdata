@@ -22,7 +22,7 @@ import android.util.Log;
 public class HttpService {
 
 	// URL to get JSON Array
-	private static String url = "http://192.168.1.138:8080/ReCDATA.AlphaClass/servicos";
+	private static String url = "http://192.168.1.198:8080/ReCDATA.AlphaClass/servicos";
 
 	// constructor
 	public HttpService() {
@@ -30,14 +30,14 @@ public class HttpService {
 
 	public HttpResponse sendGETRequest(String service) {
 
-		HttpResponse response = null;	
-		 
+		HttpResponse response = null;
+
 		HttpGet httpGet = new HttpGet(url + service);
 
 		try {
-			
+
 			HttpClient httpClient = new DefaultHttpClient();
-			
+
 			response = httpClient.execute(httpGet);
 
 		} catch (ClientProtocolException e) {
@@ -47,9 +47,9 @@ public class HttpService {
 		}
 		return response;
 	}
-	
-	public static HttpResponse sendJsonPostRequest(String service, JSONObject json)  
-			throws IOException{
+
+	public static HttpResponse sendJsonPostRequest(String service,
+			JSONObject json) throws IOException {
 
 		// Response
 		HttpResponse response = null;
@@ -60,18 +60,18 @@ public class HttpService {
 		HttpPost httpPost = new HttpPost(url + service);
 
 		try {
-			
+
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
-			
-			StringEntity se = new StringEntity(json.toString(), HTTP.UTF_8);			
+
+			StringEntity se = new StringEntity(json.toString(), HTTP.UTF_8);
 			se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,
 					"application/json;charset=" + HTTP.UTF_8));
-			
+
 			httpPost.setEntity(se);
-			
+
 			response = httpClient.execute(httpPost);
-			
+
 		} catch (UnsupportedEncodingException e) {
 
 			Log.i("AsyncTaskKJson", e.getMessage());
@@ -79,9 +79,9 @@ public class HttpService {
 		} catch (ClientProtocolException e) {
 
 			Log.i("AsyncTaskKJson", e.getMessage());
-		} 
-		
-		return response;		
+		}
+
+		return response;
 	}
 
 	public HttpResponse sendParamPostRequest(String service,

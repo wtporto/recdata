@@ -20,7 +20,7 @@ public class ItemResource {
 	//CRIA��O A MAIS
 	@GET
 	@Path("/listar")
-	@Produces("text/xml")
+	@Produces("application/json")
 	public ArrayList<Item> listarTodos() throws SQLException{
 		return new ItemController().listarTodos();
 	}
@@ -43,7 +43,7 @@ public class ItemResource {
 	@POST
 	@Path("/leitor")
 	@Consumes("text/xml")
-	@Produces("text/xml")
+	@Produces("application/json")
 	public Item readById(Item item){
 		System.out.println("EXECUTED");
 		return new ItemController().readById(item);

@@ -10,7 +10,7 @@ public class ConnectionFactory {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://localhost:3306/recdata";
 	private static final String USER = "root";
-	private static final String PASS = "mcbs";
+	private static final String PASS = "recdata";
 	private Connection connection = null;
 	private PreparedStatement stm = null;
 

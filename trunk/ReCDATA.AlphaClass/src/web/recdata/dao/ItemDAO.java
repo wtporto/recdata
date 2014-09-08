@@ -150,7 +150,7 @@ public class ItemDAO {
 		String sql = String
 		.format("%s",
 				"SELECT * FROM `tb_item`,`tb_categoria`" +
-				"WHERE tb_categoria_id_catoria = idCategoria");
+				"WHERE tb_categoria_IdCategoria = idCategoria");
 
 		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 
@@ -160,7 +160,7 @@ public class ItemDAO {
 			Item item = new Item();
 			item.setIdItem(rs.getInt("idItem"));
 			item.setDescricaoItem(rs.getString("descricao_item"));
-			item.setIdCategoria(rs.getInt("tb_categoria_id_catoria")); 
+			item.setIdCategoria(rs.getInt("tb_categoria_IdCategoria")); 
 			item.setDescricaoCategoria(rs.getString("descricao_categoria"));
 			itens.add(item);
 		}

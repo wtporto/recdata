@@ -1,6 +1,8 @@
 package web.recdata.model;
 
-import java.util.Date;
+import java.sql.Date;
+
+import web.recdata.util.Metodos;
 
 
 
@@ -30,7 +32,7 @@ public abstract class Usuario implements Entidade {
 	}
 	
 	public Usuario(String login , String senha, String nome, String email, 
-			       String telefone, String cpf, String endereco, Date idade, String sexo, 
+			       String telefone, String cpf, String endereco, String idade, String sexo, 
 			       int idTipoUsuario, String descricao_tipoUsuario) {
 		
 		setLoginUsuario(login);
@@ -77,8 +79,13 @@ public abstract class Usuario implements Entidade {
 	public Date getIdadeUsuario() {
 		return idadeUsuario;
 	}
+	
 	public void setIdadeUsuario(Date idadeUsuario) {
 		this.idadeUsuario = idadeUsuario;
+	}
+	
+	public void setIdadeUsuario(String idadeUsuario) {
+		this.idadeUsuario = Metodos.converterStringEmDataSQL(idadeUsuario);
 	}
 	public String getSexoUsuario() {
 		return sexoUsuario;

@@ -51,7 +51,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:background="#FFFFFF"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        >
 
         <ImageView
             android:id="@+id/imageView_servidor"

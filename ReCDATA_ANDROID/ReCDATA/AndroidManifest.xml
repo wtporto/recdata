@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="br.edu.ifpb.TelaAbertura"
+            android:name="recdata.Telas.TelaAbertura"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,39 +23,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity
-            android:name="br.edu.ifpbbr.servicos.VerificaServidorON"
+            android:name="recdata.Telas.TelaTipoUsuario"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name="recdata.Telas.TelaLogin"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.TelaTipoUsuario"
+            android:name="recdata.Telas.TelaCadastraUsuario"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.TelaLogin"
+            android:name="recdata.Telas.TelaListaFuncionalidadesPersonalizada"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.TelaCadastraUsuario"
+            android:name="recdata.Telas.TelaConsultar"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="recdata.servicos.BuscaItensServidor"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.TelaListaFuncionalidadesPersonalizada"
+            android:name="recdata.Telas.TelaReservar"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.TelaConsultar"
+            android:name="recdata.Telas.TelaFeedback"
             android:label="@string/app_name" >
         </activity>
-        <activity
-            android:name="br.edu.ifpb.TelaReservar"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="br.edu.ifpb.TelaFeedback"
-            android:label="@string/app_name" >
-        </activity>
-     
+                
     </application>
-
+    
 </manifest>

@@ -16,7 +16,7 @@ public class ItemController {
 		ItemDAO.getInstance().creat(item);
 	}
 	
-	public Item readById(Item item){
+	public ArrayList<Item> readById(Item item){
 		
 		return ItemDAO.getInstance().readById(item);
 	}

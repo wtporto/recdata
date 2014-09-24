@@ -3,6 +3,7 @@ package web.recdata.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import web.recdata.factory.ConnectionFactory;
 import web.recdata.model.Item;
@@ -65,14 +66,16 @@ public class ItemDAO {
 		}
 
 	}
-	public Item readById(Item item) {
-		
+	public ArrayList<Item> readById(Item item) {
+		List<Item> listaItem = null;
 		Item itemAux = null;
 		
 		try {
 			
-			String sql = "SELECT * FROM tb_item I, tb_categoria C WHERE I.idItem = " + item.getIdItem() + 
-			             " AND I.tb_categoria_idCategoria = C.idCategoria";    
+			String sql = "SELECT * " +
+					"FROM tb_item I, tb_categoria C " +
+					"WHERE  I.tb_categoria_idCategoria =" + item.getIdCategoria()
+						+" AND I.tb_categoria_idCategoria = C.IdCategoria";    
 			
 			// prepared statement para inser��o
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -80,19 +83,22 @@ public class ItemDAO {
 			
 			ResultSet rs = stmt.executeQuery();
 			
+			listaItem = new ArrayList<Item>();
+			
 			while (rs.next()) {
 				itemAux = new Item();
 				itemAux.setIdItem(rs.getInt("idItem"));
 				itemAux.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
 				itemAux.setDescricaoItem(rs.getString("descricao_item"));
 				itemAux.setDescricaoCategoria(rs.getString("descricao_categoria"));
+				listaItem.add(itemAux);
 			}
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
 		
-		return itemAux;
+		return (ArrayList<Item>) listaItem;
 	}
 	
 	public void update(Item item) {

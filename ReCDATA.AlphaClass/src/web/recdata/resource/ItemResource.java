@@ -32,8 +32,8 @@ public class ItemResource {
 	//OKAY
 	@POST
 	@Path("/criar")
-	@Consumes("text/xml")
-	@Produces("text/plain")
+	@Consumes("application/json")
+	@Produces("application/json")//trocar por json
 	public String creat(Item item){
 		new ItemController().creat(item);
 		return "Criado com sucesso: " ;
@@ -41,11 +41,11 @@ public class ItemResource {
 	  
 	//NADA A VER APRIMORAR
 	@POST
-	@Path("/leitor")
-	@Consumes("text/xml")
+	@Path("/ler")
+	@Consumes("application/json")
 	@Produces("application/json")
-	public Item readById(Item item){
-		System.out.println("EXECUTED");
+	public ArrayList<Item> readById(Item item){
+		System.out.println("EXECUTED READBYID..");
 		return new ItemController().readById(item);
 	}
 	

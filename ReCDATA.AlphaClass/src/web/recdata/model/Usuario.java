@@ -79,11 +79,11 @@ public abstract class Usuario implements Entidade {
 	public Date getIdadeUsuario() {
 		return idadeUsuario;
 	}
-	
+	// set para o banco 
 	public void setIdadeUsuario(Date idadeUsuario) {
 		this.idadeUsuario = idadeUsuario;
 	}
-	
+	//set par enviar pro banco
 	public void setIdadeUsuario(String idadeUsuario) {
 		this.idadeUsuario = Metodos.converterStringEmDataSQL(idadeUsuario);
 	}

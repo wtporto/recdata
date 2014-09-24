@@ -77,11 +77,10 @@ public class UsuarioDAO {
 			stmt.setString(5,user.getTelefoneUsuario());
 			stmt.setString(6,user.getCpfUsuario());
 			stmt.setString(7,user.getEnderecoUsuario());
-			stmt.setDate(8,(Date) user.getIdadeUsuario());	
+			stmt.setDate(8,user.getIdadeUsuario());	
 			stmt.setString(9,user.getSexoUsuario());
-			//tou com dúvida nessa parte aqui :(
 			stmt.setInt(10, user.getIdTipoUsuario());
-			
+			//colocar o get descrição tipousuario
 			
 			// envia para o Banco e fecha o objeto
 			
@@ -99,9 +98,8 @@ public class UsuarioDAO {
 	public void readById(Usuario user) {
 		try {
 
-			String sql = String.format("%s %d",
-					"SELECT * FROM `tb_usuario` I WHERE I.`idUsuario`=",
-					user.getUsuarioId());
+			String sql = "SELECT * FROM `tb_usuario`,`tb_tipousurio´ I WHERE I.`idUsuario`="+user.getUsuarioId()
+				+"AND tb_Idtipousuario="+user.getIdTipoUsuario();
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -122,6 +120,7 @@ public class UsuarioDAO {
 					user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
 					user.setSexoUsuario(rs.getString("sexo_usuario"));
 					user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuariob"));
+					//colocar o get descrição tipousuario
 				
 				
 			}

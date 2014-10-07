@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#87CEFA"
+    tools:context="${packageName}.${activityClass}" >
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_margin="15dp"
+           android:background="#FFFFFF"
+           android:orientation="horizontal" >
+ 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+ 
+            <ImageView
+                android:id="@+id/image_view_icon_item_lista_result"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true" 
+                />
+        </LinearLayout>
+ 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/text_view_item_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="12dp"
+                android:typeface="monospace" />
+              
+              <TextView
+                android:id="@+id/text_view_item_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="12dp"
+                android:textSize="12dp"                
+                android:typeface="monospace" />
+               
+              <TextView
+                android:id="@+id/text_view_item_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="14dp"
+                android:textSize="12dp"
+                android:typeface="monospace" />
+              
+              <TextView
+                android:id="@+id/text_view_item_idcategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:textSize="12dp" 
+                android:typeface="monospace" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+
+</RelativeLayout>

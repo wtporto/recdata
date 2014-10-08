@@ -8,17 +8,14 @@ public class ReservaItem implements Entidade {
 	private int usuarioIdReserva;
 	private int itemIdReserva;
 	private Date horaDataReserva;
-	private Date horaEntrega;
 
 	public ReservaItem(int idReserva) {
 		setIdReserva(idReserva);
 
 	}
 
-	public ReservaItem(Date horaReserva, Date horaEntrega) {
+	public ReservaItem(Date horaReserva) {
 		setHoraDataReserva(horaReserva);
-		setHoraEntrega(horaEntrega);
-
 	}
 
 	public ReservaItem() {
@@ -57,20 +54,11 @@ public class ReservaItem implements Entidade {
 		this.horaDataReserva = horaDataReserva;
 	}
 
-	public Date getHoraEntrega() {
-		return horaEntrega;
-	}
-
-	public void setHoraEntrega(Date horaEntrega) {
-		this.horaEntrega = horaEntrega;
-	}
-
 	@Override
 	public String toString() {
 		return "ReservaItem [idReserva=" + idReserva + ", UsuarioIdReserva="
 				+ usuarioIdReserva + ", ItemIdReserva=" + itemIdReserva
-				+ ", horaDataReserva=" + horaDataReserva + ", horaEntrega="
-				+ horaEntrega + "]";
+				+ ", horaDataReserva=" + horaDataReserva + "]";
 	}
 
 }

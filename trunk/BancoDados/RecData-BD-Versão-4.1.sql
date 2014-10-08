@@ -2,17 +2,17 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `recdata` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `recdata` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tb_categoria` (
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_categoria` (
   `IdCategoria` INT NOT NULL AUTO_INCREMENT,
   `descricao_categoria` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`IdCategoria`))
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tb_item` (
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_item` (
   `idItem` INT NOT NULL AUTO_INCREMENT,
   `tb_categoria_IdCategoria` INT NOT NULL,
   `descricao_item` VARCHAR(60) NOT NULL,
@@ -20,19 +20,19 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tb_item` (
   INDEX `fk_Item_tb_categoria1_idx` (`tb_categoria_IdCategoria` ASC),
   CONSTRAINT `fk_Item_tb_categoria1`
     FOREIGN KEY (`tb_categoria_IdCategoria`)
-    REFERENCES `mydb`.`tb_categoria` (`IdCategoria`)
+    REFERENCES `recdata`.`tb_categoria` (`IdCategoria`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tb_tipousuario` (
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_tipousuario` (
   `idTipousuario` INT NOT NULL AUTO_INCREMENT,
   `descricao_tipousuario` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`idTipousuario`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tb_usuario` (
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_usuario` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `login_usuario` VARCHAR(40) NOT NULL,
   `senha_usuario` VARCHAR(23) NOT NULL,
@@ -48,29 +48,50 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tb_usuario` (
   INDEX `fk_tb_usuario_tb_tipousuario1_idx` (`tb_tipousuario_idTipousuario` ASC),
   CONSTRAINT `fk_tb_usuario_tb_tipousuario1`
     FOREIGN KEY (`tb_tipousuario_idTipousuario`)
-    REFERENCES `mydb`.`tb_tipousuario` (`idTipousuario`)
+    REFERENCES `recdata`.`tb_tipousuario` (`idTipousuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tb_reserva` (
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_reserva` (
   `idReserva` INT NOT NULL AUTO_INCREMENT,
   `tb_item_idItem` INT NOT NULL,
   `tb_usuario_idUsuario` INT NOT NULL,
-  `hora_data_reservado` DATETIME NOT NULL,
-  `hora_data_devolucao` DATETIME NOT NULL,
+  `data_reservado` DATE NOT NULL,
+  `hora_reservado` TIME NOT NULL,
   PRIMARY KEY (`idReserva`),
   INDEX `fk_tb_reserva_tb_item1_idx` (`tb_item_idItem` ASC),
   INDEX `fk_tb_reserva_tb_usuario1_idx` (`tb_usuario_idUsuario` ASC),
   CONSTRAINT `fk_tb_reserva_tb_item1`
     FOREIGN KEY (`tb_item_idItem`)
-    REFERENCES `mydb`.`tb_item` (`idItem`)
+    REFERENCES `recdata`.`tb_item` (`idItem`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_reserva_tb_usuario1`
     FOREIGN KEY (`tb_usuario_idUsuario`)
-    REFERENCES `mydb`.`tb_usuario` (`idUsuario`)
+    REFERENCES `recdata`.`tb_usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `recdata`.`tb_devolucao` (
+  `idDevolucao` INT NOT NULL AUTO_INCREMENT,
+  `tb_item_idItem` INT NOT NULL,
+  `tb_usuario_idUsuario` INT NOT NULL,
+  `data_devolucao` DATE NOT NULL,
+  `hora_devolucao` TIME NOT NULL,
+  PRIMARY KEY (`idDevolucao`),
+  INDEX `fk_tb_devolucao_tb_item1_idx` (`tb_item_idItem` ASC),
+  INDEX `fk_tb_devolucao_tb_usuario1_idx` (`tb_usuario_idUsuario` ASC),
+  CONSTRAINT `fk_tb_devolucao_tb_item1`
+    FOREIGN KEY (`tb_item_idItem`)
+    REFERENCES `recdata`.`tb_item` (`idItem`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tb_devolucao_tb_usuario1`
+    FOREIGN KEY (`tb_usuario_idUsuario`)
+    REFERENCES `recdata`.`tb_usuario` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

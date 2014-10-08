@@ -1,23 +1,28 @@
 package web.recdata.model;
 
+import java.util.Date;
 
-public class ReservaItem implements Entidade{
+public class ReservaItem implements Entidade {
 
 	private int idReserva;
-	private int UsuarioId_reserva;
-	private int ItemId_reserva;
-	private String hora_dataReserva;
-	private String hora_Entrega;
+	private int usuarioIdReserva;
+	private int itemIdReserva;
+	private Date horaDataReserva;
+	private Date horaEntrega;
 
 	public ReservaItem(int idReserva) {
 		setIdReserva(idReserva);
 
 	}
 
-	public ReservaItem(String hora_reserva, String hora_entrega) {
-		setHora_dataReserva(hora_entrega);
-		setHora_Entrega(hora_entrega);
+	public ReservaItem(Date horaReserva, Date horaEntrega) {
+		setHoraDataReserva(horaReserva);
+		setHoraEntrega(horaEntrega);
 
+	}
+
+	public ReservaItem() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getIdReserva() {
@@ -28,44 +33,44 @@ public class ReservaItem implements Entidade{
 		this.idReserva = idReserva;
 	}
 
-	public int getUsuarioId_reserva() {
-		return UsuarioId_reserva;
+	public int getUsuarioIdReserva() {
+		return usuarioIdReserva;
 	}
 
-	public void setUsuarioId_reserva(int usuarioId_reserva) {
-		UsuarioId_reserva = usuarioId_reserva;
+	public void setUsuarioIdReserva(int usuarioIdReserva) {
+		this.usuarioIdReserva = usuarioIdReserva;
 	}
 
-	public int getItemId_reserva() {
-		return ItemId_reserva;
+	public int getItemIdReserva() {
+		return itemIdReserva;
 	}
 
-	public void setItemId_reserva(int itemId_reserva) {
-		ItemId_reserva = itemId_reserva;
+	public void setItemIdReserva(int itemIdReserva) {
+		this.itemIdReserva = itemIdReserva;
 	}
 
-	public String getHora_dataReserva() {
-		return hora_dataReserva;
+	public Date getHoraDataReserva() {
+		return horaDataReserva;
 	}
 
-	public void setHora_dataReserva(String hora_dataReserva) {
-		this.hora_dataReserva = hora_dataReserva;
+	public void setHoraDataReserva(Date horaDataReserva) {
+		this.horaDataReserva = horaDataReserva;
 	}
 
-	public String getHora_Entrega() {
-		return hora_Entrega;
+	public Date getHoraEntrega() {
+		return horaEntrega;
 	}
 
-	public void setHora_Entrega(String hora_Entrega) {
-		this.hora_Entrega = hora_Entrega;
+	public void setHoraEntrega(Date horaEntrega) {
+		this.horaEntrega = horaEntrega;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservaItem [idReserva=" + idReserva + ", UsuarioId_reserva="
-				+ UsuarioId_reserva + ", ItemId_reserva=" + ItemId_reserva
-				+ ", hora_dataReserva=" + hora_dataReserva + ", hora_Entrega="
-				+ hora_Entrega + "]";
+		return "ReservaItem [idReserva=" + idReserva + ", UsuarioIdReserva="
+				+ usuarioIdReserva + ", ItemIdReserva=" + itemIdReserva
+				+ ", horaDataReserva=" + horaDataReserva + ", horaEntrega="
+				+ horaEntrega + "]";
 	}
 
 }

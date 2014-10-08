@@ -16,56 +16,47 @@ import web.recdata.model.Item;
 
 @Path("/item")
 public class ItemResource {
-	
-	//CRIA��O A MAIS
+
 	@GET
 	@Path("/listar")
 	@Produces("application/json")
-	public ArrayList<Item> listarTodos() throws SQLException{
+	public ArrayList<Item> listarTodos() throws SQLException {
 		return new ItemController().listarTodos();
 	}
-	
-	public ItemResource(){
-		//auto create
-	}
-	
-	//OKAY
+
+	// OKAY
 	@POST
 	@Path("/criar")
 	@Consumes("application/json")
-	@Produces("application/json")//trocar por json
-	public String creat(Item item){
-		new ItemController().creat(item);
-		return "Criado com sucesso: " ;
+	@Produces("text/plain")
+	public String creat(Item item) {
+		return new ItemController().creat(item);
 	}
-	  
-	//NADA A VER APRIMORAR
+
+	// NADA A VER APRIMORAR
 	@POST
-	@Path("/ler")
+	@Path("/leitor")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public ArrayList<Item> readById(Item item){
-		System.out.println("EXECUTED READBYID..");
+	public ArrayList<Item> readById(Item item) {
 		return new ItemController().readById(item);
 	}
-	
-	//MODIFICAR OS DAO (ESSE JA ESTA ATUALIZADO)
+
+	// MODIFICAR OS DAO (ESSE JA ESTA ATUALIZADO)
 	@Path("/atualizar")
 	@PUT
-	@Consumes("text/xml")
+	@Consumes("application/json")
 	@Produces("text/plain")
-	public String update(Item item){
-		new ItemController().update(item);
-		return "Atualiza��o concluida com sucesso!";
+	public String update(Item item) {
+		return new ItemController().update(item);
 	}
-	
-	//FUNCIONANDO
+
+	// FUNCIONANDO
 	@Path("/deletar")
 	@DELETE
-	@Consumes("text/xml")
+	@Consumes("application/json")
 	@Produces("text/plain")
-	public String delete(Item item){
-		new ItemController().delete(item);
-		return "Deletado com sucesso!";
+	public String delete(Item item) {
+		return new ItemController().delete(item);
 	}
 }

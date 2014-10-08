@@ -4,40 +4,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Item implements Entidade {
-/*   Tabela Categoria  
- *    `IdCategoria` INT NOT NULL AUTO_INCREMENT,
-	  `descricao_categoria` VARCHAR(45) NOT NULL,
-	  
-	  tabela item
-			`idItem` INT NOT NULL AUTO_INCREMENT,
-  			`tb_categoria_IdCategoria` INT NOT NULL,
-  	`descricao_item` VARCHAR(60) NOT NULL,
-  
-*/
+	/*
+	 * Tabela Categoria `IdCategoria` INT NOT NULL AUTO_INCREMENT,
+	 * `descricao_categoria` VARCHAR(45) NOT NULL,
+	 * 
+	 * tabela item `idItem` INT NOT NULL AUTO_INCREMENT,
+	 * `tb_categoria_IdCategoria` INT NOT NULL, `descricao_item` VARCHAR(60) NOT
+	 * NULL,
+	 */
 	private int idItem;
 	private String descricaoItem;
 	private int idCategoria;
-	private String descricaoCategoria; 
-	
+	private String descricaoCategoria;
 
-	public Item(){
-		
+	public Item() {
+
 	}
-	
+
 	// construtor pra readById
-	public Item(int itemId) {
-		setIdItem(itemId);
+	public Item(int idCategoria) {
+		setIdCategoria(idCategoria);
 	}
 
 	// construtor pra creat
-	public Item(String descricaoItem, int idCategoria, String descricaoCategora){
-		
-		setDescricaoItem(descricaoItem);
+	public Item(int idCategoria, String descricaoItem) {
+
 		setIdCategoria(idCategoria);
-		setDescricaoCategoria(descricaoCategora);
-		
+		setDescricaoItem(descricaoItem);
+
 	}
-	
+
 	public int getIdItem() {
 		return idItem;
 	}
@@ -76,5 +72,5 @@ public class Item implements Entidade {
 				+ ", idCategoria=" + idCategoria + ", descricaoCategoria="
 				+ descricaoCategoria + "]";
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package web.recdata.dao;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,16 +14,16 @@ import com.mysql.jdbc.PreparedStatement;
  * tabela usuario
  * 
  * `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `login_usuario` VARCHAR(40) NOT NULL,
-  `senha_usuario` VARCHAR(23) NOT NULL,
-  `nome_usuario` VARCHAR(50) NOT NULL,
-  `email_usuario` VARCHAR(45) NOT NULL,
-  `telefone_usuario` VARCHAR(10) NOT NULL,
-  `cpf_usuario` VARCHAR(11) NOT NULL,
-  `endereco_usuario` VARCHAR(70) NULL,
-  `data_nasc_usuario` DATE NOT NULL,
-  `sexo_usuario` VARCHAR(1) NOT NULL,
-   idtipousuario, descricaousuario;
+ `login_usuario` VARCHAR(40) NOT NULL,
+ `senha_usuario` VARCHAR(23) NOT NULL,
+ `nome_usuario` VARCHAR(50) NOT NULL,
+ `email_usuario` VARCHAR(45) NOT NULL,
+ `telefone_usuario` VARCHAR(10) NOT NULL,
+ `cpf_usuario` VARCHAR(11) NOT NULL,
+ `endereco_usuario` VARCHAR(70) NULL,
+ `data_nasc_usuario` DATE NOT NULL,
+ `sexo_usuario` VARCHAR(1) NOT NULL,
+ idtipousuario, descricaousuario;
  * 
  * */
 public class UsuarioDAO {
@@ -32,58 +31,52 @@ public class UsuarioDAO {
 	static ConnectionFactory banco;
 	private static UsuarioDAO instance;
 
-	public static UsuarioDAO getInstance(){
-		if(instance == null){
+	public static UsuarioDAO getInstance() {
+		if (instance == null) {
 			banco = new ConnectionFactory();
 			instance = new UsuarioDAO(banco);
 		}
 		return instance;
 	}
 
-	// a conexão com o banco de dados
+	// a conexï¿½o com o banco de dados
 	public Connection connection;
 
 	public UsuarioDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 	}
-	
+
 	public UsuarioDAO() {
-		
+
 	}
 
-		public int creat(Usuario user)  {
+	public void creat(Usuario user) {
 
-		
-			
-		int chave = 0;
-		
 		try {
 
-			// Define um insert com os atributos e cada valor do atributo é
+			// Define um insert com os atributos e cada valor do atributo ï¿½
 			// representado por ?
-			String sql = "INSERT INTO `tb_usuario` (`login_usuario`,`senha_usuario`,`nome_usuario`,`email_usuario`,`telefone_usuario`," +
-					"                           `cpf_usuario`,`endereco_usuario`,`data_nasc_usuario`,`sexo_usuario`) " +
-					"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			String sql = "INSERT INTO tb_usuario (login_usuario,senha_usuario,nome_usuario,email_usuario,telefone_usuario,cpf_usuario,"
+					+ "endereco_usuario,data_nasc_usuario,sexo_usuario,tb_tipousuario_idTipousuario) VALUES "
+					+ "(?,?,?,?,?,?,?,?,?,?)";
 
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			// seta os valores
-			stmt.setString(1,user.getLoginUsuario());
-			stmt.setString(2,user.getSenhaUsuario());
-			stmt.setString(3,user.getNomeUsuario()); 
-			stmt.setString(4,user.getEmailUsuario());	
-			stmt.setString(5,user.getTelefoneUsuario());
-			stmt.setString(6,user.getCpfUsuario());
-			stmt.setString(7,user.getEnderecoUsuario());
-			stmt.setDate(8,user.getIdadeUsuario());	
-			stmt.setString(9,user.getSexoUsuario());
+			stmt.setString(1, user.getLoginUsuario());
+			stmt.setString(2, user.getSenhaUsuario());
+			stmt.setString(3, user.getNomeUsuario());
+			stmt.setString(4, user.getEmailUsuario());
+			stmt.setString(5, user.getTelefoneUsuario());
+			stmt.setString(6, user.getCpfUsuario());
+			stmt.setString(7, user.getEnderecoUsuario());
+			stmt.setDate(8, new java.sql.Date(user.getIdadeUsuario().getTime()));
+			stmt.setString(9, user.getSexoUsuario());
 			stmt.setInt(10, user.getIdTipoUsuario());
-			//colocar o get descrição tipousuario
-			
+
 			// envia para o Banco e fecha o objeto
-			
 			stmt.execute();
 			stmt.close();
 
@@ -91,43 +84,48 @@ public class UsuarioDAO {
 			throw new RuntimeException(sqle);
 		}
 
-		return chave;
-
 	}
 
-	public void readById(Usuario user) {
+	public ArrayList<Usuario> readById(Usuario user) {
+
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+
 		try {
 
-			String sql = "SELECT * FROM `tb_usuario`,`tb_tipousurio´ I WHERE I.`idUsuario`="+user.getUsuarioId()
-				+"AND tb_Idtipousuario="+user.getIdTipoUsuario();
+			String sql = String
+					.format("%s %d",
+							"SELECT * FROM `tb_usuario` I WHERE I.`tb_tipousuario_idTipousuario`=",
+							user.getIdTipoUsuario());
 
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				// tabela  usuario MUDAR Está parte aqui!
-					user.setUsuarioId(rs.getInt("idUsuario"));
-					user.setLoginUsuario(rs.getString("login_usuario"));
-					user.setSenhaUsuario(rs.getString("senha_usuario"));
-					user.setNomeUsuario(rs.getString("nome_Usuario")); 
-					user.setEmailUsuario(rs.getString("email_Usuario"));
-					user.setTelefoneUsuario(rs.getString("telefone_usuario"));
-					user.setCpfUsuario(rs.getString("cpf_usuario"));
-					user.setEnderecoUsuario(rs.getString("endereco_usuario"));
-					user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
-					user.setSexoUsuario(rs.getString("sexo_usuario"));
-					user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuariob"));
-					//colocar o get descrição tipousuario
-				
-				
+
+				user.setUsuarioId(rs.getInt("idUsuario"));
+				user.setLoginUsuario(rs.getString("login_usuario"));
+				user.setSenhaUsuario(rs.getString("senha_usuario"));
+				user.setNomeUsuario(rs.getString("nome_Usuario"));
+				user.setEmailUsuario(rs.getString("email_Usuario"));
+				user.setTelefoneUsuario(rs.getString("telefone_usuario"));
+				user.setCpfUsuario(rs.getString("cpf_usuario"));
+				user.setEnderecoUsuario(rs.getString("endereco_usuario"));
+				user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
+				user.setSexoUsuario(rs.getString("sexo_usuario"));
+				user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuario"));
+
+				users.add(user);
+
 			}
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
+
+		return users;
 
 	}
 
@@ -135,17 +133,18 @@ public class UsuarioDAO {
 
 		try {
 
-			// Define um update com os atributos e cada valor é representado por
+			// Define um update com os atributos e cada valor ï¿½ representado por
 			// ?
 			String sql = "UPDATE `tb_usuario` SET `senha_usuario`=?"
-					+ " WHERE `idUsuario`=?";
+					+ " WHERE `login_usuario`=?";
 
-			// prepared statement para inserção
+			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			// seta os valores
 			stmt.setString(1, user.getSenhaUsuario());
+			stmt.setString(2, user.getLoginUsuario());
 
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
@@ -161,13 +160,13 @@ public class UsuarioDAO {
 
 		try {
 
-			String sql = "DELETE FROM `tb_usuario` WHERE `idUsuario`=?";
+			String sql = "DELETE FROM `tb_usuario` WHERE `login_usuario`=?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			// seta os valores
-			stmt.setInt(1, user.getUsuarioId());
+			stmt.setString(1, user.getLoginUsuario());
 
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
@@ -179,20 +178,21 @@ public class UsuarioDAO {
 
 	}
 
-	public ArrayList<Usuario> listarTodos() throws SQLException{
+	public ArrayList<Usuario> listarTodos() throws SQLException {
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
-		
-		String sql = String
-		.format("%s",
-				"SELECT * FROM `tb_usuario`,`tb_tipousuario`");
-		
-		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
 
-		ResultSet rs = stmt.executeQuery(sql);
-	
-		while(rs.next()){
-			
-			Usuario user = new Usuario(){}; 
+		String sql = String
+				.format("%s",
+						"SELECT * FROM `tb_usuario` U,`tb_tipousuario` T WHERE U.tb_tipousuario_idTipousuario = T.idTipousuario");
+
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+
+			Usuario user = new Usuario();
 			user.setUsuarioId(rs.getInt("idUsuario"));
 			user.setLoginUsuario(rs.getString("login_usuario"));
 			user.setSenhaUsuario(rs.getString("senha_usuario"));
@@ -202,17 +202,15 @@ public class UsuarioDAO {
 			user.setCpfUsuario(rs.getString("cpf_usuario"));
 			user.setEnderecoUsuario(rs.getString("endereco_usuario"));
 			user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
-			user.setSexoUsuario(rs.getString("sexo_usuario"));		
+			user.setSexoUsuario(rs.getString("sexo_usuario"));
 
-			user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuariob"));
+			user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuario"));
 			user.setDescricao_tipoUsuario(rs.getString("descricao_tipousuario"));
-
 
 			users.add(user);
 
 		}
-		
+
 		return users;
 	}
-
 }

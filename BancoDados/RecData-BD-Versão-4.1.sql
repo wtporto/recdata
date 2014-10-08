@@ -34,10 +34,10 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `recdata`.`tb_usuario` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `login_usuario` VARCHAR(40) NOT NULL,
+  `login_usuario` VARCHAR(40) NOT NULL UNIQUE,
   `senha_usuario` VARCHAR(23) NOT NULL,
   `nome_usuario` VARCHAR(50) NOT NULL,
-  `email_usuario` VARCHAR(45) NOT NULL,
+  `email_usuario` VARCHAR(45) NOT NULL UNIQUE,
   `telefone_usuario` VARCHAR(10) NOT NULL,
   `cpf_usuario` VARCHAR(11) NOT NULL,
   `endereco_usuario` VARCHAR(70) NULL,

@@ -2,6 +2,9 @@ package web.recdata.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class ReservaItem implements Entidade {
 
 	private int idReserva;

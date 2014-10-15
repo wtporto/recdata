@@ -49,7 +49,7 @@ public class HttpService {
 	}
 
 	public static HttpResponse sendJsonPostRequest(String service,
-			JSONObject json) throws IOException {
+			JSONObject json) {
 
 		// Response
 		HttpResponse response = null;
@@ -77,6 +77,9 @@ public class HttpService {
 			Log.i("AsyncTaskKJson", e.getMessage());
 
 		} catch (ClientProtocolException e) {
+
+			Log.i("AsyncTaskKJson", e.getMessage());
+		} catch (IOException e) {
 
 			Log.i("AsyncTaskKJson", e.getMessage());
 		}

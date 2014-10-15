@@ -31,14 +31,21 @@ import br.edu.ifpb.recdata.entity.ReservaItem;
 import br.edu.ifpb.recdata.servicos.BuscaItensServidor;
 import br.edu.ifpb.recdata.servicos.HttpService;
 import br.edu.ifpb.recdata.servicos.HttpUtil;
+import br.edu.ifpb.recdata.servicos.ReservarAsyncTask;
 import br.edu.ifpb.recdata.util.ItemAdapter;
 
-public class TelaReservar extends Activity {
+public class TelaReservar extends Activity implements OnClickListener {
 
-	private Intent intent;
-	private Bundle paramsBundle;
-	Item itemBundle;
-	ReservaItem reserva;
+	Item itemBundle = null;
+	ReservaItem reserva = null;
+
+	TextView descItem;
+
+	TextView idItem;
+
+	TextView descCatItem;
+
+	TextView idCatItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,34 +53,26 @@ public class TelaReservar extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reserva_item);
 
-		reserva = new ReservaItem();
-		reserva=null;
-		itemBundle = new Item();
-		itemBundle = null;
-		
-		intent = getIntent();
-		paramsBundle = intent.getExtras();
-		
+		Intent intent = getIntent();
+		Bundle paramsBundle = intent.getExtras();
+
 		itemBundle = (Item) paramsBundle.getSerializable("Item");
 
-		Log.i("Item  ->", paramsBundle.toString());
+		Log.i("RecDATA", "Item  ->" + paramsBundle.toString());
 
-		final TextView descItem = (TextView) findViewById(R.id.txview_descItem);
+		descItem = (TextView) findViewById(R.id.txview_descItem);
 		descItem.setText(itemBundle.getDescricaoItem());
 
-		final TextView idItem = (TextView) findViewById(R.id.txview_idItem);
-		descItem.setText(String.valueOf(itemBundle.getIdItem()));
+		idItem = (TextView) findViewById(R.id.txview_idItem);
+		idItem.setText(String.valueOf(itemBundle.getIdItem()));
 
-		final TextView descCatItem = (TextView) findViewById(R.id.txview_descCatItem);
-		descItem.setText(itemBundle.getDescricaoCategoria());
+		descCatItem = (TextView) findViewById(R.id.txview_descCatItem);
+		descCatItem.setText(itemBundle.getDescricaoCategoria());
 
-		final TextView idCatItem = (TextView) findViewById(R.id.txview_idCatItem);
-		descItem.setText(String.valueOf(itemBundle.getIdCategoria()));
+		idCatItem = (TextView) findViewById(R.id.txview_idCatItem);
+		idCatItem.setText(String.valueOf(itemBundle.getIdCategoria()));
 
-		
-		final EditText horaInicio
-		
-		final ImageView imagenIcon = (ImageView) findViewById(R.id.imgview_iconReservaItem);
+		ImageView imagenIcon = (ImageView) findViewById(R.id.imgview_iconReservaItem);
 
 		switch (itemBundle.getIdCategoria()) {
 		case 1:
@@ -97,66 +96,31 @@ public class TelaReservar extends Activity {
 			break;
 		}
 
-		
-		
-		final Button buscabutton = (Button) findViewById(R.id.buttonReserva);
-		buscabutton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-		
-				new Reservar();
-			}
-		});
+		Button buscabutton = (Button) findViewById(R.id.buttonReserva);
+		buscabutton.setOnClickListener(this);
 
 	}
-	
-	private class Reservar extends AsyncTask<Void, Integer, JSONObject> {
 
+	private JSONObject montarJsonReserva() {
 
-		public Reservar() {
-
+		JSONObject jsonObject = null;
+		try {
+			jsonObject = new JSONObject();
+			jsonObject.put("itemIdReserva", itemBundle.getIdItem());
+			jsonObject.put("usuarioIdReserva", 1);
+			Date date = new Date();
+			jsonObject.put("horaDataReserva", date);
+		} catch (JSONException e) {
+			Log.e("RecDATA", e.getMessage());
 		}
 
-		@Override
-		protected JSONObject doInBackground(Void... params) {
-			
-		   
-			JSONObject jsonObjectEnvia = null;
-			try {
-				jsonObjectEnvia = new JSONObject();
-				jsonObjectEnvia.put("itemIdReserva", );
-				jsonObjectEnvia.put("usuarioIdReserva",)
-				jsonObjectEnvia.put("HoraDataReserva", );     
-			} catch (JSONException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-
-			// Enviar a requisição HTTP via POST.
-			HttpService httpService = new HttpService();
-			HttpResponse response=null;
-
-			try {
-				response = httpService.sendJsonPostRequest("/reserva/criar",
-							jsonObjectEnvia);
-				
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			return jsonObjectEnvia;
-
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject result) {
-
-			result.get
-
-		}
+		return jsonObject;
 	}
 
+	@Override
+	public void onClick(View arg) {
+		ReservarAsyncTask reservarAsyncTask = new ReservarAsyncTask(this);
+		JSONObject jsonObsect = montarJsonReserva();
+		reservarAsyncTask.execute(jsonObsect);
+	}
 }

@@ -17,8 +17,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
             android:text="Seleciona Categoria do Item"
             android:textColor="#000000"
             android:typeface="monospace" />

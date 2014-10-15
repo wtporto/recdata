@@ -25,7 +25,6 @@ public class TelaTipoUsuario extends Activity {
 				Intent chamarTelaLogin = new Intent(TelaTipoUsuario.this,
 						TelaLogin.class);
 				
-				Toast.makeText(getApplicationContext(),"Selecionou Professor!", Toast.LENGTH_LONG).show();
 				startActivity(chamarTelaLogin);
 				 finish(); 
 			}
@@ -38,7 +37,6 @@ public class TelaTipoUsuario extends Activity {
 			public void onClick(View arg0) {
 				Intent chamarTelaLogin = new Intent(TelaTipoUsuario.this,
 						TelaLogin.class);
-				Toast.makeText(getApplicationContext(),"Selecionou Monitor!", Toast.LENGTH_LONG).show();
 				startActivity(chamarTelaLogin);
 				 finish();
 			}
@@ -51,7 +49,6 @@ public class TelaTipoUsuario extends Activity {
 			public void onClick(View arg0) {
 				Intent chamarTelaLogin = new Intent(TelaTipoUsuario.this,
 						TelaLogin.class);
-				Toast.makeText(getApplicationContext(),"Selecionou Servidor!", Toast.LENGTH_LONG).show();
 				startActivity(chamarTelaLogin);
 				 finish();
 			}

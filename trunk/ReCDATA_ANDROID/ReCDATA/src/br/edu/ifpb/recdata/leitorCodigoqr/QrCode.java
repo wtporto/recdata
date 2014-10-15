@@ -1,30 +1,51 @@
 package br.edu.ifpb.recdata.leitorCodigoqr;
 
-import recdata.leitoqr.LerQrActivity;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import br.edu.ifpb.R;
 
 public class QrCode extends Activity {
+	public static final int REQUEST_CODE = 0;
+	private TextView txResult;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_ler_qr);
 		
-        new LerQrActivity();
-		
+		txResult = (TextView) findViewById(R.id.txResult);
 	}
+	
+	
+	public void callZXing(View view){
+		Intent it = new Intent(QrCode.this, com.google.zxing.client.android.CaptureActivity.class);
+		startActivityForResult(it, REQUEST_CODE);
+	}
+	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		if (REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
+			txResult.setText("Item: "+data.getStringExtra("SCAN_RESULT")+" ("+data.getStringExtra("SCAN_FORMAT")+")");
+	
+		}
+	}
+/*
+ 	
+
+
+
+
+
+*/
 
 }
 
 /*
- * <style name="AppBaseTheme" parent="Theme.AppCompat.Light"> <!-- Theme
- * customizations available in newer API levels can go in
- * res/values-vXX/styles.xml, while customizations related to
- * backward-compatibility can go here. --> </style>
- * 
- * <!-- Application theme. --> <style name="AppTheme" parent="AppBaseTheme">
- * <!-- All customizations that are NOT specific to a particular API-level can
- * go here. --> </style>
- * 
- * <string name="app_name">ReCDATA</string> <string name="hello_world">Hello
- * world!</string>
+ 
+ 
+ 
  */

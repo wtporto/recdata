@@ -2,100 +2,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
     android:background="#87CEFA"
     tools:context="${packageName}.${activityClass}" >
 
+    <TextView
+        android:id="@+id/textview_cadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/LoginButton"
+        android:layout_below="@+id/LoginButton"
+        android:layout_marginTop="10px"
+        android:text="Cadastre-se?"
+        android:textColor="#FFF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        android:text="Logar"
+        android:textColor="#000000"
+        android:typeface="monospace" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/logoprojeto" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical" >
+
         <TextView
-            android:id="@+id/textview_cadastrar"
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10px"
-            android:layout_alignLeft="@+id/LoginButton"
-            android:layout_below="@+id/LoginButton"
-            android:text="Cadastre-se"
+            android:layout_marginTop="36dp"
+            android:text="Login:"
             android:textColor="#000000"
-            android:textStyle="italic"
-            android:textSize="18dp"
             android:typeface="monospace" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textview_cadastrar"
-            android:layout_alignLeft="@+id/textview_cadastrar"
-            android:text="______________________" />
-
-        <Button
-            android:id="@+id/LoginButton"
+        <EditText
+            android:id="@+id/LoginApp"
             android:layout_width="240dp"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/linearLayout1"
-            android:layout_alignRight="@+id/linearLayout1"
-            android:layout_below="@+id/linearLayout1"
-            android:layout_marginTop="10dp"
-            android:text="Logar"
-            android:textColor="#000000"
-            android:background="#FFF"
-            android:typeface="monospace" />
+            android:layout_height="35dp"
+            android:layout_weight="0.28"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:textColor="#000000" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="15dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/logoprojeto" />
+            <requestFocus />
+        </EditText>
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView1"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical" >
+            android:layout_marginTop="15dp"
+            android:text="Senha:"
+            android:textColor="#000000"
+            android:typeface="monospace" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="Login:"
-                android:textColor="#000000"
-                android:typeface="monospace" />
+        <EditText
+            android:id="@+id/SenhaApp"
+            android:layout_width="240dp"
+            android:layout_height="35dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:textColor="#000000" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/LoginApp"
-                android:layout_width="240dp"
-                android:layout_height="35dp"
-                android:layout_weight="0.28"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:textColor="#000000" >
-
-                <requestFocus />
-            </EditText>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Senha:"
-                android:textColor="#000000"
-                android:typeface="monospace" />
-
-            <EditText
-                android:id="@+id/SenhaApp"
-                android:layout_width="240dp"
-                android:layout_height="35dp"
-                android:background="#FFFFFF"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:textColor="#000000" />
-        </LinearLayout>
-    
 </RelativeLayout>

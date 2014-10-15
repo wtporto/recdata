@@ -88,37 +88,28 @@ public class BuscaItensServidor extends Activity {
 
 				Log.i("AsyncTaskKJson", "Resquest - POST: " + json);
 
-				try {
+				jsonObjectRecebe = new JSONObject(json);
+				JSONArray jsonArray = jsonObjectRecebe.getJSONArray("item");
+				// itemAux serve para ser montado o objeto Item no lado
+				// cliente
 
-					jsonObjectRecebe = new JSONObject(json);
-					JSONArray jsonArray = jsonObjectRecebe.getJSONArray("item");
-					// itemAux serve para ser montado o objeto Item no lado
-					// cliente
+				for (int i = 0; i < jsonArray.length(); i++) {
+					Item itemAux = new Item();
+					JSONObject explrObject = jsonArray.getJSONObject(i);
+					itemAux.setDescricaoCategoria(explrObject
+							.getString("descricaoCategoria"));
+					itemAux.setDescricaoItem(explrObject
+							.getString("descricaoItem"));
+					itemAux.setIdCategoria(explrObject.getInt("idCategoria"));
+					itemAux.setIdItem(explrObject.getInt("idItem"));
 
-					for (int i = 0; i < jsonArray.length(); i++) {
-						Item itemAux = new Item();
-						JSONObject explrObject = jsonArray.getJSONObject(i);
-						itemAux.setDescricaoCategoria(explrObject
-								.getString("descricaoCategoria"));
-						itemAux.setDescricaoItem(explrObject
-								.getString("descricaoItem"));
-						itemAux.setIdCategoria(explrObject
-								.getInt("idCategoria"));
-						itemAux.setIdItem(explrObject.getInt("idItem"));
-
-						ListaItens.add(itemAux);
-					}
-
-				} catch (JSONException e) {
-
-					Log.e("AsyncTaskKJson",
-							"Error parsing data " + e.toString());
-
+					ListaItens.add(itemAux);
 				}
 
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (JSONException e) {
+
+				Log.e("AsyncTaskKJson", "Error parsing data " + e.toString());
+
 			}
 
 			jsonObjectEnvia = null;
@@ -144,7 +135,7 @@ public class BuscaItensServidor extends Activity {
 
 					Item itemEnviaResultado = new Item();
 					itemEnviaResultado = (Item) arg0.getItemAtPosition(arg2);
-					
+
 					Bundle params = new Bundle();
 
 					if (itemEnviaResultado != null) {

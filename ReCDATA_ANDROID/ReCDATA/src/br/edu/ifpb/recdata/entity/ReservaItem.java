@@ -21,8 +21,7 @@ public class ReservaItem  {
 		setItemIdReserva(itemId);
 		setUsuarioIdReserva(usuarioId);
 		setHoraDataInicioReserva(horaDataInicioReserva);
-		setHoraDataFimReserva(horaDataFimRererva);
-		
+		setHoraDataFimReserva(horaDataFimRererva);		
 	}
 
 	public ReservaItem() {
@@ -67,7 +66,5 @@ public class ReservaItem  {
 
 	public void setHoraDataFimReserva(Date horaDataFimReserva) {
 		this.horaDataFimReserva = horaDataFimReserva;
-	}
-
-	
+	}	
 }

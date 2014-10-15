@@ -1,8 +1,10 @@
 package br.edu.ifpb.recdata.entity;
 
+import java.io.Serializable;
+
 import br.edu.ifpb.R;
 
-public class Item  {
+public class Item  implements Serializable {
 /*   Tabela Categoria  
  *    `IdCategoria` INT NOT NULL AUTO_INCREMENT,
 	  `descricao_categoria` VARCHAR(45) NOT NULL,

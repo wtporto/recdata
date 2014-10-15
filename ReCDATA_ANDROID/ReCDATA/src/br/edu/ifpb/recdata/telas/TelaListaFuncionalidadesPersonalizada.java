@@ -29,7 +29,7 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity  {
         	Model model2 = new Model();
         	model2.setNome("Reservar Item");
         	Model model3 = new Model();
-        	model3.setNome("Reservar Qr");
+        	model3.setNome("Reservar via Qr");
         	Model model4 = new Model();
         	model4.setNome("Feedback");
         	Model model5 = new Model();

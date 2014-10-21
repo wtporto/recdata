@@ -86,6 +86,37 @@ public class UsuarioDAO {
 
 	}
 
+	public boolean verificaLogin(Usuario user) {
+
+		boolean disponivel = false;
+		
+		try {
+
+			String sql = String
+					.format("%s %d",
+							"SELECT * FROM `tb_usuario` U WHERE U.login_usuario = ? AND U.senha_usuario = ?");
+
+			// prepared statement para inser��o
+			PreparedStatement stmt = (PreparedStatement) connection
+					.prepareStatement(sql);
+
+			stmt.setString(1, user.getLoginUsuario());
+			stmt.setString(2, user.getSenhaUsuario());
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			if(rs.next()){
+				disponivel = true;
+			}
+
+		} catch (SQLException sqle) {
+			throw new RuntimeException(sqle);
+		}
+
+		return disponivel;
+
+	}
+	
 	public ArrayList<Usuario> readById(Usuario user) {
 
 		ArrayList<Usuario> users = new ArrayList<Usuario>();

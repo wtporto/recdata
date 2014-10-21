@@ -23,6 +23,14 @@ public class UsuarioResource {
 	public ArrayList<Usuario> listarTodos() throws SQLException {
 		return new UsuarioController().listarTodos();
 	}
+	
+	@POST
+	@Path("/verificar")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public boolean verificaLogin(Usuario user) {
+		return new UsuarioController().verificaLogin(user);
+	}
 
 	@POST
 	@Path("/criar")

@@ -10,19 +10,21 @@ public class ReservaItem implements Entidade {
 	private int idReserva;
 	private int usuarioIdReserva;
 	private int itemIdReserva;
-	private Date horaDataReserva;
-
-	public ReservaItem(int idReserva) {
-		setIdReserva(idReserva);
-
-	}
-
-	public ReservaItem(Date horaReserva) {
-		setHoraDataReserva(horaReserva);
+	private Date horaDataInicio;
+	private Date horaDataFim;
+	
+	public ReservaItem(int idReserva, int usuarioIdReserva, int itemIdReserva,
+			Date horaDataInicio, Date horaDataFim) {
+		super();
+		this.idReserva = idReserva;
+		this.usuarioIdReserva = usuarioIdReserva;
+		this.itemIdReserva = itemIdReserva;
+		this.horaDataInicio = horaDataInicio;
+		this.horaDataFim = horaDataFim;
 	}
 
 	public ReservaItem() {
-		// TODO Auto-generated constructor stub
+		//null
 	}
 
 	public int getIdReserva() {
@@ -49,19 +51,28 @@ public class ReservaItem implements Entidade {
 		this.itemIdReserva = itemIdReserva;
 	}
 
-	public Date getHoraDataReserva() {
-		return horaDataReserva;
+	public Date getHoraDataInicio() {
+		return horaDataInicio;
 	}
 
-	public void setHoraDataReserva(Date horaDataReserva) {
-		this.horaDataReserva = horaDataReserva;
+	public void setHoraDataInicio(Date horaDataInicio) {
+		this.horaDataInicio = horaDataInicio;
+	}
+
+	public Date getHoraDataFim() {
+		return horaDataFim;
+	}
+
+	public void setHoraDataFim(Date horaDataFim) {
+		this.horaDataFim = horaDataFim;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservaItem [idReserva=" + idReserva + ", UsuarioIdReserva="
-				+ usuarioIdReserva + ", ItemIdReserva=" + itemIdReserva
-				+ ", horaDataReserva=" + horaDataReserva + "]";
+		return "ReservaItem [idReserva=" + idReserva + ", usuarioIdReserva="
+				+ usuarioIdReserva + ", itemIdReserva=" + itemIdReserva
+				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
+				+ horaDataFim + "]";
 	}
 
 }

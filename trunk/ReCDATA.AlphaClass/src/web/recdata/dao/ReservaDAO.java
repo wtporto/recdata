@@ -40,17 +40,21 @@ public class ReservaDAO {
 		try {
 
 			String sql = "INSERT INTO tb_reserva (tb_item_idItem,"
-					+ "tb_usuario_idUsuario,data_reservado,hora_reservado) "
-					+ "VALUES (?,?,?,?)";
+					+ "tb_usuario_idUsuario,data_inicio,hora_inicio,data_fim,hora_fim) "
+					+ "VALUES (?,?,?,?,?,?)";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			stmt.setInt(1, reserva.getItemIdReserva());
 			stmt.setInt(2, reserva.getUsuarioIdReserva());
-			stmt.setDate(3, new java.sql.Date(reserva.getHoraDataReserva()
+			stmt.setDate(3, new java.sql.Date(reserva.getHoraDataInicio()
 					.getTime()));
-			stmt.setTime(4, new java.sql.Time(reserva.getHoraDataReserva()
+			stmt.setTime(4, new java.sql.Time(reserva.getHoraDataInicio()
+					.getTime()));
+			stmt.setDate(5, new java.sql.Date(reserva.getHoraDataFim()
+					.getTime()));
+			stmt.setTime(6, new java.sql.Time(reserva.getHoraDataFim()
 					.getTime()));
 
 			stmt.execute();
@@ -141,10 +145,15 @@ public class ReservaDAO {
 				reservaAux.setUsuarioIdReserva(rs
 						.getInt("tb_usuario_idUsuario"));
 
-				long dateHora = rs.getDate("data_reservado").getTime()
-						+ rs.getTime("hora_reservado").getTime();
+				long dateHoraInicio = rs.getDate("data_inicio").getTime()
+						+ rs.getTime("hora_inicio").getTime();
 
-				reservaAux.setHoraDataReserva(new Date(dateHora));
+				reservaAux.setHoraDataInicio(new Date(dateHoraInicio));
+				
+				long dateHoraFim = rs.getDate("data_fim").getTime()
+						+ rs.getTime("hora_fim").getTime();
+
+				reservaAux.setHoraDataFim(new Date(dateHoraFim));
 
 				reservas.add(reservaAux);
 			}
@@ -173,10 +182,16 @@ public class ReservaDAO {
 			reservaAux.setItemIdReserva(rs.getInt("tb_item_idItem"));
 			reservaAux.setUsuarioIdReserva(rs.getInt("tb_usuario_idUsuario"));
 
-			long dateHora = rs.getDate("data_reservado").getTime()
-					+ rs.getTime("hora_reservado").getTime();
+			long dateHoraInicio = rs.getDate("data_inicio").getTime()
+					+ rs.getTime("hora_inicio").getTime();
 
-			reservaAux.setHoraDataReserva(new Date(dateHora));
+			reservaAux.setHoraDataInicio(new Date(dateHoraInicio));
+			
+			long dateHoraFim = rs.getDate("data_fim").getTime()
+					+ rs.getTime("hora_fim").getTime();
+
+			reservaAux.setHoraDataFim(new Date(dateHoraFim));
+			
 			reservas.add(reservaAux);
 		}
 

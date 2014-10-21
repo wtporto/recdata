@@ -29,4 +29,8 @@ public class UsuarioController {
 		UsuarioDAO.getInstance().update(user);
 		return "Atualizado com sucesso";
 	}
+	
+	public boolean verificaLogin(Usuario user) {
+		return UsuarioDAO.getInstance().verificaLogin(user);
+	}
 }

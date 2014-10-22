@@ -6,18 +6,18 @@ import java.util.Date;
 public  class Usuario {
 
 	private int usuarioId;
-	private String nomeUsuario;//v
-	private String emailUsuario;//v
-	private String telefoneUsuario;//v
-	private Date idadeUsuario;//v
+	private String nomeUsuario;
+	private String emailUsuario;
+	private String telefoneUsuario;
+	private Date idadeUsuario;
 	
-	private String cpfUsuario;//v
-	private String enderecoUsuario;//v
-	private String loginUsuario;//v
-	private String senhaUsuario;//v
+	private String cpfUsuario;
+	private String enderecoUsuario;
+	private String loginUsuario;
+	private String senhaUsuario;
 	
 	private int idTipoUsuario;
-	private String descricao_tipoUsuario;//v
+	private String descricao_tipoUsuario;
 
 	
 	public Usuario(int usuarioId){

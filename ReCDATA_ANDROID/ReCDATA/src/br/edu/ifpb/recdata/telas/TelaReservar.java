@@ -1,38 +1,24 @@
 package br.edu.ifpb.recdata.telas;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.Date;
 
-import org.apache.http.HttpResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.edu.ifpb.R;
-import br.edu.ifpb.R.drawable;
 import br.edu.ifpb.recdata.entity.Item;
 import br.edu.ifpb.recdata.entity.ReservaItem;
-import br.edu.ifpb.recdata.servicos.BuscaItensServidor;
-import br.edu.ifpb.recdata.servicos.HttpService;
-import br.edu.ifpb.recdata.servicos.HttpUtil;
+import br.edu.ifpb.recdata.servicos.BuscaItensServidorAsyncTask;
 import br.edu.ifpb.recdata.servicos.ReservarAsyncTask;
-import br.edu.ifpb.recdata.util.ItemAdapter;
 
 public class TelaReservar extends Activity implements OnClickListener {
 
@@ -73,31 +59,14 @@ public class TelaReservar extends Activity implements OnClickListener {
 		idCatItem.setText(String.valueOf(itemBundle.getIdCategoria()));
 
 		ImageView imagenIcon = (ImageView) findViewById(R.id.imgview_iconReservaItem);
-
-		switch (itemBundle.getIdCategoria()) {
-		case 1:
-			imagenIcon.setImageResource(drawable.icon_chave);
-			break;
-
-		case 2:
-			imagenIcon.setImageResource(drawable.icon_caixasom);
-			break;
-
-		case 3:
-			imagenIcon.setImageResource(drawable.icon_datashow);
-			break;
-
-		case 4:
-			imagenIcon.setImageResource(drawable.icon_notebook);
-			break;
-
-		default:
-			imagenIcon.setImageResource(drawable.icon_errodefault);
-			break;
-		}
-
+		imagenIcon.setImageResource(itemBundle.getImagem(itemBundle.getIdCategoria())) ;
+		
 		Button buscabutton = (Button) findViewById(R.id.buttonReserva);
 		buscabutton.setOnClickListener(this);
+		
+		//Button voltaListaItens = (Button) findViewById(R.id.buttonVoltarLista);
+		//voltaListaItens.setOnClickListener(BuscaItensServidor.class);
+		
 
 	}
 
@@ -109,7 +78,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 			jsonObject.put("itemIdReserva", itemBundle.getIdItem());
 			jsonObject.put("usuarioIdReserva", 1);
 			Date date = new Date();
-			jsonObject.put("horaDataReserva", date);
+			jsonObject.put("horaDataInicioReserva", date.getDate());
 		} catch (JSONException e) {
 			Log.e("RecDATA", e.getMessage());
 		}

@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 import br.edu.ifpb.R;
-import br.edu.ifpb.recdata.servicos.BuscaItensServidor;
+import br.edu.ifpb.recdata.servicos.BuscaItensServidorAsyncTask;
 
 public class TelaConsultar extends Activity {
 
@@ -85,7 +85,7 @@ public class TelaConsultar extends Activity {
 						Toast.LENGTH_LONG).show();
 				// criar uma intent aqui!!, para leva com a tela de resultados
 
-				Intent chamarResultados = new Intent(TelaConsultar.this, BuscaItensServidor.class);
+				Intent chamarResultados = new Intent(TelaConsultar.this, BuscaItensServidorAsyncTask.class);
 				Bundle params = new Bundle();
 
 				if( idCategoriaSpinner >=1){

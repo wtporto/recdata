@@ -53,7 +53,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.recdata.servicos.BuscaItensServidor"
+            android:name="br.edu.ifpb.recdata.servicos.BuscaItensServidorAsyncTask"
             android:label="@string/app_name" >
         </activity>
         <activity

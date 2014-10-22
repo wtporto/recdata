@@ -23,7 +23,7 @@ import br.edu.ifpb.recdata.entity.Item;
 import br.edu.ifpb.recdata.telas.TelaReservar;
 import br.edu.ifpb.recdata.util.ItemAdapter;
 
-public class BuscaItensServidor extends Activity {
+public class BuscaItensServidorAsyncTask extends Activity {
 
 	ListView listview;
 	ArrayList<Item> ListaItens;
@@ -122,7 +122,7 @@ public class BuscaItensServidor extends Activity {
 		protected void onPostExecute(JSONObject result) {
 
 			listview = (ListView) findViewById(R.id.listaResultados);
-			listview.setAdapter(new ItemAdapter(BuscaItensServidor.this,
+			listview.setAdapter(new ItemAdapter(BuscaItensServidorAsyncTask.this,
 					ListaItens));
 			super.onPostExecute(result);
 
@@ -141,7 +141,7 @@ public class BuscaItensServidor extends Activity {
 					if (itemEnviaResultado != null) {
 
 						chamaTelaResultado = new Intent(
-								BuscaItensServidor.this, TelaReservar.class);
+								BuscaItensServidorAsyncTask.this, TelaReservar.class);
 
 						params.putSerializable("Item",
 								(Serializable) itemEnviaResultado);

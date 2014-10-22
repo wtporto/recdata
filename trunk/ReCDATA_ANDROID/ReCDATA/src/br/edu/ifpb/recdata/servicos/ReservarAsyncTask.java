@@ -42,7 +42,7 @@ public class ReservarAsyncTask extends
 		try {
 			// Conversão do response ( resposta HTTP) para String.
 			String json = HttpUtil.entityToString(response);
-			Log.i("Login Aluno", "Resquest - GET: " + json);
+			Log.i("ReCDATA ", "Resquest - POST: " + json);
 
 			JSONObject jsonObject = new JSONObject(json);
 

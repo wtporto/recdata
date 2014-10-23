@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/home-template.xhtml">
+
+	<ui:define name="pageTitle">
+			Home - Welcome
+		</ui:define>
+
+	<ui:define name="content">
+		<div>Conteúdo da página inicial.</div>
+		<ul>
+			<li><h:link outcome="cadastrarItem">Cadastrar Item</h:link></li>
+			<li><h:link outcome="">Listar itens</h:link></li>
+			<li><h:link outcome="">Buscar Item</h:link></li>
+			<li><h:link outcome="">Gerar QrCode</h:link></li>
+		</ul>
+	</ui:define>
+
+</ui:composition>

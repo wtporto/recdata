@@ -52,7 +52,7 @@ public class UsuarioLoginAsyncTask extends
                         if (httpCode == 200) {
                                 
                                 Toast.makeText(activity.getApplicationContext(),
-                                                "Bem vindo, " + jsonObject.getString("nome"),
+                                                "Bem vindo, " + jsonObject.getString("nomeUsuario"),
                                                 Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(activity, TelaListaFuncionalidadesPersonalizada

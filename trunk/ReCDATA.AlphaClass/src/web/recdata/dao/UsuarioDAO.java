@@ -5,27 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
-import web.recdata.model.Usuario;
+import br.edu.ifpb.recdata.entidades.Usuario;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-/*
- * tabela usuario
- * 
- * `idUsuario` INT NOT NULL AUTO_INCREMENT,
- `login_usuario` VARCHAR(40) NOT NULL,
- `senha_usuario` VARCHAR(23) NOT NULL,
- `nome_usuario` VARCHAR(50) NOT NULL,
- `email_usuario` VARCHAR(45) NOT NULL,
- `telefone_usuario` VARCHAR(10) NOT NULL,
- `cpf_usuario` VARCHAR(11) NOT NULL,
- `endereco_usuario` VARCHAR(70) NULL,
- `data_nasc_usuario` DATE NOT NULL,
- `sexo_usuario` VARCHAR(1) NOT NULL,
- idtipousuario, descricaousuario;
- * 
- * */
 public class UsuarioDAO {
 
 	static ConnectionFactory banco;

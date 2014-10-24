@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.dao.UsuarioDAO;
-import web.recdata.model.Usuario;
+import br.edu.ifpb.recdata.entidades.Usuario;
 
 public class UsuarioController {
 	public ArrayList<Usuario> listarTodos() throws SQLException {

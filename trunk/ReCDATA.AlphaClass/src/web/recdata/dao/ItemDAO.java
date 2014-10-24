@@ -5,22 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
-import web.recdata.model.Item;
+import br.edu.ifpb.recdata.entidades.Categoria;
+import br.edu.ifpb.recdata.entidades.Item;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-
-/* tabela Item
- * `idItem` INT NOT NULL AUTO_INCREMENT,
- `tb_categoria_IdCategoria` INT NOT NULL,
- `descricao_item` VARCHAR(60) NOT NULL
-
- tabela Categoria
-
- `IdCategoria` INT NOT NULL AUTO_INCREMENT,
- `descricao_categoria` VARCHAR(45) NOT NULL,
- *
- */
 
 public class ItemDAO {
 
@@ -51,10 +40,8 @@ public class ItemDAO {
 		try {
 
 			String sql = "INSERT INTO tb_item (tb_categoria_IdCategoria,descricao_item) VALUES ("
-					+ item.getIdCategoria()
-					+ ",\""
-					+ item.getDescricaoItem()
-					+ "\")";
+					+ item.getCategoria().getIdCategoria()
+					+ ",'" + item.getDescricaoItem() + "')";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -68,18 +55,19 @@ public class ItemDAO {
 
 	}
 
-	public ArrayList<Item> readById(Item item) {
+	public ArrayList<Item> readById(int id) {
 
 		Item itemAux = null;
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		try {
 
-			String sql = "SELECT * FROM tb_item I, tb_categoria C WHERE I.tb_categoria_idCategoria = "
-					+ item.getIdCategoria()
-					+ " AND I.tb_categoria_idCategoria = C.idCategoria";
+			String sql = "SELECT * FROM tb_item as I, tb_categoria as C"
+					+ " WHERE"
+					+ " AND C.IdCategoria = I.tb_categoria_IdCategoria"
+					+ " AND I.idItem = " + id;
 
-			// prepared statement para inser��o
+			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -88,10 +76,11 @@ public class ItemDAO {
 			while (rs.next()) {
 				itemAux = new Item();
 				itemAux.setIdItem(rs.getInt("idItem"));
-				itemAux.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
+				Categoria categoria = new Categoria();
+				categoria.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
+				categoria.setDescricaoCategoria(rs.getString("descricao_categoria"));
+				itemAux.setCategoria(categoria);
 				itemAux.setDescricaoItem(rs.getString("descricao_item"));
-				itemAux.setDescricaoCategoria(rs
-						.getString("descricao_categoria"));
 				itens.add(itemAux);
 			}
 
@@ -131,7 +120,7 @@ public class ItemDAO {
 
 		try {
 
-			String sql = "DELETE FROM `tb_item` WHERE `idItem`="
+			String sql = "DELETE FROM tb_item WHERE idItem="
 					+ item.getIdItem();
 
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -165,8 +154,10 @@ public class ItemDAO {
 			Item item = new Item();
 			item.setIdItem(rs.getInt("idItem"));
 			item.setDescricaoItem(rs.getString("descricao_item"));
-			item.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
-			item.setDescricaoCategoria(rs.getString("descricao_categoria"));
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
+			categoria.setDescricaoCategoria(rs.getString("descricao_categoria"));
+			item.setCategoria(categoria);
 			itens.add(item);
 		}
 

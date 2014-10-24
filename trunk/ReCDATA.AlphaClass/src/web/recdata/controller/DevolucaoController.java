@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.dao.DevolucaoDAO;
-import web.recdata.model.DevolucaoItem;
+import br.edu.ifpb.recdata.entidades.DevolucaoItem;
 
 public class DevolucaoController {
 	public String creat(DevolucaoItem devolucao) {

@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import web.recdata.controller.UsuarioController;
-import web.recdata.model.Usuario;
+import br.edu.ifpb.recdata.entidades.Usuario;
 
 @Path("/usuario")
 public class UsuarioResource {

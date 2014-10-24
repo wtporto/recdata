@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import web.recdata.factory.ConnectionFactory;
-import web.recdata.model.DevolucaoItem;
+import br.edu.ifpb.recdata.entidades.DevolucaoItem;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;

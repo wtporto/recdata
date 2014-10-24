@@ -12,7 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import web.recdata.controller.ItemController;
-import web.recdata.model.Item;
+import br.edu.ifpb.recdata.entidades.Item;
 
 @Path("/item")
 public class ItemResource {

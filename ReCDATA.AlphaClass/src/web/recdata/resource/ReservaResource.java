@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import web.recdata.controller.ReservaController;
-import web.recdata.model.ReservaItem;
+import br.edu.ifpb.recdata.entidades.ReservaItem;
 
 @Path("/reserva")
 public class ReservaResource {

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.dao.ReservaDAO;
-import web.recdata.model.ReservaItem;
+import br.edu.ifpb.recdata.entidades.ReservaItem;
 
 public class ReservaController {
 	public ArrayList<ReservaItem> listarTodos() throws SQLException {

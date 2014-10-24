@@ -3,7 +3,7 @@ package br.edu.ifpb.recdata.entidades;
 public class Categoria {
 
 	private int idCategoria;
-	private String descricao_categoria;
+	private String descricaoCategoria;
 	
 	public Categoria(int id) {
 		setIdCategoria(id);
@@ -15,7 +15,7 @@ public class Categoria {
 	public Categoria(int id, String categoria){
 		
 		setIdCategoria(id);
-		setDescricao_categoria(categoria);
+		setDescricaoCategoria(categoria);
 	}
 	
 	public int getIdCategoria() {
@@ -26,18 +26,18 @@ public class Categoria {
 		this.idCategoria = idCategoria;
 	}
 
-	public String getDescricao_categoria() {
-		return descricao_categoria;
+	public String getDescricaoCategoria() {
+		return descricaoCategoria;
 	}
 
-	public void setDescricao_categoria(String descricao_categoria) {
-		this.descricao_categoria = descricao_categoria;
+	public void setDescricaoCategoria(String descricaoCategoria) {
+		this.descricaoCategoria = descricaoCategoria;
 	}
 
 	@Override
 	public String toString() {
 		return "Categoria [idCategoria=" + idCategoria
-				+ ", descricao_categoria=" + descricao_categoria + "]";
+				+ ", descricaoCategoria=" + descricaoCategoria + "]";
 	}
 	
 }

@@ -9,9 +9,7 @@ public class Item implements Entidade {
 	
 	private String descricaoItem;
 	
-	private int idCategoria;
-	
-	private String descricaoCategoria;
+	private Categoria categoria;
 
 	public Item() {}
 
@@ -21,7 +19,8 @@ public class Item implements Entidade {
 	 * @param idCategoria
 	 */
 	public Item(int idCategoria) {
-		setIdCategoria(idCategoria);
+		categoria = new Categoria();
+		categoria.setIdCategoria(idCategoria);
 	}
 
 	/**
@@ -31,10 +30,16 @@ public class Item implements Entidade {
 	 * @param descricaoItem
 	 */
 	public Item(int idCategoria, String descricaoItem) {
-
-		setIdCategoria(idCategoria);
+		categoria = new Categoria();
+		categoria.setIdCategoria(idCategoria);
 		setDescricaoItem(descricaoItem);
+	}
 
+	@Override
+	public String toString() {
+		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
+				+ ", idCategoria=" + categoria.getIdCategoria() + ", descricaoCategoria="
+				+ categoria.getDescricaoCategoria() + "]";
 	}
 
 	public int getIdItem() {
@@ -53,26 +58,11 @@ public class Item implements Entidade {
 		this.descricaoItem = descricaoItem;
 	}
 
-	public int getIdCategoria() {
-		return idCategoria;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
-	public String getDescricaoCategoria() {
-		return descricaoCategoria;
-	}
-
-	public void setDescricaoCategoria(String descricaoCategoria) {
-		this.descricaoCategoria = descricaoCategoria;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
-				+ ", idCategoria=" + idCategoria + ", descricaoCategoria="
-				+ descricaoCategoria + "]";
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 }

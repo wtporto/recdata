@@ -1,5 +1,9 @@
 package br.edu.ifpb.recdata.entidades;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Categoria {
 
 	private int idCategoria;
@@ -18,6 +22,7 @@ public class Categoria {
 		setDescricaoCategoria(categoria);
 	}
 	
+	@XmlElement
 	public int getIdCategoria() {
 		return idCategoria;
 	}
@@ -26,6 +31,7 @@ public class Categoria {
 		this.idCategoria = idCategoria;
 	}
 
+	@XmlElement
 	public String getDescricaoCategoria() {
 		return descricaoCategoria;
 	}

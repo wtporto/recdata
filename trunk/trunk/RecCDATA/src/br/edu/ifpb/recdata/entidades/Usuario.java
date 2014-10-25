@@ -8,17 +8,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Usuario implements Entidade {
 
 	private int usuarioId;
+	
 	private String nomeUsuario;
+	
 	private String emailUsuario;
+	
 	private String telefoneUsuario;
+	
 	private java.util.Date idadeUsuario;
+	
 	private String sexoUsuario;
+	
 	private String cpfUsuario;
+	
 	private String enderecoUsuario;
+	
 	private String loginUsuario;
+	
 	private String senhaUsuario;
 
 	private int idTipoUsuario;
+	
 	private String descricao_tipoUsuario;
 
 	public Usuario(int usuarioId) {

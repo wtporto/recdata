@@ -1,5 +1,6 @@
 package br.edu.ifpb.recdata.entidades;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -42,6 +43,7 @@ public class Item implements Entidade {
 				+ categoria.getDescricaoCategoria() + "]";
 	}
 
+	@XmlElement
 	public int getIdItem() {
 		return idItem;
 	}
@@ -50,6 +52,7 @@ public class Item implements Entidade {
 		this.idItem = idItem;
 	}
 
+	@XmlElement
 	public String getDescricaoItem() {
 		return descricaoItem;
 	}
@@ -58,6 +61,7 @@ public class Item implements Entidade {
 		this.descricaoItem = descricaoItem;
 	}
 
+	@XmlElement
 	public Categoria getCategoria() {
 		return categoria;
 	}

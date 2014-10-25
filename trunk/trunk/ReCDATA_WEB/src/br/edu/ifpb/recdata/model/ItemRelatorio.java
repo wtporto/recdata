@@ -2,7 +2,9 @@ package br.edu.ifpb.recdata.model;
 
 import java.io.InputStream;
 
-public class Item {
+import br.edu.ifpb.recdata.entidades.Item;
+
+public class ItemRelatorio extends Item{
 
 	private String nome;
 	
@@ -10,7 +12,7 @@ public class Item {
 	
 	private InputStream qrCode;
 
-	public Item(String nome, Integer idItem) {
+	public ItemRelatorio(String nome, Integer idItem) {
 		this.nome = nome;
 		this.idItem = idItem;
 	}

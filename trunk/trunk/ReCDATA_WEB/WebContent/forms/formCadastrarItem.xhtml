@@ -5,12 +5,34 @@
 	xmlns:p="http://primefaces.org/ui" 
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
-	<div id='cadastrarItem-form'>
+	<div id='cadastraritem-form'>
 		<div class='inside'>
 					
-			<h1>Cadastrar Item</h1>	
-					
+			<h1>Cadastrar Item</h1>					
 			<h:form>
+				<h:panelGrid columns="1">
+					<!-- Categoria do Item -->
+					<h:outputLabel value="Categorias" for="categorias"/>
+			        <h:selectOneMenu id="categorias"
+			                         value="#{cadastrarItemBean.categoria}"
+			                         required="true">
+			            <f:converter converterId="br.edu.ifpb.recdata.convert.CategoriasConverter"/>
+			            <f:selectItems value="#{cadastrarItemBean.categorias}" />
+			        </h:selectOneMenu>
+			        <h:message for="categorias"/>
+					
+					<!-- Nome do Item -->
+					<h:outputLabel value="Item" for="descricaoItem"/>							
+					<h:inputText class="defaultBoxRadius" id="descricaoItem" value="#{cadastrarItemBean.descricaoItem}" size="45" required="true">
+						<f:validateLength maximum="45"/>
+					</h:inputText>
+					<h:message for="descricaoItem"/>
+					
+				</h:panelGrid>
+				<h:panelGrid columns="2">		
+					<h:commandButton id="bt_send" value="Cadastrar" action="#{cadastrarItemBean.cadastrarItem}"/>
+					<input id="bt_clean" type="reset" value="Limpar"/>	
+				</h:panelGrid>
 			</h:form>
 		</div>
 	</div>	

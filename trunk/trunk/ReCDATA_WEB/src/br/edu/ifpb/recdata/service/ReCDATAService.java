@@ -1,14 +1,14 @@
 package br.edu.ifpb.recdata.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
+import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
 
 /**
@@ -17,16 +17,22 @@ import br.edu.ifpb.recdata.entidades.Item;
  * @author Rhavy Maia Guedes
  * 
  */
-public interface QManagerService {
+public interface ReCDATAService {
 
 	/**
+	 * Recuperar todos os itens cadastrados.
 	 * 
 	 * @param negotiation
 	 * @return
 	 */
 	@GET
-	@Path("/item/listar")
+	@Path("/categoria/listar")
 	@Produces("application/json")
-	public ArrayList<Item> listarTodos();
-
+	public List<Categoria> listarCategorias();
+	
+	@POST
+	@Path("/item/criar")
+	@Consumes("application/json")
+	@Produces("text/plain")
+	public String cadastrarItem(Item item);
 }

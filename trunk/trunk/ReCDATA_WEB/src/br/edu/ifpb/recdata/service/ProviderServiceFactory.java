@@ -8,7 +8,7 @@ import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 public class ProviderServiceFactory {
 
-	private static final String URL_SERVICE = "http://localhost:8080/quality-manager_SERVICE/";
+	private static final String URL_SERVICE = "http://localhost:8080/ReCDATA.AlphaClass/";
 
 	static {
 		/*

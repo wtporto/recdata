@@ -2,9 +2,13 @@ package br.edu.ifpb.recdata.bean;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
@@ -23,8 +27,20 @@ public class CadastrarItemBean extends Item {
 		ReCDATAService service = ProviderServiceFactory
 				.createServiceClient(ReCDATAService.class);
 
-		Item item = new Item(getIdItem(), getDescricaoItem());
-		String resultado = service.cadastrarItem(item);
+		Item item = new Item(super.getCategoria().getIdCategoria(), getDescricaoItem());
+		Response response = service.cadastrarItem(item);
+		int statusCode = response.getStatus();
+		
+		if (statusCode == Status.CREATED.getStatusCode()) {
+			//Exibir mensagem de sucesso.
+			GenericBean.setMessage(null, "info.sucessoCadastroItem",
+					FacesMessage.SEVERITY_INFO);
+			resetCadastrarItemBean();
+		} else {
+			//Exibir mensagem de erro.
+			GenericBean.setMessage(null, "erro.problemaCadastroItem",
+					FacesMessage.SEVERITY_ERROR);
+		}
 		
 		return navegacao;
 	}
@@ -45,5 +61,13 @@ public class CadastrarItemBean extends Item {
 		}
 
 		return this.categorias;
+	}
+	
+	private void resetCadastrarItemBean() {
+		  
+		FacesContext fc = FacesContext.getCurrentInstance();  
+		  if (fc.getExternalContext().getRequestMap().containsKey("cadastrarItemBean")) { 
+		    fc.getExternalContext().getRequestMap().remove("cadastrarItemBean");  
+		  }
 	}
 }

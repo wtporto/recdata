@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
@@ -34,5 +35,5 @@ public interface ReCDATAService {
 	@Path("/item/criar")
 	@Consumes("application/json")
 	@Produces("text/plain")
-	public String cadastrarItem(Item item);
+	public Response cadastrarItem(Item item);
 }

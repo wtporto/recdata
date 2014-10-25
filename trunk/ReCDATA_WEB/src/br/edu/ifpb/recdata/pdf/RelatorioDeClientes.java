@@ -14,15 +14,15 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import br.edu.ifpb.recdata.model.Item;
+import br.edu.ifpb.recdata.model.ItemRelatorio;
 
 public class RelatorioDeClientes {
 	
 	public static void main(String[] args) throws JRException, SQLException {
 
-		List<Item> itens = new ArrayList<Item>();
+		List<ItemRelatorio> itens = new ArrayList<ItemRelatorio>();
 
-		Item item1 = new Item("Data show", 1);
+		ItemRelatorio item1 = new ItemRelatorio("Data show", 1);
 		ByteArrayOutputStream out = QRCode
 				.from(Integer.toString(item1.getIdItem())).to(ImageType.PNG)
 				.stream();
@@ -30,7 +30,7 @@ public class RelatorioDeClientes {
 		item1.setQrCode(is);
 		itens.add(item1);
 
-		Item item2 = new Item("Sala", 2);
+		ItemRelatorio item2 = new ItemRelatorio("Sala", 2);
 		ByteArrayOutputStream out2 = QRCode
 				.from(Integer.toString(item2.getIdItem())).to(ImageType.PNG)
 				.stream();

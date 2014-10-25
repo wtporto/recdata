@@ -30,7 +30,7 @@ public class UsuarioController {
 		return "Atualizado com sucesso";
 	}
 	
-	public boolean verificaLogin(Usuario user) {
+	public Usuario verificaLogin(Usuario user) {
 		return UsuarioDAO.getInstance().verificaLogin(user);
 	}
 }

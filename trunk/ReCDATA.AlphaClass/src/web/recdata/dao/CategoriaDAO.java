@@ -3,6 +3,7 @@ package web.recdata.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import web.recdata.factory.ConnectionFactory;
 import br.edu.ifpb.recdata.entidades.Categoria;
@@ -14,36 +15,37 @@ public class CategoriaDAO {
 
 	static ConnectionFactory banco;
 	private static CategoriaDAO instance;
-	
-	public static CategoriaDAO getInstance(){
-		if(instance == null){
+
+	public static CategoriaDAO getInstance() {
+		if (instance == null) {
 			banco = new ConnectionFactory();
 			instance = new CategoriaDAO(banco);
 		}
 		return instance;
 	}
 
-	// a conex�o com o banco de dados
+	// a conexçã com o banco de dados
 	public Connection connection;
 
 	public CategoriaDAO(ConnectionFactory banco) {
 		this.connection = (Connection) banco.getConnection();
 	}
-	
+
 	public CategoriaDAO() {
 		this.connection = (Connection) banco.getConnection();
-	}	
-	
+	}
+
 	public Categoria readById(Categoria categoria) {
-		
-		Categoria categoriaAux= null;
-		
+
+		Categoria categoriaAux = null;
+
 		try {
 
-			String sql = "SELECT * FROM `tb_categoria` C  WHERE  C.`idCategoria =`" +categoria.getIdCategoria();
-			              
-			
-			// prepared statement para inser��o
+			String sql = "SELECT C.idCategoria, C.descricao_categoria"
+					+ " FROM  tb_categoria  as C" 
+					+ " WHERE  C. idCategoria = " + categoria.getIdCategoria();
+
+			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -52,49 +54,44 @@ public class CategoriaDAO {
 			while (rs.next()) {
 				categoriaAux = new Categoria();
 				categoriaAux.setIdCategoria(rs.getInt("idCategoria"));
-				categoriaAux.setDescricaoCategoria(rs.getString("descricao_categoria"));
+				categoriaAux.setDescricaoCategoria(rs
+						.getString("descricao_categoria"));
 			}
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
-		
+
 		return categoriaAux;
 	}
 
-	
-	public void update (Categoria categoria) {
+	public void update(Categoria categoria) {
 
 		try {
 
-			// Define um update com os atributos e cada valor � representado por
+			// Define um update com os atributos e cada valor é representado por
 			// ?
-			
-			String sql = "UPDATE `tb_categoria` SET `descricao_categoria`=" + categoria.getDescricaoCategoria()
-					+ " WHERE `idCategoria`=" + categoria.getIdCategoria();
+			String sql = "UPDATE tb_categoria SET descricao_categoria="
+					+ categoria.getDescricaoCategoria()
+					+ " WHERE idCategoria = " + categoria.getIdCategoria();
 
-			// prepared statement para inser��o
+			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-
-			
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
-			
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
-
 	}
 
 	public void delete(Categoria categoria) {
 
 		try {
-
-			String sql = "DELETE FROM `tb_categoria` WHERE `idCategoria`=?";
+			String sql = "DELETE FROM tb_categoria" + " WHERE idCategoria = ?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -109,30 +106,31 @@ public class CategoriaDAO {
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
-
 	}
 
-	public ArrayList<Categoria> listarTodos() throws SQLException{
-		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
-		
-		String sql = "SELECT * FROM `tb_categoria`";
+	public List<Categoria> listarTodos() throws SQLException {
 
-		PreparedStatement stmt = (PreparedStatement) connection.prepareStatement(sql);
+		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+
+		String sql = "SELECT C.idCategoria, C.descricao_categoria"
+				+ " FROM tb_categoria as C";
+
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(sql);
 
 		ResultSet rs = stmt.executeQuery(sql);
-	
-		while(rs.next()){
+
+		while (rs.next()) {
 			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(rs.getInt("idCategoria"));
-			categoria.setDescricaoCategoria(rs.getString("descricao_categoria"));
-			
+			categoria.setIdCategoria(rs.getInt("C.idCategoria"));
+			categoria
+					.setDescricaoCategoria(rs.getString("C.descricao_categoria"));
 			categorias.add(categoria);
 		}
-		
+
 		stmt.execute();
 		stmt.close();
-		
+
 		return categorias;
 	}
-	
 }

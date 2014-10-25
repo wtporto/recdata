@@ -19,5 +19,4 @@ public class Server {
 	public void setOnline(boolean online) {
 		this.online = online;
 	}
-
 }

@@ -18,32 +18,32 @@ public class ConnectionFactory {
 		iniciarConexao();
 	}
 
-	// Estabelecer conex�o com o banco de dados
+	// Estabelecer conexão com o banco de dados
 	public void iniciarConexao() {
 
-		System.out.println("Estabelecendo conex�o...");
+		System.out.println("Estabelecendo conexão...");
 
 		try {
 			Class.forName(DRIVER);
 			this.connection = DriverManager.getConnection(URL, USER, PASS);
 		} catch (Exception e) {
-			System.out.println("N�o foi possivel conectar ao banco de dados: "
+			System.out.println("Não foi possivel conectar ao banco de dados: "
 					+ URL);
 			e.printStackTrace();
 		}
 	}
 
-	// Encerrar conex�o com banco de dados
+	// Encerrar conexão com banco de dados
 	public void encerrarConexao() {
 		try {
 			if (this.stm != null)
 				this.stm.close();
 			if (this.connection != null)
 				this.connection.close();
-			System.out.println("Conex�o encerrada!!");
+			System.out.println("Conexão encerrada!!");
 		} catch (Exception e) {
 			System.out
-					.println("N�o foi possivel encerrar conex�o ao banco de dados: "
+					.println("Não foi possivel encerrar conexão ao banco de dados: "
 							+ URL);
 			e.printStackTrace();
 		}

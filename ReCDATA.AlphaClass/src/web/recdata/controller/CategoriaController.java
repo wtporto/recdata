@@ -1,14 +1,14 @@
 package web.recdata.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import web.recdata.dao.CategoriaDAO;
 import br.edu.ifpb.recdata.entidades.Categoria;
 
 public class CategoriaController {
 
-	public ArrayList<Categoria> listarTodos() throws SQLException{
+	public List<Categoria> listarTodos() throws SQLException{
 		return CategoriaDAO.getInstance().listarTodos();
 	}
 }

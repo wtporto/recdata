@@ -5,11 +5,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.factory.ConnectionFactory;
+import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 public class ItemDAO {
 
@@ -35,24 +37,31 @@ public class ItemDAO {
 		this.connection = (Connection) banco.getConnection();
 	}
 
-	public void creat(Item item) {
+	public int creat(Item item) {
 
+		int idItem = BancoUtil.IDVAZIO;
 		try {
 
-			String sql = "INSERT INTO tb_item (tb_categoria_IdCategoria,descricao_item) VALUES ("
+			String sql = "INSERT INTO tb_item (tb_categoria_IdCategoria,descricao_item)"
+					+ " VALUES ("
 					+ item.getCategoria().getIdCategoria()
-					+ ",'" + item.getDescricaoItem() + "')";
+					+ ",'"
+					+ item.getDescricaoItem() + "')";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.execute();
+			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+
+			idItem = BancoUtil.getGenerateKey(stmt);
+
 			stmt.close();
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
 
+		return idItem;
 	}
 
 	public ArrayList<Item> readById(int id) {
@@ -78,7 +87,8 @@ public class ItemDAO {
 				itemAux.setIdItem(rs.getInt("idItem"));
 				Categoria categoria = new Categoria();
 				categoria.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
-				categoria.setDescricaoCategoria(rs.getString("descricao_categoria"));
+				categoria.setDescricaoCategoria(rs
+						.getString("descricao_categoria"));
 				itemAux.setCategoria(categoria);
 				itemAux.setDescricaoItem(rs.getString("descricao_item"));
 				itens.add(itemAux);
@@ -120,8 +130,7 @@ public class ItemDAO {
 
 		try {
 
-			String sql = "DELETE FROM tb_item WHERE idItem="
-					+ item.getIdItem();
+			String sql = "DELETE FROM tb_item WHERE idItem=" + item.getIdItem();
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -156,7 +165,8 @@ public class ItemDAO {
 			item.setDescricaoItem(rs.getString("descricao_item"));
 			Categoria categoria = new Categoria();
 			categoria.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
-			categoria.setDescricaoCategoria(rs.getString("descricao_categoria"));
+			categoria
+					.setDescricaoCategoria(rs.getString("descricao_categoria"));
 			item.setCategoria(categoria);
 			itens.add(item);
 		}

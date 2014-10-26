@@ -148,10 +148,11 @@ public class ItemDAO {
 	}
 
 	public ArrayList<Item> listarTodos() throws SQLException {
+		
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		String sql = String.format("%s",
-				"SELECT * FROM `tb_item` I,`tb_categoria` C"
+				"SELECT * FROM tb_item as I, tb_categoria as C"
 						+ " WHERE I.tb_categoria_idCategoria = C.idCategoria");
 
 		PreparedStatement stmt = (PreparedStatement) connection
@@ -169,6 +170,38 @@ public class ItemDAO {
 					.setDescricaoCategoria(rs.getString("descricao_categoria"));
 			item.setCategoria(categoria);
 			itens.add(item);
+		}
+
+		return itens;
+	}
+	
+	public ArrayList<Item> listarItens(Item item) throws SQLException {
+		
+		ArrayList<Item> itens = new ArrayList<Item>();
+
+		String sql = String.format("%s '%s' %s",
+				"SELECT I.idItem, I.descricao_item, I.tb_categoria_idCategoria,"
+				+ " C.descricao_categoria"
+				+ " FROM tb_item as I, tb_categoria as C"
+				+ " WHERE I.descricao_item LIKE",
+				item.getDescricaoItem() + "%", 
+				"AND I.tb_categoria_idCategoria = C.idCategoria");
+
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery(sql);
+
+		while (rs.next()) {
+			Item itemConsulta = new Item();
+			itemConsulta.setIdItem(rs.getInt("I.idItem"));
+			itemConsulta.setDescricaoItem(rs.getString("I.descricao_item"));
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(rs.getInt("I.tb_categoria_idCategoria"));
+			categoria
+					.setDescricaoCategoria(rs.getString("C.descricao_categoria"));
+			itemConsulta.setCategoria(categoria);
+			itens.add(itemConsulta);
 		}
 
 		return itens;

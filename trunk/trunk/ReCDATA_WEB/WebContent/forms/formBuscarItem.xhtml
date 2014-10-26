@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"    
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" 
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+
 	<div id='cadastraritem-form'>
 		<div class='inside'>
-					
-			<h1>Cadastrar Item</h1>					
+
+			<h1>Buscar Item</h1>
 			<h:form>
-				<h:messages id="messagesCadastrarItem" globalOnly="true"/>
+				<h:messages id="messagesCadastrarItem" globalOnly="true" />
 				<h:panelGrid columns="1">
-					<!-- Categoria do Item -->
-					<h:outputLabel value="Categorias" for="categorias"/>
-			        <h:selectOneMenu id="categorias"
-			                         value="#{cadastrarItemBean.categoria}"
-			                         required="true">
-			            <f:converter converterId="br.edu.ifpb.recdata.convert.CategoriasConverter"/>
-			            <f:selectItems value="#{cadastrarItemBean.categorias}" />
-			        </h:selectOneMenu>
-			        <h:message for="categorias"/>
 					
 					<!-- Nome do Item -->
-					<h:outputLabel value="Item" for="descricaoItem"/>							
-					<h:inputText class="defaultBoxRadius" id="descricaoItem" value="#{cadastrarItemBean.descricaoItem}" size="45" required="true">
-						<f:validateLength maximum="45"/>
+					<h:outputLabel value="Item" for="descricaoItem" />
+					<h:inputText class="defaultBoxRadius" id="descricaoItem"
+						value="#{listarItensBean.descricaoItem}" size="45"
+						required="true">
+						<f:validateLength maximum="45" />
+						<p:ajax event="keyup" update="output" listener="#{listarItensBean.listarItens}"></p:ajax>
 					</h:inputText>
-					<h:message for="descricaoItem"/>
-					
-				</h:panelGrid>
-				<h:panelGrid columns="2">		
-					<h:commandButton id="bt_send" value="Cadastrar" action="#{cadastrarItemBean.cadastrarItem}"/>
-					<input id="bt_clean" type="reset" value="Limpar"/>	
+					<h:message for="descricaoItem" />					
+
+					<p:outputLabel id="output" value="Output A : #{listarItensBean.mensagem}">
+					</p:outputLabel>
+				<!-- /h:panelGrid>
+					<h:panelGroup id="b1">
+						<h:panelGrid columns="1">
+							<p:inputText value="#{cidadeBean.cidade.cidadeDescricao}" />
+							<p:inputText value="#{cidadeBean.cidade.cidadeCep}" />
+							<p:inputText value="#{cidadeBean.cidade.uf}" />
+						</h:panelGrid>
+					</h:panelGroup -->
 				</h:panelGrid>
 			</h:form>
 		</div>
-	</div>	
+	</div>
 </ui:composition>

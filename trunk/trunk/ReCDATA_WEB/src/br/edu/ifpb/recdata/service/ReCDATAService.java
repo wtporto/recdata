@@ -1,5 +1,6 @@
 package br.edu.ifpb.recdata.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -36,4 +37,10 @@ public interface ReCDATAService {
 	@Consumes("application/json")
 	@Produces("text/plain")
 	public Response cadastrarItem(Item item);
+	
+	@POST
+	@Path("/item/consultarItens")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public ArrayList<Item> consultarItens(Item item);
 }

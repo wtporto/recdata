@@ -18,6 +18,10 @@ public class ItemController {
 		return ItemDAO.getInstance().listarTodos();
 	}
 
+	public ArrayList<Item> consultarItens(Item item) throws SQLException {
+		return ItemDAO.getInstance().listarItens(item);
+	}
+	
 	public Response creat(Item item) {
 
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);

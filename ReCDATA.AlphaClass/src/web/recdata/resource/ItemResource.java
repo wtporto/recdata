@@ -24,8 +24,15 @@ public class ItemResource {
 	public ArrayList<Item> listarTodos() throws SQLException {
 		return new ItemController().listarTodos();
 	}
-
-	// OKAY
+	
+	@POST
+	@Path("/consultarItens")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public ArrayList<Item> consultarItens(Item item) throws SQLException {
+		return new ItemController().consultarItens(item);
+	}
+	
 	@POST
 	@Path("/criar")
 	@Consumes("application/json")
@@ -34,7 +41,6 @@ public class ItemResource {
 		return new ItemController().creat(item);
 	}
 
-	// NADA A VER APRIMORAR
 	@POST
 	@Path("/leitor")
 	@Consumes("application/json")

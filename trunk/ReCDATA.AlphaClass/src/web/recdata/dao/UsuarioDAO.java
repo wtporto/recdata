@@ -70,42 +70,40 @@ public class UsuarioDAO {
 
 	}
 
-	public Usuario verificaLogin(Usuario user) {
+	public Usuario verificaLogin(Usuario usuario) {
 
 		Usuario usuarioConsulta = null;
 
 		try {
 
-			String sql = "SELECT login_usuario,nome_usuario,email_usuario,telefone_usuario,cpf_usuario,"
-					+ "   endereco_usuario,data_nasc_usuario,sexo_usuario,tb_tipousuario_idTipousuario FROM `tb_usuario` U "
-					+ "WHERE U.login_usuario = ? AND U.senha_usuario = ?";
+			String sql = "SELECT U.idUsuario, U.login_usuario, U.nome_usuario, U.email_usuario,"
+					+ " U.telefone_usuario, U.cpf_usuario, U.endereco_usuario,"
+					+ " U.data_nasc_usuario, U.sexo_usuario, U.tb_tipousuario_idTipousuario"
+					+ " FROM tb_usuario as U"
+					+ " WHERE U.login_usuario = '" + usuario.getLoginUsuario() + "'"
+					+ " AND U.senha_usuario = '" + usuario.getSenhaUsuario() + "'";
 
-			// prepared statement para inser��o
+			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
-
-			stmt.setString(1, user.getLoginUsuario());
-			stmt.setString(2, user.getSenhaUsuario());
-
 			ResultSet rs = stmt.executeQuery(sql);
 
 			if (rs.next()) {
-
 				usuarioConsulta = new Usuario();
-				usuarioConsulta.setUsuarioId(rs.getInt("idUsuario"));
-				usuarioConsulta.setLoginUsuario(rs.getString("login_usuario"));
-				usuarioConsulta.setNomeUsuario(rs.getString("nome_Usuario"));
-				usuarioConsulta.setEmailUsuario(rs.getString("email_Usuario"));
+				usuarioConsulta.setUsuarioId(rs.getInt("U.idUsuario"));
+				usuarioConsulta.setLoginUsuario(rs.getString("U.login_usuario"));
+				usuarioConsulta.setNomeUsuario(rs.getString("U.nome_Usuario"));
+				usuarioConsulta.setEmailUsuario(rs.getString("U.email_Usuario"));
 				usuarioConsulta.setTelefoneUsuario(rs
-						.getString("telefone_usuario"));
-				usuarioConsulta.setCpfUsuario(rs.getString("cpf_usuario"));
+						.getString("U.telefone_usuario"));
+				usuarioConsulta.setCpfUsuario(rs.getString("U.cpf_usuario"));
 				usuarioConsulta.setEnderecoUsuario(rs
 						.getString("endereco_usuario"));
 				usuarioConsulta
-						.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
-				usuarioConsulta.setSexoUsuario(rs.getString("sexo_usuario"));
+						.setIdadeUsuario(rs.getDate("U.data_nasc_usuario"));
+				usuarioConsulta.setSexoUsuario(rs.getString("U.sexo_usuario"));
 				usuarioConsulta.setIdTipoUsuario(rs
-						.getInt("tb_tipousuario_idTipousuario"));
+						.getInt("U.tb_tipousuario_idTipousuario"));
 			}
 
 			stmt.close();

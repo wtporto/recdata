@@ -1,7 +1,8 @@
- package web.recdata.resource;
+package web.recdata.resource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -10,11 +11,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.ResponseProcessingException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import web.recdata.controller.UsuarioController;
+import web.recdata.validacao.Validar;
 import br.edu.ifpb.recdata.entidades.Erro;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
@@ -27,37 +28,36 @@ public class UsuarioResource {
 	public ArrayList<Usuario> listarTodos() throws SQLException {
 		return new UsuarioController().listarTodos();
 	}
-	
+
 	@POST
 	@Path("/verificar")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response  verificaLogin(Usuario user) {
-		  
+	public Response verificaLogin(Usuario usuario) {
+
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
-		Usuario usuarioConsulta= new Usuario();
-		  
-		try {
+		builder.expires(new Date());
 
-			
-			usuarioConsulta= new UsuarioController().verificaLogin(user);       
-            
-            builder.status(Response.Status.OK);
-            builder.entity(usuarioConsulta);
+		int validacao = Validar.validarLogin();
+		if (validacao == Validar.VALIDACAO_OK) {
 
-	    } catch (Exception e) {
-	            Erro erro = new Erro();
-	            erro.setCodigo(1);
-	            erro.setMensagem("N�o Foi Possivel encontra Usuario");
-	
-	            builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
-	                            erro);
-	    }
-	
-	return builder.build();
-	
+			UsuarioController controller = new UsuarioController();
+			Usuario usuarioConsulta = controller.verificaLogin(usuario);
+
+			if (usuarioConsulta != null) {
+				builder.status(Response.Status.ACCEPTED);
+				builder.entity(usuarioConsulta);
+			} else {
+				Erro erro = new Erro();
+				erro.setCodigo(1);
+				erro.setMensagem("Usuário não autorizado");
+				builder.status(Response.Status.FORBIDDEN).entity(erro);
+			}
+		}
+
+		return builder.build();
 	}
-	
+
 	@POST
 	@Path("/criar")
 	@Consumes("application/json")

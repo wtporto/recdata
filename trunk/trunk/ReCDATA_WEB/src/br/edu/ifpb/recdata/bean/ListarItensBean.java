@@ -1,5 +1,7 @@
 package br.edu.ifpb.recdata.bean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -11,9 +13,11 @@ import br.edu.ifpb.recdata.service.ReCDATAService;
 
 @ManagedBean(name="listarItensBean")
 @SessionScoped
-public class ListarItensBean extends Item {	
-	
-	public String mensagem;
+public class ListarItensBean extends Item implements Serializable{
+
+	private static final long serialVersionUID = -7386032833652667551L;
+
+	private List<Item> itens = new ArrayList<Item>();
 	
 	ReCDATAService service = ProviderServiceFactory
 			.createServiceClient(ReCDATAService.class);
@@ -23,20 +27,19 @@ public class ListarItensBean extends Item {
 
 		Item item = new Item();
 		item.setDescricaoItem(getDescricaoItem());
-		List<Item> itens = this.service.consultarItens(item);
+		this.itens = this.service.consultarItens(item);
 		
-		mensagem = itens.toString();
-		
-		System.out.println(mensagem);
+		System.out.println(itens.toString());
 		
 		return navegacao;
 	}
 
-	public String getMensagem() {
-		return mensagem;
+	public void reservarItem(Item item) {
+		ReservarItemBean reservaItem = new ReservarItemBean(item);
+		reservaItem.redirecionarReservaItem();		
 	}
-
-	public void setMensagem(String mensagem) {
-		this.mensagem = mensagem;
+	
+	public List<Item> getItens() {
+		return itens;
 	}
 }

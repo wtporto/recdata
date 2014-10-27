@@ -8,9 +8,19 @@
 	<div id='cadastraritem-form'>
 		<div class='inside'>
 
-			<h1>Buscar Item</h1>
+			<h1>Buscar Item</h1>			
+
+			<!-- Progress -->
+			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Status"   
+					draggable="false" closable="false">  
+				<p:graphicImage value="imagens/progress.gif" />  
+			</p:dialog>
+			
+			<!-- Formulário -->
 			<h:form>
-				<h:messages id="messagesCadastrarItem" globalOnly="true" />
+				<h:messages id="messagesBuscarItem" globalOnly="true" />
 				<h:panelGrid columns="1">
 					
 					<!-- Nome do Item -->
@@ -19,21 +29,36 @@
 						value="#{listarItensBean.descricaoItem}" size="45"
 						required="true">
 						<f:validateLength maximum="45" />
-						<p:ajax event="keyup" update="output" listener="#{listarItensBean.listarItens}"></p:ajax>
+						<p:ajax event="keyup" update="itens" listener="#{listarItensBean.listarItens}"></p:ajax>
 					</h:inputText>
 					<h:message for="descricaoItem" />					
-
-					<p:outputLabel id="output" value="Output A : #{listarItensBean.mensagem}">
-					</p:outputLabel>
-				<!-- /h:panelGrid>
-					<h:panelGroup id="b1">
-						<h:panelGrid columns="1">
-							<p:inputText value="#{cidadeBean.cidade.cidadeDescricao}" />
-							<p:inputText value="#{cidadeBean.cidade.cidadeCep}" />
-							<p:inputText value="#{cidadeBean.cidade.uf}" />
-						</h:panelGrid>
-					</h:panelGroup -->
 				</h:panelGrid>
+								
+				<!-- Listagem dos itens-->
+				<p:dataScroller value="#{listarItensBean.itens}" var="item" chunkSize="10" id="itens">
+			        <f:facet name="header">
+			            Lista dos itens
+			        </f:facet>
+			 
+			        <h:panelGrid columns="3" columnClasses="logo, detail, link">
+			            
+			            <p:graphicImage value="imagens/datashow.jpg"/> 
+			 
+			            <p:outputPanel>
+			                <h:panelGrid columns="1">
+			                    <h:outputText value="Descrição:" />
+			                    <h:outputText value="#{item.descricaoItem}"/>
+			 
+			                    <h:outputText value="Categoria:" />
+			                    <h:outputText value="#{item.categoria.descricaoCategoria}"/>
+			                </h:panelGrid>
+			            </p:outputPanel>
+			            
+			            <p:commandLink id="reservarItemLink" actionListener="#{listarItensBean.reservarItem(item)}" ajax="false">
+        					<h:outputText value="Reservar" />
+    					</p:commandLink>
+			        </h:panelGrid>
+			    </p:dataScroller>
 			</h:form>
 		</div>
 	</div>

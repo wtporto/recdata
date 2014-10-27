@@ -45,11 +45,11 @@ public class UsuarioLoginAsyncTask extends
                 try {
                         // Conversão do response ( resposta HTTP) para String.
                         String json = HttpUtil.entityToString(response);
-                        Log.i("ReCDATA", "Resquest - GET: " + json);
+                        Log.i("ReCDATA", "Resquest - POST: " + json);
 
                         JSONObject jsonObject = new JSONObject(json);
 
-                        if (httpCode == 200) {
+                        if (httpCode >200 &&  httpCode <400) {
                                 
                                 Toast.makeText(activity.getApplicationContext(),
                                                 "Bem vindo, " + jsonObject.getString("nomeUsuario"),

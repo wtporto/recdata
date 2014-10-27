@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import br.edu.ifpb.R;
-import br.edu.ifpb.recdata.servicos.VerificaServidorON;
+import br.edu.ifpb.recdata.servicos.VerificaServidorOnlineAsyncTasck;
 
 public class TelaAbertura extends Activity implements Runnable {
 
@@ -21,7 +21,7 @@ public class TelaAbertura extends Activity implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		VerificaServidorON verifica_conexao = new VerificaServidorON(this);
+		VerificaServidorOnlineAsyncTasck verifica_conexao = new VerificaServidorOnlineAsyncTasck(this);
 		verifica_conexao.execute();
 	}
 }

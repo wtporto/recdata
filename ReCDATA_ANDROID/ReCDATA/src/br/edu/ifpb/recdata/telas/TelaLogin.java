@@ -51,8 +51,8 @@ public class TelaLogin extends Activity implements OnClickListener {
 		JSONObject jsonObject = new JSONObject();
 
 		try {
-			jsonObject.put("loginUsuario", login.getText());
-			jsonObject.put("senhaUsuario", senha.getText());
+			jsonObject.put("loginUsuario", login.getText().toString());
+			jsonObject.put("senhaUsuario", senha.getText().toString());
 
 		} catch (JSONException e) {
 			Log.e("ReCDATA", e.getMessage());
@@ -66,16 +66,13 @@ public class TelaLogin extends Activity implements OnClickListener {
 
 		if ((Metodos.ValidarCampoEditText(login) == true)
 				&& (Metodos.ValidarCampoEditText(senha) == true)) {
-			
-			
+
 			JSONObject jsonObject = logarUsuario();
 			UsuarioLoginAsyncTask usuarioLogar = new UsuarioLoginAsyncTask(this);
 			usuarioLogar.execute(jsonObject);
 
 		} else if ((Metodos.ValidarCampoEditText(login) == false)
 				&& (Metodos.ValidarCampoEditText(senha) == false)) {
-
-			
 
 		}
 	}

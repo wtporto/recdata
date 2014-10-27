@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import web.recdata.controller.UsuarioController;
+import web.recdata.exececao.ReCDataSQLException;
 import web.recdata.validacao.Validar;
 import br.edu.ifpb.recdata.entidades.Erro;
 import br.edu.ifpb.recdata.entidades.Usuario;
@@ -59,11 +60,38 @@ public class UsuarioResource {
 	}
 
 	@POST
-	@Path("/criar")
+	@Path("/cadastrar")
 	@Consumes("application/json")
-	@Produces("text/plan")
-	public String creat(Usuario user) {
-		return new UsuarioController().creat(user);
+	@Produces("application/json")
+	public Response creat(Usuario usuario) {
+
+		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
+		builder.expires(new Date());
+
+		int validacao = Validar.validarUsuario();
+		if (validacao == Validar.VALIDACAO_OK) {
+
+			try {
+
+				UsuarioController controller = new UsuarioController();
+				int idUsuario = controller.creat(usuario);
+				usuario.setUsuarioId(idUsuario);
+
+				builder.status(Response.Status.CREATED);
+				builder.entity(usuario);
+
+			} catch (ReCDataSQLException qme) {
+
+				Erro erro = new Erro();
+				erro.setCodigo(qme.getErrorCode());
+				erro.setMensagem(qme.getMessage());
+
+				builder.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
+						erro);
+			}
+		}
+
+		return builder.build();
 	}
 
 	@POST

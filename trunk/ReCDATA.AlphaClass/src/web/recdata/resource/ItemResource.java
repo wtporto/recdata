@@ -48,8 +48,7 @@ public class ItemResource {
 	public ArrayList<Item> readById(Item item) {
 		return new ItemController().readById(item);
 	}
-
-	// MODIFICAR OS DAO (ESSE JA ESTA ATUALIZADO)
+	
 	@Path("/atualizar")
 	@PUT
 	@Consumes("application/json")
@@ -58,7 +57,6 @@ public class ItemResource {
 		return new ItemController().update(item);
 	}
 
-	// FUNCIONANDO
 	@Path("/deletar")
 	@DELETE
 	@Consumes("application/json")

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import web.recdata.dao.UsuarioDAO;
+import web.recdata.exececao.ReCDataSQLException;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 public class UsuarioController {
@@ -15,8 +16,8 @@ public class UsuarioController {
 		return UsuarioDAO.getInstance().readById(user);
 	}
 
-	public Usuario creat(Usuario user) {
-		return 	UsuarioDAO.getInstance().creat(user);
+	public int creat(Usuario user) throws ReCDataSQLException {		
+		return UsuarioDAO.getInstance().creat(user);
 	}
 
 	public String delete(Usuario user) {

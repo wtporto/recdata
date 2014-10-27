@@ -8,23 +8,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ReservaItem implements Entidade {
 
 	private int idReserva;
-	private int usuarioIdReserva;
-	private int itemIdReserva;
+	private Usuario usuario;
+	private Item item;
 	private Date horaDataInicio;
 	private Date horaDataFim;
 	
-	public ReservaItem(int idReserva, int usuarioIdReserva, int itemIdReserva,
+	public ReservaItem() {}
+	
+	public ReservaItem(int idReserva, Usuario usuario, Item item,
 			Date horaDataInicio, Date horaDataFim) {
 		super();
 		this.idReserva = idReserva;
-		this.usuarioIdReserva = usuarioIdReserva;
-		this.itemIdReserva = itemIdReserva;
+		this.usuario = usuario;
+		this.item = item;
 		this.horaDataInicio = horaDataInicio;
 		this.horaDataFim = horaDataFim;
 	}
 
-	public ReservaItem() {
-		//null
+	@Override
+	public String toString() {
+		return "ReservaItem [idReserva=" + idReserva + ", usuario="
+				+ usuario + ", item=" + item
+				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
+				+ horaDataFim + "]";
 	}
 
 	public int getIdReserva() {
@@ -35,20 +41,20 @@ public class ReservaItem implements Entidade {
 		this.idReserva = idReserva;
 	}
 
-	public int getUsuarioIdReserva() {
-		return usuarioIdReserva;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarioIdReserva(int usuarioIdReserva) {
-		this.usuarioIdReserva = usuarioIdReserva;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public int getItemIdReserva() {
-		return itemIdReserva;
+	public Item getItem() {
+		return item;
 	}
 
-	public void setItemIdReserva(int itemIdReserva) {
-		this.itemIdReserva = itemIdReserva;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public Date getHoraDataInicio() {
@@ -65,14 +71,6 @@ public class ReservaItem implements Entidade {
 
 	public void setHoraDataFim(Date horaDataFim) {
 		this.horaDataFim = horaDataFim;
-	}
-
-	@Override
-	public String toString() {
-		return "ReservaItem [idReserva=" + idReserva + ", usuarioIdReserva="
-				+ usuarioIdReserva + ", itemIdReserva=" + itemIdReserva
-				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
-				+ horaDataFim + "]";
 	}
 
 }

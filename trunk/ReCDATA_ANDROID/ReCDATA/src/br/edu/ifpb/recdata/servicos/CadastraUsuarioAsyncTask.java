@@ -34,7 +34,7 @@ public class CadastraUsuarioAsyncTask extends AsyncTask<JSONObject, Void, HttpRe
 	    // Enviar a requisição HTTP via GET.
         HttpService  httpService = new HttpService();
         HttpResponse response = httpService.sendJsonPostRequest(
-                       "/usuario/criar", jsonObjects[0]);
+                       "/usuario/cadastrar", jsonObjects[0]);
         return response;
 }
 

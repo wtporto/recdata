@@ -15,9 +15,8 @@ public class UsuarioController {
 		return UsuarioDAO.getInstance().readById(user);
 	}
 
-	public String creat(Usuario user) {
-		UsuarioDAO.getInstance().creat(user);
-		return "Criado com sucesso";
+	public Usuario creat(Usuario user) {
+		return 	UsuarioDAO.getInstance().creat(user);
 	}
 
 	public String delete(Usuario user) {

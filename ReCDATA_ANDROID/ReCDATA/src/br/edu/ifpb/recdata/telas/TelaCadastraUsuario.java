@@ -3,6 +3,7 @@ package br.edu.ifpb.recdata.telas;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -17,13 +18,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import br.edu.ifpb.R;
-import br.edu.ifpb.recdata.entity.Usuario;
+import br.edu.ifpb.recdata.servicos.CadastraUsuarioAsyncTask;
+import br.edu.ifpb.recdata.servicos.UsuarioLoginAsyncTask;
 
 public class TelaCadastraUsuario extends Activity implements OnClickListener {
 
 	private List<String> itens_user = new ArrayList<String>();
 
-	//atributos para montar o usuario e envia para o servidor
+	// atributos para montar o usuario e envia para o servidor
 	EditText nome;
 	EditText cpf;
 	EditText login;
@@ -32,10 +34,9 @@ public class TelaCadastraUsuario extends Activity implements OnClickListener {
 	EditText endereco;
 	EditText telefone;
 	EditText email;
-	RadioGroup sexo;
+	RadioGroup sexoRadio;
 	Spinner tipoUsuario;
-	
-	
+
 	/*
 	 * login_usuario,senha_usuario,nome_usuario,email_usuario,telefone_usuario,
 	 * cpf_usuario," +
@@ -54,15 +55,35 @@ public class TelaCadastraUsuario extends Activity implements OnClickListener {
 		itens_user.add("Monitor");
 
 		tipoUsuario = (Spinner) findViewById(R.id.tipousuario);
-
+        
 		this.ativarSpinner(tipoUsuario, itens_user);
-		
+
 		Button Cadastrar = (Button) findViewById(R.id.criar_conta);
 		Cadastrar.setOnClickListener(this);
-		
-		
+
 	}
 
+/*	public String capturavalorTipoUsuario(){
+	
+		 final String descricaoUsuario;
+		
+		tipoUsuario.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+			
+				descricaoUsuario = (String) parent.getItemAtPosition(position);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+
+			
+		});	
+		return descricaoUsuario;
+	}
+	*/
 	public void ativarSpinner(Spinner generico, List<String> itens_genericos) {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, itens_genericos);
@@ -70,17 +91,7 @@ public class TelaCadastraUsuario extends Activity implements OnClickListener {
 		generico.setAdapter(adapter);
 		generico.setSelection(0);
 
-		generico.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
+	
 	}
 
 	/*
@@ -91,62 +102,63 @@ public class TelaCadastraUsuario extends Activity implements OnClickListener {
 	 * "senhaUsuario":null, "idTipoUsuario":2, "descricao_tipoUsuario":null
 	 */
 
-	public void capturavalor(){
-		
-		radioGroup1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-		    @Override
-		    public void onCheckedChanged(RadioGroup group, int checkedId) {
-		      switch(checkedId) {
-		        case R.id.radioValor1:
-		          if (checked)
-		                // trata radioValor1
-		          break;
-		        case R.id.radioValor2:
-		          if (checked)
-		                // trata radioValor2
-		          break;
-		      }           
-		    }
-		  });
+	public String capturavalor() {
+
+		String sexoEscolhido = null;
+
+		sexoRadio = (RadioGroup) findViewById(R.id.sexo);
+
+		switch (sexoRadio.getCheckedRadioButtonId()) {
+		case R.id.sexoMasculino:
+			sexoEscolhido = "M";
+			break;
+		case R.id.sexoFeminino:
+			sexoEscolhido = "F";
+			break;
+
+		default:
+			break;
+		}
+
+		return sexoEscolhido;
 	}
-	public Usuario montarObjetoUsuario() {
 
-		Usuario usuarioMontar= new Usuario();
-		return usuarioMontar;
+	public String montarHoraPicker() {
+		// montar a data
+		int dataNascAno = dataNascimento.getYear();
+		int dataNascMes = dataNascimento.getMonth();
+		int dataNascDia = dataNascimento.getDayOfMonth();
 
+		String dataNascimentoCompleto = String.valueOf(dataNascAno) + "-"
+				+ String.valueOf(dataNascMes) + "-"
+				+ String.valueOf(dataNascDia);
+
+		// ==========================================
+
+		return dataNascimentoCompleto;
 	}
 
 	public JSONObject montarObjetoJSON() {
 
 		JSONObject jsonObject = null;
 
-		//montar a data
-		   int dataNascAno = dataNascimento.getYear();
-		   int dataNascMes = dataNascimento.getMonth();
-		   int dataNascDia = dataNascimento.getDayOfMonth();
-		   
-		   String dataNascimentoCompleto = String.valueOf(dataNascAno)
-				   +"-"+String.valueOf(dataNascMes)+
-				   "-"+String.valueOf(dataNascDia);
-		   
-		 //==========================================
-		jsonObject.put("nomeUsuario",nome.getText().toString() );
-		
-		jsonObject.put("emailUsuario", email.getText().toString());
-		
-		jsonObject.put("telefoneUsuario",telefone.getText().toString());
-		
-		jsonObject.put("idadeUsuario",dataNascimentoCompleto);
-		
-		jsonObject.put("sexoUsuario", sexo.get);
+		try {
+			jsonObject.put("nomeUsuario",nome.getText().toString() );
+			jsonObject.put("emailUsuario", email.getText().toString());
+			jsonObject.put("telefoneUsuario",telefone.getText().toString());
+			jsonObject.put("idadeUsuario",montarHoraPicker());
+			jsonObject.put("sexoUsuario",capturavalor());
+			jsonObject.put("cpfUsuario", cpf.getText().toString());
+			jsonObject.put("enderecoUsuario", endereco.getText().toString());
+			jsonObject.put("loginUsuario", login.getText().toString());
+			jsonObject.put("senhaUsuario", senha.getText().toString());
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
-		jsonObject.put(name, value)
-		
-		jsonObject.put(name, value)
-		jsonObject.put(name, value)
-		jsonObject.put(name, value)
-		jsonObject.put(name, value)
 		
 		return jsonObject;
 
@@ -154,8 +166,11 @@ public class TelaCadastraUsuario extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
+
+		JSONObject jsonObject = montarObjetoJSON();
+		 CadastraUsuarioAsyncTask  cadastrar= new CadastraUsuarioAsyncTask(this);
+		cadastrar.execute(jsonObject);
+
 	}
 
 }

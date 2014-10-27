@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import web.recdata.factory.ConnectionFactory;
+import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
+import br.edu.ifpb.recdata.entidades.Usuario;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -24,7 +26,7 @@ public class ReservaDAO {
 		return instance;
 	}
 
-	// a conex�o com o banco de dados
+	// a conexão com o banco de dados
 	public Connection connection;
 
 	public ReservaDAO(ConnectionFactory banco) {
@@ -46,8 +48,8 @@ public class ReservaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getItemIdReserva());
-			stmt.setInt(2, reserva.getUsuarioIdReserva());
+			stmt.setInt(1, reserva.getItem().getIdItem());
+			stmt.setInt(2, reserva.getUsuario().getUsuarioId());
 			stmt.setDate(3, new java.sql.Date(reserva.getHoraDataInicio()
 					.getTime()));
 			stmt.setTime(4, new java.sql.Time(reserva.getHoraDataInicio()
@@ -70,11 +72,6 @@ public class ReservaDAO {
 
 		try {
 
-			/*
-			 * 
-			 * DELETE FROM `tb_item` WHERE `idItem`=" + item.getIdItem()
-			 */
-
 			String sql = "DELETE FROM tb_reserva WHERE idReserva = ?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -96,19 +93,13 @@ public class ReservaDAO {
 
 		try {
 
-			/*
-			 * "UPDATE `tb_item` SET `descricao_item`=\"" +
-			 * item.getDescricaoItem() + "\" WHERE `idItem`=" +
-			 * item.getIdItem();
-			 */
-
 			String sql = "UPDATE tb_reserva SET tb_item_idItem = ? WHERE idReserva = ?";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getItemIdReserva());
+			stmt.setInt(1, reserva.getItem().getIdItem());
 			stmt.setInt(2, reserva.getIdReserva());
 
 			// envia para o Banco e fecha o objeto
@@ -130,26 +121,31 @@ public class ReservaDAO {
 
 			String sql = "SELECT * FROM tb_reserva WHERE tb_usuario_idUsuario = ?";
 
-			// prepared statement para inser��o
+			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getUsuarioIdReserva());
+			stmt.setInt(1, reserva.getUsuario().getUsuarioId());
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				reservaAux = new ReservaItem();
 				reservaAux.setIdReserva(rs.getInt("idReserva"));
-				reservaAux.setItemIdReserva(rs.getInt("tb_item_idItem"));
-				reservaAux.setUsuarioIdReserva(rs
-						.getInt("tb_usuario_idUsuario"));
+
+				Item item = new Item();
+				item.setIdItem(rs.getInt("tb_item_idItem"));
+				reservaAux.setItem(item);
+
+				Usuario usuario = new Usuario();
+				usuario.setUsuarioId(rs.getInt("tb_usuario_idUsuario"));
+				reservaAux.setUsuario(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()
 						+ rs.getTime("hora_inicio").getTime();
 
 				reservaAux.setHoraDataInicio(new Date(dateHoraInicio));
-				
+
 				long dateHoraFim = rs.getDate("data_fim").getTime()
 						+ rs.getTime("hora_fim").getTime();
 
@@ -170,7 +166,7 @@ public class ReservaDAO {
 		ReservaItem reservaAux = null;
 		String sql = "SELECT * FROM tb_reserva";
 
-		// prepared statement para inser��o
+		// prepared statement para inseeção
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
 
@@ -179,23 +175,28 @@ public class ReservaDAO {
 		while (rs.next()) {
 			reservaAux = new ReservaItem();
 			reservaAux.setIdReserva(rs.getInt("idReserva"));
-			reservaAux.setItemIdReserva(rs.getInt("tb_item_idItem"));
-			reservaAux.setUsuarioIdReserva(rs.getInt("tb_usuario_idUsuario"));
+
+			Item item = new Item();
+			item.setIdItem(rs.getInt("tb_item_idItem"));
+			reservaAux.setItem(item);
+
+			Usuario usuario = new Usuario();
+			usuario.setUsuarioId(rs.getInt("tb_usuario_idUsuario"));
+			reservaAux.setUsuario(usuario);
 
 			long dateHoraInicio = rs.getDate("data_inicio").getTime()
 					+ rs.getTime("hora_inicio").getTime();
 
 			reservaAux.setHoraDataInicio(new Date(dateHoraInicio));
-			
+
 			long dateHoraFim = rs.getDate("data_fim").getTime()
 					+ rs.getTime("hora_fim").getTime();
 
 			reservaAux.setHoraDataFim(new Date(dateHoraFim));
-			
+
 			reservas.add(reservaAux);
 		}
 
 		return reservas;
 	}
-
 }

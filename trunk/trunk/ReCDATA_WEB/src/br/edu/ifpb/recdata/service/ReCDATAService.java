@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
+import br.edu.ifpb.recdata.entidades.Usuario;
 
 /**
  * Definition: Contains the services interfaces of QManager.
@@ -43,4 +44,10 @@ public interface ReCDATAService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public ArrayList<Item> consultarItens(Item item);
+	
+	@POST
+	@Path("/usuario/consultarUsuarios")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public List<Usuario> consultarUsuarios(Usuario usuario);
 }

@@ -2,6 +2,7 @@ package web.recdata.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import web.recdata.dao.UsuarioDAO;
 import web.recdata.exececao.ReCDataSQLException;
@@ -31,6 +32,10 @@ public class UsuarioController {
 	}
 	
 	public Usuario verificaLogin(Usuario usuario) {
-		return UsuarioDAO.getInstance().verificaLogin(usuario);
+		return UsuarioDAO.getInstance().verificarLogin(usuario);
+	}
+
+	public List<Usuario> consultarUsuariosByNome(Usuario usuario) throws SQLException {
+		return UsuarioDAO.getInstance().consultarUsuariosByNome(usuario);
 	}
 }

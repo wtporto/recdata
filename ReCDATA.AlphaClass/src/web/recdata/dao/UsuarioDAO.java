@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import web.recdata.exececao.ReCDataSQLException;
 import web.recdata.factory.ConnectionFactory;
 import web.recdata.util.BancoUtil;
+import br.edu.ifpb.recdata.entidades.Categoria;
+import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 import com.mysql.jdbc.Connection;
@@ -79,7 +82,7 @@ public class UsuarioDAO {
 		return chave;
 	}
 
-	public Usuario verificaLogin(Usuario usuario) {
+	public Usuario verificarLogin(Usuario usuario) {
 
 		Usuario usuarioConsulta = null;
 
@@ -141,7 +144,7 @@ public class UsuarioDAO {
 							"SELECT * FROM `tb_usuario` I WHERE I.`tb_tipousuario_idTipousuario`=",
 							user.getIdTipoUsuario());
 
-			// prepared statement para inser��o
+			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -162,7 +165,6 @@ public class UsuarioDAO {
 				user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuario"));
 
 				users.add(user);
-
 			}
 
 		} catch (SQLException sqle) {
@@ -176,7 +178,6 @@ public class UsuarioDAO {
 	public void update(Usuario user) {
 
 		try {
-
 			// Define um update com os atributos e cada valor � representado
 			// por
 			// ?
@@ -228,7 +229,8 @@ public class UsuarioDAO {
 
 		String sql = String
 				.format("%s",
-						"SELECT * FROM `tb_usuario` U,`tb_tipousuario` T WHERE U.tb_tipousuario_idTipousuario = T.idTipousuario");
+						"SELECT * FROM tb_usuario as U, tb_tipousuario as T"
+						+ " WHERE U.tb_tipousuario_idTipousuario = T.idTipousuario");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
@@ -253,9 +255,37 @@ public class UsuarioDAO {
 			user.setDescricao_tipoUsuario(rs.getString("descricao_tipousuario"));
 
 			users.add(user);
-
 		}
 
+		stmt.close();
+		
 		return users;
+	}
+
+	public List<Usuario> consultarUsuariosByNome(Usuario usuario) throws SQLException {
+		
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		String sql = String.format("%s '%s'",
+				"SELECT U.idUsuario, U.nome_usuario"
+				+ " FROM tb_usuario as U"
+				+ " WHERE U.nome_usuario LIKE ",
+				usuario.getNomeUsuario() + "%");
+
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery(sql);
+
+		while (rs.next()) {
+			Usuario usuarioConsulta = new Usuario();
+			usuarioConsulta.setUsuarioId(rs.getInt("U.idUsuario"));
+			usuarioConsulta.setNomeUsuario(rs.getString("U.nome_usuario"));
+			usuarios.add(usuarioConsulta);
+		}
+		
+		stmt.close();
+
+		return usuarios;
 	}
 }

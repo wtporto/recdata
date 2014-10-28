@@ -3,6 +3,7 @@ package web.recdata.resource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,6 +29,14 @@ public class UsuarioResource {
 	@Produces("application/json")
 	public ArrayList<Usuario> listarTodos() throws SQLException {
 		return new UsuarioController().listarTodos();
+	}
+	
+	@POST
+	@Path("/consultarUsuarios")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public List<Usuario> consultarUsuarios(Usuario usuario) throws SQLException {
+		return new UsuarioController().consultarUsuariosByNome(usuario);
 	}
 
 	@POST

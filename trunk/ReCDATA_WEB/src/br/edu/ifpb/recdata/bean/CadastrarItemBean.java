@@ -63,11 +63,7 @@ public class CadastrarItemBean extends Item {
 		return this.categorias;
 	}
 	
-	private void resetCadastrarItemBean() {
-		  
-		FacesContext fc = FacesContext.getCurrentInstance();  
-		  if (fc.getExternalContext().getRequestMap().containsKey("cadastrarItemBean")) { 
-		    fc.getExternalContext().getRequestMap().remove("cadastrarItemBean");  
-		  }
+	private void resetCadastrarItemBean() {		
+		GenericBean.resetRequestScopedBean("cadastrarItemBean");
 	}
 }

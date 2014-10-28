@@ -8,12 +8,29 @@
 
 	<div id='cadastraritem-form'>
 		<div class='inside'>
+		
+			<!-- Progress -->
+			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Aguarde"   
+					draggable="false" closable="false">  
+				<p:graphicImage value="resources/imagens/progress.gif" />  
+			</p:dialog>
+			
 			<!-- Formulário -->
 			<h:form>
 
 				<h:messages id="messagesReservarItem" globalOnly="true" />
 
 				<h:panelGrid columns="1">
+				
+					<p:outputLabel value="Item:" for="descricaoItem" />
+					<h:inputText value="#{reservarItemBean.item.descricaoItem}" 
+						readonly="true" id="descricaoItem">
+                    </h:inputText>
+                    <h:message for="descricaoItem" />
+				
+				
 					<!-- Autocomplete - Usuário -->
 					<p:outputLabel value="Nome do usuário:" for="nomeUsuario" />
 					<p:autoComplete id="nomeUsuario" multiple="true"
@@ -63,7 +80,12 @@
 						<h:selectBooleanCheckbox id="retirarItem" value="#{reservarItemBean.retirarItem}" />
 	    				<h:outputLabel value="Deseja retirar o item agora?" for="retirarItem" />
 	    				<h:message for="retirarItem" />	
-    				</h:panelGrid>				
+    				</h:panelGrid>
+    				
+    				<h:panelGrid columns="2">
+    					<input id="bt_clean" type="reset" value="Limpar"/>	
+						<h:commandButton id="bt_send" value="Reservar" action="#{reservarItemBean.reservarItem}"/>							
+					</h:panelGrid>				
 				</h:panelGrid>
 			</h:form>
 		</div>

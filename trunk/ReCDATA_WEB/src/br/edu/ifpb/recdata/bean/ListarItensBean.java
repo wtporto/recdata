@@ -36,6 +36,8 @@ public class ListarItensBean extends Item implements Serializable{
 
 	public void reservarItem(Item item) {
 		ReservarItemBean reservaItem = new ReservarItemBean(item);
+		GenericBean.setSessionValue("reservarItemBean", reservaItem);
+		
 		reservaItem.redirecionarReservaItem();		
 	}
 	

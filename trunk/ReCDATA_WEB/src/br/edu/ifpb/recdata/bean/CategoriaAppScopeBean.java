@@ -24,6 +24,7 @@ public class CategoriaAppScopeBean implements Serializable {
 	private void populateCategorias() {
 
 		if (categorias == null || (categorias != null && categorias.isEmpty())) {
+			
 			// Recuperar das categorias do servidor os valores.			
 			ReCDATAService service = ProviderServiceFactory
 					.createServiceClient(ReCDATAService.class);

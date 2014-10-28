@@ -130,12 +130,20 @@
 			<artifactId>resteasy-jaxrs</artifactId>
 			<version>3.0.4.Final</version>
 		</dependency>
-		
+
 		<!-- Primeface -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>5.0</version>
 		</dependency>
+
+		<!-- Primeface Extensions -->
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
 	</dependencies>
 </project>

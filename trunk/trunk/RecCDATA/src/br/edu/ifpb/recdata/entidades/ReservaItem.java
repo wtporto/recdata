@@ -12,6 +12,7 @@ public class ReservaItem implements Entidade {
 	private Item item;
 	private Date horaDataInicio;
 	private Date horaDataFim;
+	private Date dataRegistro;
 	
 	public ReservaItem() {}
 	
@@ -71,6 +72,14 @@ public class ReservaItem implements Entidade {
 
 	public void setHoraDataFim(Date horaDataFim) {
 		this.horaDataFim = horaDataFim;
+	}
+
+	public Date getDataRegistro() {
+		return dataRegistro;
+	}
+
+	public void setDataRegistro(Date dataRegistro) {
+		this.dataRegistro = dataRegistro;
 	}
 
 }

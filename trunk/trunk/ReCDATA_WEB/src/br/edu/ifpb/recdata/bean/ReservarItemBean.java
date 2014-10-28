@@ -1,6 +1,8 @@
 package br.edu.ifpb.recdata.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,46 @@ public class ReservarItemBean extends ReservaItem{
 	
 	public ReservarItemBean(Item item) {
 		super.setItem(item);
+	}
+	
+	public String reservarItem() {
+		
+		System.out.println("Usuário: " + usuariosSelecionados);
+        System.out.println("Item: " + getItem());
+        System.out.println("Data" + dataInicio + " Hora:" + horaInicio);
+        System.out.println("Data" + dataFim + " Hora:" + horaFim);       
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dataInicio);
+
+        Integer dia = cal.get(Calendar.DAY_OF_MONTH);
+        Integer mes = cal.get(Calendar.MONTH);
+        Integer ano = cal.get(Calendar.YEAR);        
+        
+        long dateTimeMilis = dataInicio.getTime() + horaInicio.getTime();
+        Date dataHoraInicio = new Date(dateTimeMilis);
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(dateTimeMilis);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
+        String data = formatter.format(calendar.getTime());
+        
+        horaInicio.getMinutes();
+		return null;		
+	}
+	
+	private Date getDataHora(Date data, Date hora){
+		        
+        Calendar horaCalendar = Calendar.getInstance();
+        horaCalendar.setTime(hora);
+        
+        Calendar dataHoraCalendar = Calendar.getInstance();
+        dataHoraCalendar.setTime(data);
+        dataHoraCalendar.add(Calendar.HOUR, horaCalendar.get(Calendar.HOUR));
+        dataHoraCalendar.add(Calendar.MINUTE, horaCalendar.get(Calendar.MINUTE));
+        dataHoraCalendar.add(Calendar.SECOND, horaCalendar.get(Calendar.SECOND));       
+        
+		return dataHoraCalendar.getTime();
 	}
 	
 	public void redirecionarReservaItem() {

@@ -204,4 +204,18 @@ public class GenericBean {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void resetRequestScopedBean(String value) {		  
+		FacesContext fc = FacesContext.getCurrentInstance();  
+		  if (fc.getExternalContext().getRequestMap().containsKey(value)) { 
+		    fc.getExternalContext().getRequestMap().remove(value);  
+		  }
+	}
+	
+	public static void resetSessionScopedBean(String value) {		  
+		FacesContext fc = FacesContext.getCurrentInstance();  
+		  if (fc.getExternalContext().getSessionMap().containsKey(value)) { 
+		    fc.getExternalContext().getSessionMap().remove(value);  
+		  }
+	}
 }

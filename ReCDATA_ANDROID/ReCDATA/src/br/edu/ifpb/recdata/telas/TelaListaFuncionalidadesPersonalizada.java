@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import br.edu.ifpb.R;
-import br.edu.ifpb.recdata.leitorCodigoqr.QrCode;
 import br.edu.ifpb.recdata.util.Model;
 import br.edu.ifpb.recdata.util.ModelAdapter;
 
@@ -62,7 +61,7 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity  {
 					startActivity(intent);
 					break;
 				case 2:
-					intent =  new Intent(getBaseContext(), QrCode.class);
+					intent =  new Intent(getBaseContext(), TelaQrCode.class);
 					startActivity(intent);
 					break;
 				case 3:

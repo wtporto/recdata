@@ -53,13 +53,13 @@ public class TelaReservar extends Activity implements OnClickListener {
 		idItem.setText(String.valueOf(itemBundle.getIdItem()));
 
 		descCatItem = (TextView) findViewById(R.id.txview_descCatItem);
-		descCatItem.setText(itemBundle.getDescricaoCategoria());
+		descCatItem.setText(itemBundle.getCategoria().getDescricaoCategoria());
 
 		idCatItem = (TextView) findViewById(R.id.txview_idCatItem);
-		idCatItem.setText(String.valueOf(itemBundle.getIdCategoria()));
+		idCatItem.setText(String.valueOf(itemBundle.getCategoria().getIdCategoria()));
 
 		ImageView imagenIcon = (ImageView) findViewById(R.id.imgview_iconReservaItem);
-		imagenIcon.setImageResource(itemBundle.getImagem(itemBundle.getIdCategoria())) ;
+		imagenIcon.setImageResource(itemBundle.getImagem(itemBundle.getCategoria().getIdCategoria())) ;
 		
 		Button buscabutton = (Button) findViewById(R.id.buttonReserva);
 		buscabutton.setOnClickListener(this);

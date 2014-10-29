@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="callZXing"
-            android:text="Clique é capture o Código"
+            android:text="Clique e capture o Código"
             android:textSize="14dp"
             android:typeface="monospace"
             android:background="#FFF"
@@ -49,6 +49,19 @@
             android:text="Resultado:"
             android:textSize="20sp"
             android:typeface="monospace" />
-    </LinearLayout>
+
+        <Button
+            android:id="@+id/reservaQr"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:background="#FFF"
+            android:layout_marginTop="150dp"
+            android:layout_marginLeft="40dp"
+            android:onClick="callZXing"
+            android:text="Reserva Item?"
+            android:textSize="14dp"
+            android:typeface="monospace" />
+        
+        </LinearLayout>
 
 </RelativeLayout>

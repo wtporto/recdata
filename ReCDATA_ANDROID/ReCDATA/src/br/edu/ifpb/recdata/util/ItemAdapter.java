@@ -59,25 +59,21 @@ public class ItemAdapter extends BaseAdapter {
 		TextView descricao = (TextView) layout.findViewById(R.id.text_view_item_descricao);
  		descricao.setText("Descrição: "+item.getDescricaoItem().toString());
 		
- 		// não sei pq só pega assim :(
  		String idItem="Id.Item: ";
 
 		TextView  iditem  = (TextView) layout.findViewById(R.id.text_view_item_id);
 		iditem.setText(idItem+String.valueOf(item.getIdItem()));
 		
 		TextView categoria = (TextView) layout.findViewById(R.id.text_view_item_categoria);
-		categoria.setText("Categoria: "+item.getDescricaoCategoria().toString());
+		categoria.setText("Categoria: "+item.getCategoria().getDescricaoCategoria().toString());
 	
 		String idCat="Id.Categoria: ";
 		
 		TextView idcategoria = (TextView) layout.findViewById(R.id.text_view_item_idcategoria);
-		idcategoria.setText(idCat+String.valueOf(item.getIdCategoria()));
-		
-		//int idcat = Integer.parseInt((String) idcategoria.getText());
-	
+		idcategoria.setText(idCat+String.valueOf(item.getCategoria().getIdCategoria()));
 		
 		ImageView imagem = (ImageView) layout.findViewById(R.id.image_view_icon_item_lista_result);
-		imagem.setImageResource(item.getImagem(item.getIdCategoria()));
+		imagem.setImageResource(item.getImagem(item.getCategoria().getIdCategoria()));
 		
 		return layout;
 	}

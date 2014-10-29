@@ -1,44 +1,48 @@
 package br.edu.ifpb.recdata.entity;
 
-import java.io.Serializable;
-
 import br.edu.ifpb.R;
 
-public class Item  implements Serializable {
-/*   Tabela Categoria  
- *    `IdCategoria` INT NOT NULL AUTO_INCREMENT,
-	  `descricao_categoria` VARCHAR(45) NOT NULL,
-	  
-	  tabela item
-			`idItem` INT NOT NULL AUTO_INCREMENT,
-  			`tb_categoria_IdCategoria` INT NOT NULL,
-  	`descricao_item` VARCHAR(60) NOT NULL,
-  
-*/
+
+
+public class Item {
+
 	private int idItem;
+	
 	private String descricaoItem;
-	private int idCategoria;
-	private String descricaoCategoria; 
 	
+	private Categoria categoria;
 
-	public Item(){
-		
-	}
-	
-	// construtor pra readById
-	public Item(int itemId) {
-		setIdItem(itemId);
+	public Item() {}
+
+	/**
+	 * Construtor pra readById.
+	 * 
+	 * @param idCategoria
+	 */
+	public Item(int idCategoria) {
+		categoria = new Categoria();
+		categoria.setIdCategoria(idCategoria);
 	}
 
-	// construtor pra creat
-	public Item(String descricaoItem, int idCategoria, String descricaoCategora){
-		
+	/**
+	 * Construtor pra creat.
+	 * 
+	 * @param idCategoria
+	 * @param descricaoItem
+	 */
+	public Item(int idCategoria, String descricaoItem) {
+		categoria = new Categoria();
+		categoria.setIdCategoria(idCategoria);
 		setDescricaoItem(descricaoItem);
-		setIdCategoria(idCategoria);
-		setDescricaoCategoria(descricaoCategora);
-		
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
+				+ ", idCategoria=" + categoria.getIdCategoria() + ", descricaoCategoria="
+				+ categoria.getDescricaoCategoria() + "]";
+	}
+
 	public int getIdItem() {
 		return idItem;
 	}
@@ -55,42 +59,28 @@ public class Item  implements Serializable {
 		this.descricaoItem = descricaoItem;
 	}
 
-	public int getIdCategoria() {
-		return idCategoria;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
-	}
-
-	public String getDescricaoCategoria() {
-		return descricaoCategoria;
-	}
-
-	public void setDescricaoCategoria(String descricaoCategoria) {
-		this.descricaoCategoria = descricaoCategoria;
-	}
-
-	@Override
-	public String toString() {
-		return "Item IdItem: "+ idItem + "Descrição do Item: " + descricaoItem
-				+ "IdCategoria: " + idCategoria + "Descrição da Categoria:"
-				+ descricaoCategoria;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
-	public int getImagem(int idcategoria) {
-		switch (idcategoria) {
-		case 1:
-			 return (R.drawable.icon_chave);
-		case 2:
-			return (R.drawable.icon_caixasom);
-		case 3:
-			return (R.drawable.icon_datashow);
-			
-		case 4:
-			return (R.drawable.icon_notebook);
-		default:
-			return (R.drawable.icon_errodefault);
-		}
-	}
+	
+	 public int getImagem(int idcategoria) {
+         switch (idcategoria) {
+         case 1:
+                  return (R.drawable.icon_chave);
+         case 2:
+                 return (R.drawable.icon_caixasom);
+         case 3:
+                 return (R.drawable.icon_datashow);
+                 
+         case 4:
+                 return (R.drawable.icon_notebook);
+         default:
+                 return (R.drawable.icon_errodefault);
+         }
+	 }
 }

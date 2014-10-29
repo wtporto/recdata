@@ -65,7 +65,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.recdata.leitorCodigoqr.QrCode"
+            android:name="br.edu.ifpb.recdata.telas.TelaQrCode"
             android:label="@string/app_name" >
         </activity>
         

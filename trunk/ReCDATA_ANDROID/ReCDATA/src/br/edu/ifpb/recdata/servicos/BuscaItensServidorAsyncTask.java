@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import br.edu.ifpb.R;
+import br.edu.ifpb.recdata.entity.Categoria;
 import br.edu.ifpb.recdata.entity.Item;
 import br.edu.ifpb.recdata.telas.TelaReservar;
 import br.edu.ifpb.recdata.util.ItemAdapter;
@@ -62,13 +63,12 @@ public class BuscaItensServidorAsyncTask extends Activity {
 			JSONObject jsonObjectRecebe = null;
 			Item item = new Item();
 
-			item.setIdCategoria(categoriaIdBunble);
+			item.setCategoria(new Categoria(categoriaIdBunble));
 
 			try {
 				jsonObjectEnvia = new JSONObject();
 				jsonObjectEnvia.put("descricaoCategoria", item.getIdItem());
-				jsonObjectEnvia.put("descricaoItem", item.getDescricaoItem());
-				jsonObjectEnvia.put("idCategoria", item.getIdCategoria());
+				jsonObjectEnvia.put("idCategoria", item.getCategoria().getIdCategoria());
 				jsonObjectEnvia.put("idItem", item.getIdItem());
 
 			} catch (JSONException e2) {
@@ -96,11 +96,9 @@ public class BuscaItensServidorAsyncTask extends Activity {
 				for (int i = 0; i < jsonArray.length(); i++) {
 					Item itemAux = new Item();
 					JSONObject explrObject = jsonArray.getJSONObject(i);
-					itemAux.setDescricaoCategoria(explrObject
-							.getString("descricaoCategoria"));
 					itemAux.setDescricaoItem(explrObject
 							.getString("descricaoItem"));
-					itemAux.setIdCategoria(explrObject.getInt("idCategoria"));
+					itemAux.setCategoria(new Categoria(explrObject.getInt("idCategoria")));
 					itemAux.setIdItem(explrObject.getInt("idItem"));
 
 					ListaItens.add(itemAux);

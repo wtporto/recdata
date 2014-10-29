@@ -12,12 +12,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class ReservarAsyncTask extends
+public class BuscaItemReservaQrAsyncTask extends
 		AsyncTask<JSONObject, Void, HttpResponse> {
 
 	Activity activity;
 
-	public ReservarAsyncTask(Activity activity) {
+	public BuscaItemReservaQrAsyncTask(Activity activity) {
 		this.activity = activity;
 	}
 
@@ -31,8 +31,8 @@ public class ReservarAsyncTask extends
 
 		// Enviar a requisição HTTP via GET.
 		HttpService httpService = new HttpService();
-		HttpResponse response = httpService.sendJsonPostRequest(
-				"/reserva/criar", jsonObjects[0]);
+		HttpResponse response = httpService.sendJsonPostRequest("/item/busca",
+				jsonObjects[0]);
 		return response;
 	}
 
@@ -49,21 +49,23 @@ public class ReservarAsyncTask extends
 
 				JSONObject jsonObject = new JSONObject(json);
 
-				if (httpCode == HttpStatus.SC_CREATED) {
+				if (httpCode == HttpStatus.SC_ACCEPTED) {
 
-					Toast.makeText(activity.getApplicationContext(), Constantes.RESERVA_CONCLUIDA,
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity.getApplicationContext(),
+							Constantes.ITEM_ENCONTRADO, Toast.LENGTH_SHORT)
+							.show();
 
 					// Poderá navegar entre as páginas.
 				} else {
-					Toast.makeText(activity.getApplicationContext(),Constantes.RESERVA_NAO_CONCLUIDA, Toast.LENGTH_SHORT)
-							.show();
+					Toast.makeText(activity.getApplicationContext(),
+							Constantes.ITEM_NAO_ENCONTRADO,
+							Toast.LENGTH_SHORT).show();
 				}
 
 			} catch (JSONException e) {
 				Log.e("RecDATA", "Erro na reserva do item: " + e.getMessage());
 			}
-	
+
 		}
-			}
+	}
 }

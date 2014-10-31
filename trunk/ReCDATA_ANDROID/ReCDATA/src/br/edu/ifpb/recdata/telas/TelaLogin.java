@@ -64,16 +64,15 @@ public class TelaLogin extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 
-		if ((Metodos.ValidarCampoEditText(login) == true)
-				&& (Metodos.ValidarCampoEditText(senha) == true)) {
+		if ((Metodos.validaCampo(login) == true)
+				&& (Metodos.validaCampo(senha) == true)) {
 
 			JSONObject jsonObject = logarUsuario();
+		       
 			UsuarioLoginAsyncTask usuarioLogar = new UsuarioLoginAsyncTask(this);
-			usuarioLogar.execute(jsonObject);
-
-		} else if ((Metodos.ValidarCampoEditText(login) == false)
-				&& (Metodos.ValidarCampoEditText(senha) == false)) {
-
-		}
-	}
+			usuarioLogar.execute(jsonObject);			
+			}else
+			{
+				}
+			}
 }

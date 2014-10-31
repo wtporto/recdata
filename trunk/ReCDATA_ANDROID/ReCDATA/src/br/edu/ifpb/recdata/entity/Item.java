@@ -1,18 +1,24 @@
 package br.edu.ifpb.recdata.entity;
 
+import java.io.Serializable;
+
 import br.edu.ifpb.R;
 
+public class Item implements Serializable {
 
-
-public class Item {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int idItem;
-	
+
 	private String descricaoItem;
-	
+
 	private Categoria categoria;
 
-	public Item() {}
+	public Item() {
+	}
 
 	/**
 	 * Construtor pra readById.
@@ -39,8 +45,9 @@ public class Item {
 	@Override
 	public String toString() {
 		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
-				+ ", idCategoria=" + categoria.getIdCategoria() + ", descricaoCategoria="
-				+ categoria.getDescricaoCategoria() + "]";
+				+ ", idCategoria=" + categoria.getIdCategoria()
+				+ ", descricaoCategoria=" + categoria.getDescricaoCategoria()
+				+ "]";
 	}
 
 	public int getIdItem() {
@@ -66,21 +73,20 @@ public class Item {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
-	
-	 public int getImagem(int idcategoria) {
-         switch (idcategoria) {
-         case 1:
-                  return (R.drawable.icon_chave);
-         case 2:
-                 return (R.drawable.icon_caixasom);
-         case 3:
-                 return (R.drawable.icon_datashow);
-                 
-         case 4:
-                 return (R.drawable.icon_notebook);
-         default:
-                 return (R.drawable.icon_errodefault);
-         }
-	 }
+
+	public int getImagem(int idcategoria) {
+		switch (idcategoria) {
+		case 1:
+			return (R.drawable.icon_chave);
+		case 2:
+			return (R.drawable.icon_caixasom);
+		case 3:
+			return (R.drawable.icon_datashow);
+
+		case 4:
+			return (R.drawable.icon_notebook);
+		default:
+			return (R.drawable.icon_errodefault);
+		}
+	}
 }

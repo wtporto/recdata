@@ -1,31 +1,34 @@
 package br.edu.ifpb.recdata.entity;
 
-
 import java.util.Date;
 
-
-public class ReservaItem  {
+public class ReservaItem {
 
 	private int idReserva;
-	private int usuarioIdReserva;
-	private int itemIdReserva;
-	private Date horaDataInicioReserva;
-	private Date horaDataFimReserva;
-
-	public ReservaItem(int idReserva) {
-		setIdReserva(idReserva);
-
+	private Usuario usuario;
+	private Item item;
+	private Date horaDataInicio;
+	private Date horaDataFim;
+	private Date dataRegistro;
+	
+	public ReservaItem() {}
+	
+	public ReservaItem(int idReserva, Usuario usuario, Item item,
+			Date horaDataInicio, Date horaDataFim) {
+		super();
+		this.idReserva = idReserva;
+		this.usuario = usuario;
+		this.item = item;
+		this.horaDataInicio = horaDataInicio;
+		this.horaDataFim = horaDataFim;
 	}
 
-	public ReservaItem(Date horaDataInicioReserva, Date horaDataFimRererva,int usuarioId, int itemId) {
-		setItemIdReserva(itemId);
-		setUsuarioIdReserva(usuarioId);
-		setHoraDataInicioReserva(horaDataInicioReserva);
-		setHoraDataFimReserva(horaDataFimRererva);		
-	}
-
-	public ReservaItem() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "ReservaItem [idReserva=" + idReserva + ", usuario="
+				+ usuario + ", item=" + item
+				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
+				+ horaDataFim + "]";
 	}
 
 	public int getIdReserva() {
@@ -36,35 +39,44 @@ public class ReservaItem  {
 		this.idReserva = idReserva;
 	}
 
-	public int getUsuarioIdReserva() {
-		return usuarioIdReserva;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarioIdReserva(int usuarioIdReserva) {
-		this.usuarioIdReserva = usuarioIdReserva;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public int getItemIdReserva() {
-		return itemIdReserva;
+	public Item getItem() {
+		return item;
 	}
 
-	public void setItemIdReserva(int itemIdReserva) {
-		this.itemIdReserva = itemIdReserva;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
-	public Date getHoraDataInicioReserva() {
-		return horaDataInicioReserva;
+	public Date getHoraDataInicio() {
+		return horaDataInicio;
 	}
 
-	public void setHoraDataInicioReserva(Date horaDataInicioReserva) {
-		this.horaDataInicioReserva = horaDataInicioReserva;
+	public void setHoraDataInicio(Date horaDataInicio) {
+		this.horaDataInicio = horaDataInicio;
 	}
 
-	public Date getHoraDataFimReserva() {
-		return horaDataFimReserva;
+	public Date getHoraDataFim() {
+		return horaDataFim;
 	}
 
-	public void setHoraDataFimReserva(Date horaDataFimReserva) {
-		this.horaDataFimReserva = horaDataFimReserva;
-	}	
+	public void setHoraDataFim(Date horaDataFim) {
+		this.horaDataFim = horaDataFim;
+	}
+
+	public Date getDataRegistro() {
+		return dataRegistro;
+	}
+
+	public void setDataRegistro(Date dataRegistro) {
+		this.dataRegistro = dataRegistro;
+	}
+
 }

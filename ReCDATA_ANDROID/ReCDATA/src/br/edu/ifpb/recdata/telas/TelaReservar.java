@@ -78,32 +78,41 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 	private JSONObject montarJsonReserva() {
 
-		JSONObject jsonObject = null;
-		try {
-			
-			GlobalState gs = (GlobalState) getApplication();
-			
-			jsonObject = new JSONObject();
-			jsonObject.put("itemIdReserva", itemBundle.getIdItem());
-			jsonObject.put("usuarioIdReserva", gs.getUsuario().getUsuarioId());
-			jsonObject.put(
-					"horaDataInicio",getDataHora(dataInicio.getYear(),
-							dataInicio.getMonth(),dataInicio.getDayOfMonth(),
-							horaInicio.getCurrentHour(),
-							horaInicio.getCurrentMinute()));
+		JSONObject reservaItemJson = null;
+		JSONObject usuarioJson = null;
+		JSONObject itemJson = null;
 
-			jsonObject.put(
-					"horaDataFim", 
-					getDataHora(dataFim.getYear(), dataFim.getMonth(),
-							dataFim.getDayOfMonth(), horaFim.getCurrentHour(),
-							horaFim.getCurrentMinute()));
+		try {
+
+			GlobalState gs = (GlobalState) getApplication();
+
+			reservaItemJson = new JSONObject();
+			usuarioJson = new JSONObject();
+			usuarioJson.put("usuarioId", gs.getUsuario().getUsuarioId());
+
+			itemJson = new JSONObject();
+
+			itemJson.put("idItem", itemBundle.getIdItem());
+
+			Date dataHoraInicio = getDataHora(dataInicio.getYear(),
+					dataInicio.getMonth(), dataInicio.getDayOfMonth(),
+					horaInicio.getCurrentHour(), horaInicio.getCurrentMinute());
+
+			Date dataHoraFim = getDataHora(dataFim.getYear(),
+					dataFim.getMonth(), dataFim.getDayOfMonth(),
+					horaFim.getCurrentHour(), horaFim.getCurrentMinute());
+			
+			reservaItemJson.put("usuario", usuarioJson);
+			reservaItemJson.put("item", itemJson);
+			reservaItemJson.put("horaDataInicio", dataHoraInicio.getTime());
+			reservaItemJson.put("horaDataFim", dataHoraFim.getTime());
+			
 		} catch (JSONException e) {
 			Log.e("RecDATA", e.getMessage());
 		}
 
-		return jsonObject;
+		return reservaItemJson;
 	}
-
 	@Override
 	public void onClick(View arg) {
 

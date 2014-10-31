@@ -43,6 +43,7 @@ public class BuscaItemReservaQrAsyncTask extends
 
 		if (httpCode > 200 && httpCode < 400) {
 			try {
+			
 				// Conversão do response ( resposta HTTP) para String.
 				String json = HttpUtil.entityToString(response);
 				Log.i("ReCDATA ", "Resquest - POST: " + json);

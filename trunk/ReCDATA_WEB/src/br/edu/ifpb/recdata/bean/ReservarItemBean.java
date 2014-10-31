@@ -1,17 +1,21 @@
 package br.edu.ifpb.recdata.bean;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
+import br.edu.ifpb.recdata.service.ProviderServiceFactory;
+import br.edu.ifpb.recdata.service.ReCDATAService;
 
 @ManagedBean(name="reservarItemBean")
 @SessionScoped
@@ -39,32 +43,50 @@ public class ReservarItemBean extends ReservaItem{
 		super.setItem(item);
 	}
 	
-	public String reservarItem() {
+	public String reservarItem() {      
+        
+		String navegacao = null;
 		
-		System.out.println("Usuário: " + usuariosSelecionados);
-        System.out.println("Item: " + getItem());
-        System.out.println("Data" + dataInicio + " Hora:" + horaInicio);
-        System.out.println("Data" + dataFim + " Hora:" + horaFim);       
+        Date dataHoraInicio = getDataHora(dataInicio, horaInicio);
+        Date dataHoraFim = getDataHora(dataFim, horaFim);
         
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(dataInicio);
-
-        Integer dia = cal.get(Calendar.DAY_OF_MONTH);
-        Integer mes = cal.get(Calendar.MONTH);
-        Integer ano = cal.get(Calendar.YEAR);        
+        ReservaItem reservaItem = getReservaItem(dataHoraInicio, dataHoraFim);
         
-        long dateTimeMilis = dataInicio.getTime() + horaInicio.getTime();
-        Date dataHoraInicio = new Date(dateTimeMilis);
+        ReCDATAService service = ProviderServiceFactory
+				.createServiceClient(ReCDATAService.class);
         
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(dateTimeMilis);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
-        String data = formatter.format(calendar.getTime());
+        Response response = service.cadastrarReservaItem(reservaItem);
+		int statusCode = response.getStatus();
+		
+		if (statusCode == Status.CREATED.getStatusCode()) {
+			//Exibir mensagem de sucesso.
+			GenericBean.setMessage(null, "info.sucessoReservaItem",
+					FacesMessage.SEVERITY_INFO);
+			// Limpar sessão.
+			resetReservarItem();
+		} else {
+			//Exibir mensagem de erro.
+			GenericBean.setMessage(null, "erro.problemaReservaItem",
+					FacesMessage.SEVERITY_ERROR);
+		}       
         
-        horaInicio.getMinutes();
-		return null;		
+		return navegacao;		
 	}
 	
+	private void resetReservarItem() {
+		GenericBean.resetSessionScopedBean("reservarItemBean");		
+	}
+
+	private ReservaItem getReservaItem(Date dataHoraInicio, Date dataHoraFim) {
+		ReservaItem reservaItem = new ReservaItem();
+		reservaItem.setUsuario(usuariosSelecionados.get(0));
+		reservaItem.setItem(getItem());
+		reservaItem.setHoraDataInicio(dataHoraInicio);
+		reservaItem.setHoraDataFim(dataHoraFim);
+		
+		return reservaItem;
+	}
+
 	private Date getDataHora(Date data, Date hora){
 		        
         Calendar horaCalendar = Calendar.getInstance();
@@ -72,7 +94,7 @@ public class ReservarItemBean extends ReservaItem{
         
         Calendar dataHoraCalendar = Calendar.getInstance();
         dataHoraCalendar.setTime(data);
-        dataHoraCalendar.add(Calendar.HOUR, horaCalendar.get(Calendar.HOUR));
+        dataHoraCalendar.add(Calendar.HOUR_OF_DAY, horaCalendar.get(Calendar.HOUR_OF_DAY));
         dataHoraCalendar.add(Calendar.MINUTE, horaCalendar.get(Calendar.MINUTE));
         dataHoraCalendar.add(Calendar.SECOND, horaCalendar.get(Calendar.SECOND));       
         

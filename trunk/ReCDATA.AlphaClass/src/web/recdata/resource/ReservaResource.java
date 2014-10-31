@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import web.recdata.controller.ReservaController;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
@@ -33,8 +34,8 @@ public class ReservaResource {
 	@POST
 	@Path("/criar")
 	@Consumes("application/json")
-	@Produces("text/plan")
-	public String creat(ReservaItem reserva) {
+	@Produces("application/json")
+	public Response creat(ReservaItem reserva) {
 		return new ReservaController().creat(reserva);
 	}
 

@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import web.recdata.factory.ConnectionFactory;
+import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 public class ReservaDAO {
 
@@ -37,34 +39,40 @@ public class ReservaDAO {
 		this.connection = (Connection) banco.getConnection();
 	}
 
-	public void creat(ReservaItem reserva) {
+	public int creat(ReservaItem reserva) {
 
+		int idReserva = BancoUtil.IDVAZIO;
 		try {
 
 			String sql = "INSERT INTO tb_reserva (tb_item_idItem,"
-					+ "tb_usuario_idUsuario,data_inicio,hora_inicio,data_fim,hora_fim) "
-					+ "VALUES (?,?,?,?,?,?)";
+					+ " tb_usuario_idUsuario, data_inicio, hora_inicio, "
+					+ "data_fim,hora_fim) "
+					+ "VALUES ("
+					+ " " + reserva.getItem().getIdItem() + ","
+					+ " " + reserva.getUsuario().getUsuarioId() + ","
+					+ " '" + new java.sql.Date(reserva.getHoraDataInicio()
+							.getTime()) + "',"
+					+ " '" + new java.sql.Time(reserva.getHoraDataInicio()
+							.getTime()) + "',"
+					+ " '" + new java.sql.Date(reserva.getHoraDataFim()
+							.getTime()) + "',"
+					+ " '" + new java.sql.Time(reserva.getHoraDataFim()
+							.getTime()) + "')";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getItem().getIdItem());
-			stmt.setInt(2, reserva.getUsuario().getUsuarioId());
-			stmt.setDate(3, new java.sql.Date(reserva.getHoraDataInicio()
-					.getTime()));
-			stmt.setTime(4, new java.sql.Time(reserva.getHoraDataInicio()
-					.getTime()));
-			stmt.setDate(5, new java.sql.Date(reserva.getHoraDataFim()
-					.getTime()));
-			stmt.setTime(6, new java.sql.Time(reserva.getHoraDataFim()
-					.getTime()));
+			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 
-			stmt.execute();
+			idReserva = BancoUtil.getGenerateKey(stmt);
+
 			stmt.close();
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
+		
+		return idReserva;
 
 	}
 

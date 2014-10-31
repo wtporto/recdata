@@ -12,5 +12,8 @@ public class Constantes {
 	public static String RESERVA_NAO_CONCLUIDA = "NÃO FOI POSSIVEL FAZER A RESERVA!";
 	public static String ITEM_NAO_ENCONTRADO = "ITEM NÃO ENCONTRADO!";
 	
+	// Campo não preenchidos
+	
+	private static String ErroPreenche= "CAMPO NÃO PREENCHIDO";
 	
 }

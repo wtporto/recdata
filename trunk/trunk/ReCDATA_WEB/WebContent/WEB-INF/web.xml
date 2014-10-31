@@ -55,8 +55,13 @@
 	</filter-mapping>
 
 	<!-- Página de erro -->
-	<!-- error-page> <exception-type>java.lang.Exception</exception-type> <location>/error-page.jsf</location> 
-		</error-page> <error-page> <exception-type>javax.faces.application.ViewExpiredException</exception-type> 
-		<location>/error-page.jsf</location> </error-page -->
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error-page.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/error-page.xhtml</location>
+	</error-page>
 
 </web-app>

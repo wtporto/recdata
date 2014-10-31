@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
+import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 /**
@@ -50,4 +51,10 @@ public interface ReCDATAService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public List<Usuario> consultarUsuarios(Usuario usuario);
+	
+	@POST
+	@Path("/reserva/criar")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response cadastrarReservaItem(ReservaItem reserva);
 }

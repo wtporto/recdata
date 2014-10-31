@@ -22,7 +22,7 @@ import android.util.Log;
 public class HttpService {
 
 	// URL to get JSON Array
-	private static String url = "http://10.0.0.107:8080/ReCDATA.AlphaClass";
+	private static String url = "http://10.0.0.102:8080/ReCDATA.AlphaClass";
 
 	// constructor
 	public HttpService() {

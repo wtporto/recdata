@@ -149,7 +149,7 @@
             <DatePicker
                 android:id="@+id/dateNascimento"
                 android:layout_width="250dp"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="350dp" />
 
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="450dp"
+                android:layout_marginTop="470dp"
                 android:text="Telefone"
                 android:textColor="#000"
                 android:textSize="13dp"
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="470dp"
+                android:layout_marginTop="490dp"
                 android:background="#FFFFFF"
                 android:digits="1234567890"
                 android:ems="10"
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="495dp"
+                android:layout_marginTop="515dp"
                 android:text="E-mail"
                 android:textColor="#000"
                 android:textSize="13dp"
@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="515dp"
+                android:layout_marginTop="535dp"
                 android:background="#FFFFFF"
                 android:ems="13"
                 android:inputType="textEmailAddress" />
@@ -205,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="540dp"
+                android:layout_marginTop="560dp"
                 android:orientation="horizontal" >
 
                 <RadioButton
@@ -234,10 +234,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="575dp"
-                android:text="Senha"
+                android:layout_marginTop="595dp"
                 android:textColor="#000"
                 android:textSize="13dp"
+                android:text="Senha"
                 android:typeface="monospace" />
 
             <EditText
@@ -246,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="600dp"
+                android:layout_marginTop="620dp"
                 android:background="#FFFFFF"
                 android:ems="13"
                 android:inputType="textPassword" />
@@ -257,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="625dp"
+                android:layout_marginTop="645dp"
                 android:text="Confirmar Senha"
                 android:textColor="#000"
                 android:textSize="13dp"
@@ -269,7 +269,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="650dp"
+                android:layout_marginTop="665dp"
                 android:background="#FFFFFF"
                 android:ems="13"
                 android:inputType="textPassword" />
@@ -280,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="680dp"
+                android:layout_marginTop="695dp"
                 android:background="#03AEE7"
                 android:minHeight="30dp"
                 android:minWidth="100dp"

@@ -30,8 +30,7 @@ public class ReservarAsyncTask extends
 	protected HttpResponse doInBackground(JSONObject... jsonObjects) {
 
 		// Enviar a requisição HTTP via GET.
-		HttpService httpService = new HttpService();
-		HttpResponse response = httpService.sendJsonPostRequest(
+		HttpResponse response = HttpService.sendJsonPostRequest(
 				"/reserva/criar", jsonObjects[0]);
 		return response;
 	}
@@ -41,7 +40,7 @@ public class ReservarAsyncTask extends
 
 		int httpCode = response.getStatusLine().getStatusCode();
 
-		if (httpCode > 200 && httpCode < 400) {
+	  if (httpCode > 200 && httpCode < 400) {
 			try {
 				// Conversão do response ( resposta HTTP) para String.
 				String json = HttpUtil.entityToString(response);
@@ -65,5 +64,5 @@ public class ReservarAsyncTask extends
 			}
 	
 		}
-			}
+		}
 }

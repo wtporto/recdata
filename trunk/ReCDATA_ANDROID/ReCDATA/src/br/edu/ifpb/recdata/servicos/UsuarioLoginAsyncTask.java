@@ -1,6 +1,5 @@
 package br.edu.ifpb.recdata.servicos;
 
-
 import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,65 +9,73 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+import br.edu.ifpb.recdata.entity.Usuario;
 import br.edu.ifpb.recdata.telas.TelaListaFuncionalidadesPersonalizada;
+import br.edu.ifpb.recdata.util.GlobalState;
 
 public class UsuarioLoginAsyncTask extends
-                AsyncTask<JSONObject, Void, HttpResponse> {
+		AsyncTask<JSONObject, Void, HttpResponse> {
 
-        private Activity activity;
+	private Activity activity;
 
-        public UsuarioLoginAsyncTask(Activity activity) {
-                this.activity = activity;
-        }
+	GlobalState gs;
 
-        @Override
-        protected void onPreExecute() {
-                super.onPreExecute();
-        }
+	public UsuarioLoginAsyncTask(Activity activity) {
+		this.activity = activity;
+	}
 
-        @Override
-        protected HttpResponse doInBackground(JSONObject... jsonObjects) {
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+	}
 
-                // Enviar a requisição HTTP via GET.
-                HttpService  httpService = new HttpService();
-                HttpResponse response = httpService.sendJsonPostRequest(
-                                "/usuario/verificar", jsonObjects[0]);
-                return response;
-        }
+	@Override
+	protected HttpResponse doInBackground(JSONObject... jsonObjects) {
 
+		// Enviar a requisição HTTP via GET.
+		HttpResponse response = HttpService.sendJsonPostRequest(
+				"/usuario/verificar", jsonObjects[0]);
+		return response;
+	}
 
-        @Override
-        protected void onPostExecute(HttpResponse response) {
+	@Override
+	protected void onPostExecute(HttpResponse response) {
 
-                int httpCode = response.getStatusLine().getStatusCode();
+		int httpCode = response.getStatusLine().getStatusCode();
 
-                try {
-                        // Conversão do response ( resposta HTTP) para String.
-                        String json = HttpUtil.entityToString(response);
-                        Log.i("ReCDATA", "Resquest - POST: " + json);
+		try {
+			// Conversão do response ( resposta HTTP) para String.
+			String json = HttpUtil.entityToString(response);
+			Log.i("ReCDATA", "Resquest - POST: " + json);
 
-                        JSONObject jsonObject = new JSONObject(json);
+			JSONObject jsonObject = new JSONObject(json);
 
-                        if (httpCode >200 &&  httpCode <400) {
-                                
-                                Toast.makeText(activity.getApplicationContext(),
-                                                "Bem vindo, " + jsonObject.getString("nomeUsuario"),
-                                                Toast.LENGTH_SHORT).show();
+			if (httpCode > 200 && httpCode < 400) {
 
-                                Intent intent = new Intent(activity, TelaListaFuncionalidadesPersonalizada
-                                		.class);
-                                activity.startActivity(intent);
-                                activity.finish();
+				Usuario usuario = new Usuario();
+				usuario.setUsuarioId(jsonObject.getInt("usuarioId"));
+				usuario.setNomeUsuario(jsonObject.getString("nomeUsuario"));
 
-                        } else {
-                                Toast.makeText(activity.getApplicationContext(),
-                                                jsonObject.getString("mensagem ERRO Ao LOGAR! "), Toast.LENGTH_SHORT)
-                                                .show();
-                        }
+				gs = (GlobalState) activity.getApplication();
+				gs.setUsuario(usuario);
 
-                } catch (JSONException e) {
-                        Log.e("ReCDATA", "Error parsing data " + e.toString());
-                }
-        }
+				Toast.makeText(activity.getApplicationContext(),
+						"Bem vindo, " + usuario.getNomeUsuario(),
+						Toast.LENGTH_SHORT).show();
 
+				Intent intent = new Intent(activity,
+						TelaListaFuncionalidadesPersonalizada.class);
+				activity.startActivity(intent);
+				activity.finish();
+
+			} else {
+				Toast.makeText(activity.getApplicationContext(),
+						jsonObject.getString("mensagem ERRO Ao LOGAR! "),
+						Toast.LENGTH_SHORT).show();
+			}
+
+		} catch (JSONException e) {
+			Log.e("ReCDATA", "Error parsing data " + e.toString());
+		}
+	}
 }

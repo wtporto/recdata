@@ -17,6 +17,21 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
+/*
+ cd_usuario int(11) NOT NULL AUTO_INCREMENT,
+ nm_login varchar(40) NOT NULL,
+ nm_senha varchar(23) NOT NULL,
+ nm_usuario varchar(50) NOT NULL,
+ nm_email varchar(45) NOT NULL,
+ nr_telefone varchar(10) NOT NULL,
+ nr_cpf varchar(11) NOT NULL,
+ nm_endereco varchar(70) DEFAULT NULL,
+ dt_nascimento date NOT NULL,
+ tp_sexo varchar(1) NOT NULL,
+ cd_tipousuario int(11) NOT NULL,
+
+ * */
+
 public class UsuarioDAO {
 
 	static ConnectionFactory banco;
@@ -44,24 +59,24 @@ public class UsuarioDAO {
 	public int creat(Usuario usuario) throws ReCDataSQLException {
 
 		int chave = BancoUtil.IDVAZIO;
-		
+
 		try {
-			String sql = String.format("%s ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)", 
-					"INSERT INTO tb_usuario (login_usuario, senha_usuario, "
-					+ " nome_usuario, email_usuario, telefone_usuario, cpf_usuario,"
-					+ " endereco_usuario, data_nasc_usuario, sexo_usuario, "
-					+ " tb_tipousuario_idTipousuario)"
-					+ " VALUES ", 
-					usuario.getLoginUsuario(),
-					usuario.getSenhaUsuario(),
-					usuario.getNomeUsuario(),
-					usuario.getEmailUsuario(),
-					usuario.getTelefoneUsuario(),
-					usuario.getCpfUsuario(),
-					usuario.getEnderecoUsuario(),
-					new Date(usuario.getIdadeUsuario().getTime()),
-					usuario.getSexoUsuario(),
-					usuario.getIdTipoUsuario());
+			String sql = String
+					.format("%s ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)",
+							"INSERT INTO tb_usuario (nm_login, nm_senha, "
+									+ " nm_nome, nm_email, nr_telefone, nr_cpf,"
+									+ " nm_endereco, dt_nascimento, tp_sexo, "
+									+ " cd_tipousuario)" + " VALUES ", usuario
+									.getLoginUsuario(), usuario
+									.getSenhaUsuario(), usuario
+									.getNomeUsuario(), usuario
+									.getEmailUsuario(), usuario
+									.getTelefoneUsuario(), usuario
+									.getCpfUsuario(), usuario
+									.getEnderecoUsuario(), new Date(usuario
+									.getIdadeUsuario().getTime()), usuario
+									.getSexoUsuario(), usuario
+									.getIdTipoUsuario());
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -78,7 +93,7 @@ public class UsuarioDAO {
 			throw new ReCDataSQLException(sqle.getErrorCode(),
 					sqle.getLocalizedMessage());
 		}
-		
+
 		return chave;
 	}
 
@@ -88,16 +103,15 @@ public class UsuarioDAO {
 
 		try {
 
-			String sql = "SELECT U.idUsuario, U.login_usuario, U.nome_usuario, U.email_usuario,"
-					+ " U.telefone_usuario, U.cpf_usuario, U.endereco_usuario,"
-					+ " U.data_nasc_usuario, U.sexo_usuario, U.tb_tipousuario_idTipousuario"
+			String sql = "SELECT U.cd_usuario, U.nm_login, U.nm_nome, U.nm_email,"
+					+ " U.nr_telefone, U.nr_cpf, U.nm_endereco,"
+					+ " U.dt_nascimento, U.tp_sexo, U.cd_tipousuario"
 					+ " FROM tb_usuario as U"
-					+ " WHERE U.login_usuario = '"
+					+ " WHERE U.nm_login = '"
 					+ usuario.getLoginUsuario()
 					+ "'"
-					+ " AND U.senha_usuario = '"
-					+ usuario.getSenhaUsuario()
-					+ "'";
+					+ " AND U.nm_senha = '"
+					+ usuario.getSenhaUsuario() + "'";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -106,22 +120,17 @@ public class UsuarioDAO {
 
 			if (rs.next()) {
 				usuarioConsulta = new Usuario();
-				usuarioConsulta.setUsuarioId(rs.getInt("U.idUsuario"));
-				usuarioConsulta
-						.setLoginUsuario(rs.getString("U.login_usuario"));
-				usuarioConsulta.setNomeUsuario(rs.getString("U.nome_Usuario"));
-				usuarioConsulta
-						.setEmailUsuario(rs.getString("U.email_Usuario"));
+				usuarioConsulta.setUsuarioId(rs.getInt("U.cd_usuario"));
+				usuarioConsulta.setLoginUsuario(rs.getString("U.nm_login"));
+				usuarioConsulta.setNomeUsuario(rs.getString("U.nm_nome"));
+				usuarioConsulta.setEmailUsuario(rs.getString("U.nm_email"));
 				usuarioConsulta.setTelefoneUsuario(rs
-						.getString("U.telefone_usuario"));
-				usuarioConsulta.setCpfUsuario(rs.getString("U.cpf_usuario"));
-				usuarioConsulta.setEnderecoUsuario(rs
-						.getString("endereco_usuario"));
-				usuarioConsulta.setIdadeUsuario(rs
-						.getDate("U.data_nasc_usuario"));
-				usuarioConsulta.setSexoUsuario(rs.getString("U.sexo_usuario"));
-				usuarioConsulta.setIdTipoUsuario(rs
-						.getInt("U.tb_tipousuario_idTipousuario"));
+						.getString("U.nr_telefone"));
+				usuarioConsulta.setCpfUsuario(rs.getString("U.nr_cpf"));
+				usuarioConsulta.setEnderecoUsuario(rs.getString("nm_endereco"));
+				usuarioConsulta.setIdadeUsuario(rs.getDate("U.dt_nascimento"));
+				usuarioConsulta.setSexoUsuario(rs.getString("U.tp_sexo"));
+				usuarioConsulta.setIdTipoUsuario(rs.getInt("U.cd_tipousuario"));
 			}
 
 			stmt.close();
@@ -139,10 +148,9 @@ public class UsuarioDAO {
 
 		try {
 
-			String sql = String
-					.format("%s %d",
-							"SELECT * FROM `tb_usuario` I WHERE I.`tb_tipousuario_idTipousuario`=",
-							user.getIdTipoUsuario());
+			String sql = String.format("%s %d",
+					"SELECT * FROM `tb_usuario` I WHERE I.`cd_tipousuario`=",
+					user.getIdTipoUsuario());
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -152,17 +160,17 @@ public class UsuarioDAO {
 
 			while (rs.next()) {
 
-				user.setUsuarioId(rs.getInt("idUsuario"));
-				user.setLoginUsuario(rs.getString("login_usuario"));
-				user.setSenhaUsuario(rs.getString("senha_usuario"));
-				user.setNomeUsuario(rs.getString("nome_Usuario"));
-				user.setEmailUsuario(rs.getString("email_Usuario"));
-				user.setTelefoneUsuario(rs.getString("telefone_usuario"));
-				user.setCpfUsuario(rs.getString("cpf_usuario"));
-				user.setEnderecoUsuario(rs.getString("endereco_usuario"));
-				user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
-				user.setSexoUsuario(rs.getString("sexo_usuario"));
-				user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuario"));
+				user.setUsuarioId(rs.getInt("cd_usuario"));
+				user.setLoginUsuario(rs.getString("nm_login"));
+				user.setSenhaUsuario(rs.getString("nm_senha"));
+				user.setNomeUsuario(rs.getString("nm_nome"));
+				user.setEmailUsuario(rs.getString("nm_email"));
+				user.setTelefoneUsuario(rs.getString("nr_telefone"));
+				user.setCpfUsuario(rs.getString("nr_cpf"));
+				user.setEnderecoUsuario(rs.getString("nm_endereco"));
+				user.setIdadeUsuario(rs.getDate("dt_nascimento"));
+				user.setSexoUsuario(rs.getString("tp_sexo"));
+				user.setIdTipoUsuario(rs.getInt("cd_tipousuario"));
 
 				users.add(user);
 			}
@@ -181,8 +189,8 @@ public class UsuarioDAO {
 			// Define um update com os atributos e cada valor � representado
 			// por
 			// ?
-			String sql = "UPDATE `tb_usuario` SET `senha_usuario`=?"
-					+ " WHERE `login_usuario`=?";
+			String sql = "UPDATE `tb_usuario` SET `nm_senha`=?"
+					+ " WHERE `nm_login`=?";
 
 			// prepared statement para inser��o
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -206,7 +214,7 @@ public class UsuarioDAO {
 
 		try {
 
-			String sql = "DELETE FROM `tb_usuario` WHERE `login_usuario`=?";
+			String sql = "DELETE FROM `tb_usuario` WHERE `nm_login`=?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -227,10 +235,9 @@ public class UsuarioDAO {
 	public ArrayList<Usuario> listarTodos() throws SQLException {
 		ArrayList<Usuario> users = new ArrayList<Usuario>();
 
-		String sql = String
-				.format("%s",
-						"SELECT * FROM tb_usuario as U, tb_tipousuario as T"
-						+ " WHERE U.tb_tipousuario_idTipousuario = T.idTipousuario");
+		String sql = String.format("%s",
+				"SELECT * FROM tb_usuario as U, tb_tipousuario as T"
+						+ " WHERE U.cd_tipousuario = T.cd_tipousuario");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
@@ -240,36 +247,35 @@ public class UsuarioDAO {
 		while (rs.next()) {
 
 			Usuario user = new Usuario();
-			user.setUsuarioId(rs.getInt("idUsuario"));
-			user.setLoginUsuario(rs.getString("login_usuario"));
-			user.setSenhaUsuario(rs.getString("senha_usuario"));
-			user.setNomeUsuario(rs.getString("nome_usuario"));
-			user.setEmailUsuario(rs.getString("email_usuario"));
-			user.setTelefoneUsuario(rs.getString("telefone_usuario"));
-			user.setCpfUsuario(rs.getString("cpf_usuario"));
-			user.setEnderecoUsuario(rs.getString("endereco_usuario"));
-			user.setIdadeUsuario(rs.getDate("data_nasc_usuario"));
-			user.setSexoUsuario(rs.getString("sexo_usuario"));
+			user.setUsuarioId(rs.getInt("cd_usuario"));
+			user.setLoginUsuario(rs.getString("nm_login"));
+			user.setSenhaUsuario(rs.getString("nm_senha"));
+			user.setNomeUsuario(rs.getString("nm_nome"));
+			user.setEmailUsuario(rs.getString("nm_email"));
+			user.setTelefoneUsuario(rs.getString("nr_telefone"));
+			user.setCpfUsuario(rs.getString("nr_cpf"));
+			user.setEnderecoUsuario(rs.getString("nm_endereco"));
+			user.setIdadeUsuario(rs.getDate("dt_nascimento"));
+			user.setSexoUsuario(rs.getString("tp_sexo"));
 
-			user.setIdTipoUsuario(rs.getInt("tb_tipousuario_idTipousuario"));
-			user.setDescricao_tipoUsuario(rs.getString("descricao_tipousuario"));
+			user.setIdTipoUsuario(rs.getInt("cd_tipousuario"));
+			user.setDescricao_tipoUsuario(rs.getString("nm_descricao"));
 
 			users.add(user);
 		}
 
 		stmt.close();
-		
+
 		return users;
 	}
 
-	public List<Usuario> consultarUsuariosByNome(Usuario usuario) throws SQLException {
-		
+	public List<Usuario> consultarUsuariosByNome(Usuario usuario)
+			throws SQLException {
+
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
-		String sql = String.format("%s '%s'",
-				"SELECT U.idUsuario, U.nome_usuario"
-				+ " FROM tb_usuario as U"
-				+ " WHERE U.nome_usuario LIKE ",
+		String sql = String.format("%s '%s'", "SELECT U.cd_usuario, U.nm_nome"
+				+ " FROM tb_usuario as U" + " WHERE U.nm_nome LIKE ",
 				usuario.getNomeUsuario() + "%");
 
 		PreparedStatement stmt = (PreparedStatement) connection
@@ -279,11 +285,11 @@ public class UsuarioDAO {
 
 		while (rs.next()) {
 			Usuario usuarioConsulta = new Usuario();
-			usuarioConsulta.setUsuarioId(rs.getInt("U.idUsuario"));
-			usuarioConsulta.setNomeUsuario(rs.getString("U.nome_usuario"));
+			usuarioConsulta.setUsuarioId(rs.getInt("U.cd_usuario"));
+			usuarioConsulta.setNomeUsuario(rs.getString("U.nm_nome"));
 			usuarios.add(usuarioConsulta);
 		}
-		
+
 		stmt.close();
 
 		return usuarios;

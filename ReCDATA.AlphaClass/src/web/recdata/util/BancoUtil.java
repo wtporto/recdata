@@ -1,9 +1,8 @@
 package web.recdata.util;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.mysql.jdbc.PreparedStatement;
 
 public class BancoUtil {
 

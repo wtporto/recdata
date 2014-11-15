@@ -1,28 +1,28 @@
 package web.recdata.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import web.recdata.factory.ConnectionFactory;
+import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
+import java.sql.Statement;
 
 public class ReservaDAO {
 
-	static ConnectionFactory banco;
+	static DBPool banco;
 	private static ReservaDAO instance;
 
-	public static ReservaDAO getInstance() {
+	public static ReservaDAO getInstance() {		
 		if (instance == null) {
-			banco = new ConnectionFactory();
+			banco = DBPool.getInstance();
 			instance = new ReservaDAO(banco);
 		}
 		return instance;
@@ -31,12 +31,12 @@ public class ReservaDAO {
 	// a conexão com o banco de dados
 	public Connection connection;
 
-	public ReservaDAO(ConnectionFactory banco) {
-		this.connection = (Connection) banco.getConnection();
+	public ReservaDAO(DBPool banco) {
+		this.connection = (Connection) banco.getConn();
 	}
 
 	public ReservaDAO() {
-		this.connection = (Connection) banco.getConnection();
+		this.connection = (Connection) banco.getConn();
 	}
 
 	public int creat(ReservaItem reserva) {
@@ -49,7 +49,7 @@ public class ReservaDAO {
 					+ "data_fim,hora_fim) "
 					+ "VALUES ("
 					+ " " + reserva.getItem().getIdItem() + ","
-					+ " " + reserva.getUsuario().getUsuarioId() + ","
+					+ " " + reserva.getUsuario().getId() + ","
 					+ " '" + new java.sql.Date(reserva.getHoraDataInicio()
 							.getTime()) + "',"
 					+ " '" + new java.sql.Time(reserva.getHoraDataInicio()
@@ -133,7 +133,7 @@ public class ReservaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getUsuario().getUsuarioId());
+			stmt.setInt(1, reserva.getUsuario().getId());
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -146,7 +146,7 @@ public class ReservaDAO {
 				reservaAux.setItem(item);
 
 				Usuario usuario = new Usuario();
-				usuario.setUsuarioId(rs.getInt("tb_usuario_idUsuario"));
+				usuario.setId(rs.getInt("tb_usuario_idUsuario"));
 				reservaAux.setUsuario(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()
@@ -189,7 +189,7 @@ public class ReservaDAO {
 			reservaAux.setItem(item);
 
 			Usuario usuario = new Usuario();
-			usuario.setUsuarioId(rs.getInt("tb_usuario_idUsuario"));
+			usuario.setId(rs.getInt("tb_usuario_idUsuario"));
 			reservaAux.setUsuario(usuario);
 
 			long dateHoraInicio = rs.getDate("data_inicio").getTime()

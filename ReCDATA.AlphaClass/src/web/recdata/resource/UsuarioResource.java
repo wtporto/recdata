@@ -84,7 +84,7 @@ public class UsuarioResource {
 
 				UsuarioController controller = new UsuarioController();
 				int idUsuario = controller.creat(usuario);
-				usuario.setUsuarioId(idUsuario);
+				usuario.setId(idUsuario);
 
 				builder.status(Response.Status.CREATED);
 				builder.entity(usuario);

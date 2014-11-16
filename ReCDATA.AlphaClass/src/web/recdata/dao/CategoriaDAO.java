@@ -13,6 +13,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class CategoriaDAO {
 
+	//---------------------INICIO DA CONEXÃO COM BANCO DE DADOS --------------------
 	static ConnectionFactory banco;
 	private static CategoriaDAO instance;
 
@@ -24,7 +25,6 @@ public class CategoriaDAO {
 		return instance;
 	}
 
-	// a conexÃ§Ã£ com o banco de dados
 	public Connection connection;
 
 	public CategoriaDAO(ConnectionFactory banco) {
@@ -34,28 +34,35 @@ public class CategoriaDAO {
 	public CategoriaDAO() {
 		this.connection = (Connection) banco.getConnection();
 	}
-
+	//--------------------------------FIM ------------------------------------------
+	
+	
+	/**
+	 * Função: Seleção de Categoria no banco de dados pelo ID. 
+	 * Retorno: Retorna somente uma Categoria.
+	 * */
 	public Categoria readById(Categoria categoria) {
 
 		Categoria categoriaAux = null;
 
 		try {
 
-			String sql = "SELECT C.idCategoria, C.descricao_categoria"
+			String sql = "SELECT C.cd_categoria, C.nm_descricao"
 					+ " FROM  tb_categoria  as C" 
-					+ " WHERE  C. idCategoria = " + categoria.getIdCategoria();
+					+ " WHERE  C.cd_categoria = ?";
 
-			// prepared statement para inserÃ§Ã£o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			ResultSet rs = stmt.executeQuery(sql);
+			stmt.setInt(1, categoria.getIdCategoria());
+			
+			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				categoriaAux = new Categoria();
-				categoriaAux.setIdCategoria(rs.getInt("idCategoria"));
+				categoriaAux.setIdCategoria(rs.getInt("cd_categoria"));
 				categoriaAux.setDescricaoCategoria(rs
-						.getString("descricao_categoria"));
+						.getString("nm_descricao"));
 			}
 
 		} catch (SQLException sqle) {
@@ -65,21 +72,23 @@ public class CategoriaDAO {
 		return categoriaAux;
 	}
 
+	/**
+	 * Função: Atualizar o valor da descrição da categoria identificando pelo ID.
+	 * Retorno: VOID.
+	 * */
 	public void update(Categoria categoria) {
 
 		try {
 
-			// Define um update com os atributos e cada valor Ã© representado por
-			// ?
-			String sql = "UPDATE tb_categoria SET descricao_categoria="
-					+ categoria.getDescricaoCategoria()
-					+ " WHERE idCategoria = " + categoria.getIdCategoria();
+			String sql = "UPDATE tb_categoria SET nm_descricao = ?"
+					+ " WHERE cd_categoria = ?";
 
-			// prepared statement para inserÃ§Ã£o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// envia para o Banco e fecha o objeto
+			stmt.setString(1, categoria.getDescricaoCategoria());
+			stmt.setInt(2, categoria.getIdCategoria());
+			
 			stmt.execute();
 			stmt.close();
 
@@ -88,18 +97,21 @@ public class CategoriaDAO {
 		}
 	}
 
+	/**
+	 * Função: Deleta a categoria identificada pelo ID.
+	 * Retorno: VOID.
+	 * */
 	public void delete(Categoria categoria) {
 
 		try {
-			String sql = "DELETE FROM tb_categoria" + " WHERE idCategoria = ?";
+			String sql = "DELETE FROM tb_categoria"
+					+ " WHERE cd_categoria = ?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// seta os valores
 			stmt.setInt(1, categoria.getIdCategoria());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
@@ -108,23 +120,29 @@ public class CategoriaDAO {
 		}
 	}
 
+	/**
+	 * Função: Seleção de todas as Categoria que estão no banco de dados.
+	 * Retorno: ArrayList de Categoria.
+	 * 
+	 * FUNCIONANDO (TESTADO)
+	 * */
 	public List<Categoria> listarTodos() throws SQLException {
 
 		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 
-		String sql = "SELECT C.idCategoria, C.descricao_categoria"
+		String sql = "SELECT C.cd_categoria, C.nm_descricao"
 				+ " FROM tb_categoria as C";
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
-
-		ResultSet rs = stmt.executeQuery(sql);
+		
+		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
 			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(rs.getInt("C.idCategoria"));
+			categoria.setIdCategoria(rs.getInt("C.cd_categoria"));
 			categoria
-					.setDescricaoCategoria(rs.getString("C.descricao_categoria"));
+					.setDescricaoCategoria(rs.getString("C.nm_descricao"));
 			categorias.add(categoria);
 		}
 

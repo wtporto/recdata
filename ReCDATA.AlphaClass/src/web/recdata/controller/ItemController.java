@@ -30,7 +30,7 @@ public class ItemController {
 		int validacao = Validar.validarItem();
 		if (validacao == Validar.VALIDACAO_OK) {
 			
-			int idInstituicao = ItemDAO.getInstance().creat(item);
+			int idInstituicao = ItemDAO.getInstance().create(item);
 			item.setIdItem(idInstituicao);
 
 			builder.status(Response.Status.CREATED);

@@ -15,6 +15,7 @@ import com.mysql.jdbc.Statement;
 
 public class ItemDAO {
 
+	//------------------------INICIO DA CONEXÃO COM BANCO DE DADOS-------------
 	static ConnectionFactory banco;
 	private static ItemDAO instance;
 
@@ -36,10 +37,13 @@ public class ItemDAO {
 	public ItemDAO() {
 		this.connection = (Connection) banco.getConnection();
 	}
-
-	public int creat(Item item) {
+	//------------------------------FIM----------------------------------------
+	
+	
+	public int create(Item item) {
 
 		int idItem = BancoUtil.IDVAZIO;
+		
 		try {
 
 			String sql = "INSERT INTO tb_item (tb_categoria_IdCategoria,descricao_item)"

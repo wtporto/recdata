@@ -8,7 +8,7 @@ import br.edu.ifpb.recdata.entidades.DevolucaoItem;
 
 public class DevolucaoController {
 	public String creat(DevolucaoItem devolucao) {
-		DevolucaoDAO.getInstance().creat(devolucao);
+		DevolucaoDAO.getInstance().create(devolucao);
 		return "Devolução realizada!";
 	}
 

@@ -48,7 +48,6 @@ public class DevolucaoResource {
 
 	@GET
 	@Path("/listar")
-	@Consumes("application/json")
 	@Produces("application/json")
 	public ArrayList<DevolucaoItem> listarTodos() throws SQLException {
 		return new DevolucaoController().listarTodos();

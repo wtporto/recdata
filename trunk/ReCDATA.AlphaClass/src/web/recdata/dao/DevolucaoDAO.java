@@ -3,7 +3,6 @@ package web.recdata.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import web.recdata.factory.ConnectionFactory;
 import br.edu.ifpb.recdata.entidades.DevolucaoItem;
@@ -13,6 +12,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class DevolucaoDAO {
 
+	//---------------------------INICIO DA CONEXÃO COM BANCO DE DADOS -------------------
 	static ConnectionFactory banco;
 	private static DevolucaoDAO instance;
 
@@ -23,8 +23,7 @@ public class DevolucaoDAO {
 		}
 		return instance;
 	}
-
-	// a conexï¿½o com o banco de dados
+	
 	public Connection connection;
 
 	public DevolucaoDAO(ConnectionFactory banco) {
@@ -34,25 +33,29 @@ public class DevolucaoDAO {
 	public DevolucaoDAO() {
 		this.connection = (Connection) banco.getConnection();
 	}
-
-	public void creat(DevolucaoItem devolucao) {
+	//--------------------------------------FIM------------------------------------------
+	
+	/**
+	 * Função: Criar uma nova devolução no banco de dados.
+	 * Retorno: VOID.
+	 * 
+	 * FUNCIONANDO (TESTADO)
+	 * */
+	public void create(DevolucaoItem devolucao) {
 
 		try {
 
-			String sql = "INSERT INTO tb_devolucao (tb_item_idItem,"
-					+ "tb_usuario_idUsuario,data_devolucao,hora_devolucao) "
-					+ "VALUES (?,?,?,?)";
+			String sql = "INSERT INTO tb_devolucao (cd_reserva, "
+					+ "cd_usuario_recebimento, cd_usuario_devolucao) "
+					+ "VALUES (?,?,?)";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, devolucao.getItemIdDevolucao());
-			stmt.setInt(2, devolucao.getUsuarioIdDevolucao());
-			stmt.setDate(3, new java.sql.Date(devolucao.getHoraDataDevolucao()
-					.getTime()));
-			stmt.setTime(4, new java.sql.Time(devolucao.getHoraDataDevolucao()
-					.getTime()));
-
+			stmt.setInt(1, devolucao.getIdReserva());
+			stmt.setInt(2, devolucao.getIdUsuarioReserva());
+			stmt.setInt(3, devolucao.getIdUsuarioDevolucao());
+			
 			stmt.execute();
 			stmt.close();
 
@@ -62,23 +65,23 @@ public class DevolucaoDAO {
 
 	}
 
+	/**
+	 * Função: Deletar uma devolução no banco de dados.
+	 * Retorno: VOID.
+	 * 
+	 * FUNCIONANDO (TESTADO)
+	 * */
 	public void delete(DevolucaoItem devolucao) {
 
 		try {
 
-			/*
-			 * 
-			 * DELETE FROM `tb_item` WHERE `idItem`=" + item.getIdItem()
-			 */
-
-			String sql = "DELETE FROM tb_devolucao WHERE idDevolucao = ?";
+			String sql = "DELETE FROM tb_devolucao WHERE cd_devolucao = ?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			stmt.setInt(1, devolucao.getIdDevolucao());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
@@ -88,26 +91,24 @@ public class DevolucaoDAO {
 
 	}
 
+	/**
+	 * Função: Atualiza quem devolveu o item no banco de dados pelo ID da devolução.
+	 * Retorno: VOID.
+	 * 
+	 * FUNCIONANDO (TESTADO)
+	 * */
 	public void update(DevolucaoItem devolucao) {
 
 		try {
 
-			/*
-			 * "UPDATE `tb_item` SET `descricao_item`=\"" +
-			 * item.getDescricaoItem() + "\" WHERE `idItem`=" +
-			 * item.getIdItem();
-			 */
+			String sql = "UPDATE tb_devolucao SET cd_usuario_devolucao = ? WHERE cd_devolucao = ?";
 
-			String sql = "UPDATE tb_devolucao SET tb_item_idItem = ? WHERE idDevolucao = ?";
-
-			// prepared statement para inserÃ§Ã£o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, devolucao.getItemIdDevolucao());
+			stmt.setInt(1, devolucao.getIdUsuarioDevolucao());
 			stmt.setInt(2, devolucao.getIdDevolucao());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
@@ -117,6 +118,12 @@ public class DevolucaoDAO {
 
 	}
 
+	/**
+	 * Função: Selecionar todos os itens devolvidos por tal pessoa ID.
+	 * Retorno: ArrayList de DevolucaoItem.
+	 * 
+	 * FUNCIONANDO (TESTADO)
+	 * */
 	public ArrayList<DevolucaoItem> readById(DevolucaoItem devolucao) {
 
 		DevolucaoItem devolucaoAux = null;
@@ -124,28 +131,22 @@ public class DevolucaoDAO {
 
 		try {
 
-			String sql = "SELECT * FROM tb_devolucao WHERE tb_usuario_idUsuario = ?";
+			String sql = "SELECT * FROM tb_devolucao WHERE cd_usuario_devolucao = ?";
 
-			// prepared statement para inserï¿½ï¿½o
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, devolucao.getUsuarioIdDevolucao());
+			stmt.setInt(1, devolucao.getIdUsuarioDevolucao());
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				devolucaoAux = new DevolucaoItem();
-				devolucaoAux.setIdDevolucao(rs.getInt("idDevolucao"));
-				devolucaoAux.setItemIdDevolucao(rs.getInt("tb_item_idItem"));
-				devolucaoAux.setUsuarioIdDevolucao(rs
-						.getInt("tb_usuario_idUsuario"));
-
-				long dateHora = rs.getDate("data_devolucao").getTime()
-						+ rs.getTime("hora_devolucao").getTime();
-
-				devolucaoAux.setHoraDataDevolucao(new Date(dateHora));
-
+				devolucaoAux.setIdDevolucao(rs.getInt("cd_devolucao"));
+				devolucaoAux.setIdReserva(rs.getInt("cd_reserva"));
+				devolucaoAux.setIdUsuarioReserva(rs.getInt("cd_usuario_recebimento"));
+				devolucaoAux.setIdUsuarioDevolucao(rs.getInt("cd_usuario_devolucao"));
+				devolucaoAux.setDt_devolucao(rs.getDate("dt_devolucao"));
 				devolucoes.add(devolucaoAux);
 			}
 
@@ -156,6 +157,12 @@ public class DevolucaoDAO {
 		return devolucoes;
 	}
 
+	/**
+	 * Função: Selecionar todas as devoluções no banco de dados.
+	 * Retorno: ArrayList de DevolucaoItem
+	 * 
+	 * FUNCIONANDO (TESTADO)
+	 * */
 	public ArrayList<DevolucaoItem> listarTodos() throws SQLException {
 		ArrayList<DevolucaoItem> devolucoes = new ArrayList<DevolucaoItem>();
 		DevolucaoItem devolucaoAux = null;
@@ -165,19 +172,15 @@ public class DevolucaoDAO {
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
 
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
 			devolucaoAux = new DevolucaoItem();
-			devolucaoAux.setIdDevolucao(rs.getInt("idDevolucao"));
-			devolucaoAux.setItemIdDevolucao(rs.getInt("tb_item_idItem"));
-			devolucaoAux.setUsuarioIdDevolucao(rs
-					.getInt("tb_usuario_idUsuario"));
-
-			long dateHora = rs.getDate("data_devolucao").getTime()
-					+ rs.getTime("hora_devolucao").getTime();
-
-			devolucaoAux.setHoraDataDevolucao(new Date(dateHora));
+			devolucaoAux.setIdDevolucao(rs.getInt("cd_devolucao"));
+			devolucaoAux.setIdReserva(rs.getInt("cd_reserva"));
+			devolucaoAux.setIdUsuarioReserva(rs.getInt("cd_usuario_recebimento"));
+			devolucaoAux.setIdUsuarioDevolucao(rs.getInt("cd_usuario_devolucao"));
+			devolucaoAux.setDt_devolucao(rs.getDate("dt_devolucao"));
 			devolucoes.add(devolucaoAux);
 		}
 

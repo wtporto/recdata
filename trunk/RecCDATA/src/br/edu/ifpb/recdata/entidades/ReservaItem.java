@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ReservaItem implements Entidade {
 
-	private int idReserva;
+	private int id;
 	private Usuario usuario;
 	private Item item;
 	private Date horaDataInicio;
@@ -16,10 +16,10 @@ public class ReservaItem implements Entidade {
 	
 	public ReservaItem() {}
 	
-	public ReservaItem(int idReserva, Usuario usuario, Item item,
+	public ReservaItem(int id, Usuario usuario, Item item,
 			Date horaDataInicio, Date horaDataFim) {
 		super();
-		this.idReserva = idReserva;
+		this.id = id;
 		this.usuario = usuario;
 		this.item = item;
 		this.horaDataInicio = horaDataInicio;
@@ -28,18 +28,18 @@ public class ReservaItem implements Entidade {
 
 	@Override
 	public String toString() {
-		return "ReservaItem [idReserva=" + idReserva + ", usuario="
+		return "ReservaItem [idReserva=" + id + ", usuario="
 				+ usuario + ", item=" + item
 				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
 				+ horaDataFim + "]";
 	}
 
 	public int getIdReserva() {
-		return idReserva;
+		return id;
 	}
 
-	public void setIdReserva(int idReserva) {
-		this.idReserva = idReserva;
+	public void setIdReserva(int id) {
+		this.id = id;
 	}
 
 	public Usuario getUsuario() {

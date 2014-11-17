@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Item implements Entidade {
 
-	private int idItem;
+	private int id;
 	
-	private String descricaoItem;
+	private String descricao;
 	
 	private Categoria categoria;
 
@@ -30,35 +30,35 @@ public class Item implements Entidade {
 	 * @param idCategoria
 	 * @param descricaoItem
 	 */
-	public Item(int idCategoria, String descricaoItem) {
+	public Item(int idCategoria, String descricao) {
 		categoria = new Categoria();
 		categoria.setId(idCategoria);
-		setDescricaoItem(descricaoItem);
+		setDescricao(descricao);
 	}
 
 	@Override
 	public String toString() {
-		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
+		return "Item [id=" + id + ", descricao=" + descricao
 				+ ", idCategoria=" + categoria.getId() + ", descricaoCategoria="
 				+ categoria.getDescricao() + "]";
 	}
 
 	@XmlElement
-	public int getIdItem() {
-		return idItem;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdItem(int idItem) {
-		this.idItem = idItem;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@XmlElement
-	public String getDescricaoItem() {
-		return descricaoItem;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescricaoItem(String descricaoItem) {
-		this.descricaoItem = descricaoItem;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@XmlElement

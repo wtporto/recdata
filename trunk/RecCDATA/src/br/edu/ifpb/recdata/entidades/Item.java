@@ -21,7 +21,7 @@ public class Item implements Entidade {
 	 */
 	public Item(int idCategoria) {
 		categoria = new Categoria();
-		categoria.setIdCategoria(idCategoria);
+		categoria.setId(idCategoria);
 	}
 
 	/**
@@ -32,15 +32,15 @@ public class Item implements Entidade {
 	 */
 	public Item(int idCategoria, String descricaoItem) {
 		categoria = new Categoria();
-		categoria.setIdCategoria(idCategoria);
+		categoria.setId(idCategoria);
 		setDescricaoItem(descricaoItem);
 	}
 
 	@Override
 	public String toString() {
 		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
-				+ ", idCategoria=" + categoria.getIdCategoria() + ", descricaoCategoria="
-				+ categoria.getDescricaoCategoria() + "]";
+				+ ", idCategoria=" + categoria.getId() + ", descricaoCategoria="
+				+ categoria.getDescricao() + "]";
 	}
 
 	@XmlElement

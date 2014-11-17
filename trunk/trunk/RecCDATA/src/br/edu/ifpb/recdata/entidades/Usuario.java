@@ -7,32 +7,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Usuario implements Entidade {
 
-	private int usuarioId;
+	private int id;
 	
-	private String nomeUsuario;
+	private String nome;
 	
-	private String emailUsuario;
+	private String email;
 	
-	private String telefoneUsuario;
+	private String telefone;
 	
-	private java.util.Date idadeUsuario;
+	private java.util.Date nascimento;
 	
-	private String sexoUsuario;
+	private String sexo;
 	
-	private String cpfUsuario;
+	private String cpf;
 	
-	private String enderecoUsuario;
+	private String endereco;
 	
-	private String loginUsuario;
+	private String login;
 	
-	private String senhaUsuario;
-
-	private int idTipoUsuario;
+	private String senha;
 	
-	private String descricao_tipoUsuario;
+	private TipoUsuario tipoUsuario;
 
 	public Usuario(int usuarioId) {
-		setUsuarioId(usuarioId);
+		setId(usuarioId);
 
 	}
 
@@ -42,129 +40,118 @@ public class Usuario implements Entidade {
 
 	public Usuario(String login, String senha, String nome, String email,
 			String telefone, String cpf, String endereco, Date idade,
-			String sexo, int idTipoUsuario, String descricao_tipoUsuario) {
+			String sexo, TipoUsuario tipoUsuario) {
 
-		setLoginUsuario(login);
-		setSenhaUsuario(senha);
-		setNomeUsuario(nome);
-		setEmailUsuario(email);
-		setTelefoneUsuario(telefone);
-		setCpfUsuario(cpf);
-		setEnderecoUsuario(endereco);
-		setIdadeUsuario(idade);
-		setSexoUsuario(sexo);
-		setIdTipoUsuario(idTipoUsuario);
-		setDescricao_tipoUsuario(descricao_tipoUsuario);
-
+		setLogin(login);
+		setSenha(senha);
+		setNome(nome);
+		setEmail(email);
+		setTelefone(telefone);
+		setCpf(cpf);
+		setEndereco(endereco);
+		setNascimento(idade);
+		setSexo(sexo);
+		setTipoUsuario(tipoUsuario);
 	}
 
-	public int getUsuarioId() {
-		return usuarioId;
+	public int getId() {
+		return id;
 	}
 
-	public void setUsuarioId(int usuarioId) {
-		this.usuarioId = usuarioId;
+	public void setId(int usuarioId) {
+		this.id = usuarioId;
 	}
 
-	public String getNomeUsuario() {
-		return nomeUsuario;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getEmailUsuario() {
-		return emailUsuario;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailUsuario(String emailUsuario) {
-		this.emailUsuario = emailUsuario;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getTelefoneUsuario() {
-		return telefoneUsuario;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefoneUsuario(String telefoneUsuario) {
-		this.telefoneUsuario = telefoneUsuario;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public Date getIdadeUsuario() {
-		return idadeUsuario;
+	public Date getNascimento() {
+		return nascimento;
 	}
 
-	public void setIdadeUsuario(Date idadeUsuario) {
-		this.idadeUsuario = idadeUsuario;
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
 	}
 
-	public String getSexoUsuario() {
-		return sexoUsuario;
+	public String getSexo() {
+		return sexo;
 	}
 
-	public void setSexoUsuario(String sexo) {
-		this.sexoUsuario = sexo;
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
-	public String getCpfUsuario() {
-		return cpfUsuario;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCpfUsuario(String cpfUsuario) {
-		this.cpfUsuario = cpfUsuario;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
-	public String getLoginUsuario() {
-		return loginUsuario;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setLoginUsuario(String loginUsuario) {
-		this.loginUsuario = loginUsuario;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public String getSenhaUsuario() {
-		return senhaUsuario;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setSenhaUsuario(String senhaUsuario) {
-		this.senhaUsuario = senhaUsuario;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public String getEnderecoUsuario() {
-		return enderecoUsuario;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecoUsuario(String enderecoUsuario) {
-		this.enderecoUsuario = enderecoUsuario;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
 	}
 
-	public int getIdTipoUsuario() {
-		return idTipoUsuario;
-	}
-
-	public void setIdTipoUsuario(int idTipoUsuario) {
-		this.idTipoUsuario = idTipoUsuario;
-	}
-
-	public String getDescricao_tipoUsuario() {
-		return descricao_tipoUsuario;
-	}
-
-	public void setDescricao_tipoUsuario(String descricao_tipoUsuario) {
-		this.descricao_tipoUsuario = descricao_tipoUsuario;
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [usuarioId=" + usuarioId + ", nomeUsuario="
-				+ nomeUsuario + ", emailUsuario=" + emailUsuario
-				+ ", telefoneUsuario=" + telefoneUsuario + ", idadeUsuario="
-				+ idadeUsuario + ", sexoUsuario=" + sexoUsuario
-				+ ", cpfUsuario=" + cpfUsuario + ", enderecoUsuario="
-				+ enderecoUsuario + ", loginUsuario=" + loginUsuario
-				+ ", senhaUsuario=" + senhaUsuario + ", idTipoUsuario="
-				+ idTipoUsuario + ", descricao_tipoUsuario="
-				+ descricao_tipoUsuario + "]";
+		return "Usuario [usuarioId=" + id + ", nomeUsuario="
+				+ nome + ", emailUsuario=" + email
+				+ ", telefoneUsuario=" + telefone + ", idadeUsuario="
+				+ nascimento + ", sexoUsuario=" + sexo
+				+ ", cpfUsuario=" + cpf + ", enderecoUsuario="
+				+ endereco + ", loginUsuario=" + login
+				+ ", senhaUsuario=" + senha + ", idTipoUsuario="
+				+ tipoUsuario.getId() + ", descricao_tipoUsuario="
+				+ tipoUsuario.getDescricao() + "]";
 	}
-
 }

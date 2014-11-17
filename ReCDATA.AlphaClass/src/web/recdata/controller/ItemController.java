@@ -31,7 +31,7 @@ public class ItemController {
 		if (validacao == Validar.VALIDACAO_OK) {
 			
 			int idInstituicao = ItemDAO.getInstance().create(item);
-			item.setIdItem(idInstituicao);
+			item.setId(idInstituicao);
 
 			builder.status(Response.Status.CREATED);
 			builder.entity(item);
@@ -49,7 +49,7 @@ public class ItemController {
 
 	public ArrayList<Item> readById(Item item) {
 
-		return ItemDAO.getInstance().readById(item.getIdItem());
+		return ItemDAO.getInstance().readById(item.getId());
 	}
 
 	public String update(Item item) {

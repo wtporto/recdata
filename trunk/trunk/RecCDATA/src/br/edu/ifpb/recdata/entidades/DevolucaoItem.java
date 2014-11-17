@@ -7,33 +7,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class DevolucaoItem implements Entidade {
 
-	private int idDevolucao;
-	private int usuarioIdDevolucao;
-	private int itemIdDevolucao;
+	private int id;
+	private int idUsuario;
+	private int idItem;
 	private Date horaDataDevolucao;
 
-	public int getIdDevolucao() {
-		return idDevolucao;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdDevolucao(int idDevolucao) {
-		this.idDevolucao = idDevolucao;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public int getUsuarioIdDevolucao() {
-		return usuarioIdDevolucao;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setUsuarioIdDevolucao(int usuarioIdDevolucao) {
-		this.usuarioIdDevolucao = usuarioIdDevolucao;
+	public void setIdUsuario(int Idusuario) {
+		this.idUsuario = Idusuario;
 	}
 
-	public int getItemIdDevolucao() {
-		return itemIdDevolucao;
+	public int getIdItem() {
+		return idItem;
 	}
 
-	public void setItemIdDevolucao(int itemIdDevolucao) {
-		this.itemIdDevolucao = itemIdDevolucao;
+	public void setItemIdDevolucao(int idItem) {
+		this.idItem = idItem;
 	}
 
 	public Date getHoraDataDevolucao() {
@@ -46,9 +46,9 @@ public class DevolucaoItem implements Entidade {
 
 	@Override
 	public String toString() {
-		return "DevolucaoItem [idDevolucao=" + idDevolucao
-				+ ", usuarioIdDevolucao=" + usuarioIdDevolucao
-				+ ", itemIdDevolucao=" + itemIdDevolucao
+		return "DevolucaoItem [id=" + id
+				+ ", usuarioId=" + idUsuario
+				+ ", itemId=" + idItem
 				+ ", horaDataDevolucao=" + horaDataDevolucao + "]";
 	}
 

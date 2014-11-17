@@ -42,7 +42,7 @@ public class ItemResource {
 	}
 
 	@POST
-	@Path("/leitor")
+	@Path("/buscar")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public ArrayList<Item> readById(Item item) {

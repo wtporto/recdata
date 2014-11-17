@@ -13,7 +13,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class CategoriaDAO {
 
-	//---------------------INICIO DA CONEXÃO COM BANCO DE DADOS --------------------
+	//---------------------INICIO DA CONEXï¿½O COM BANCO DE DADOS --------------------
 	static ConnectionFactory banco;
 	private static CategoriaDAO instance;
 
@@ -38,7 +38,7 @@ public class CategoriaDAO {
 	
 	
 	/**
-	 * Função: Seleção de Categoria no banco de dados pelo ID. 
+	 * Funï¿½ï¿½o: Seleï¿½ï¿½o de Categoria no banco de dados pelo ID. 
 	 * Retorno: Retorna somente uma Categoria.
 	 * */
 	public Categoria readById(Categoria categoria) {
@@ -54,14 +54,14 @@ public class CategoriaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, categoria.getIdCategoria());
+			stmt.setInt(1, categoria.getId());
 			
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				categoriaAux = new Categoria();
-				categoriaAux.setIdCategoria(rs.getInt("cd_categoria"));
-				categoriaAux.setDescricaoCategoria(rs
+				categoriaAux.setId(rs.getInt("cd_categoria"));
+				categoriaAux.setDescricao(rs
 						.getString("nm_descricao"));
 			}
 
@@ -73,7 +73,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Função: Atualizar o valor da descrição da categoria identificando pelo ID.
+	 * Funï¿½ï¿½o: Atualizar o valor da descriï¿½ï¿½o da categoria identificando pelo ID.
 	 * Retorno: VOID.
 	 * */
 	public void update(Categoria categoria) {
@@ -86,8 +86,8 @@ public class CategoriaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setString(1, categoria.getDescricaoCategoria());
-			stmt.setInt(2, categoria.getIdCategoria());
+			stmt.setString(1, categoria.getDescricao());
+			stmt.setInt(2, categoria.getId());
 			
 			stmt.execute();
 			stmt.close();
@@ -98,7 +98,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Função: Deleta a categoria identificada pelo ID.
+	 * Funï¿½ï¿½o: Deleta a categoria identificada pelo ID.
 	 * Retorno: VOID.
 	 * */
 	public void delete(Categoria categoria) {
@@ -110,7 +110,7 @@ public class CategoriaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, categoria.getIdCategoria());
+			stmt.setInt(1, categoria.getId());
 
 			stmt.execute();
 			stmt.close();
@@ -121,7 +121,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Função: Seleção de todas as Categoria que estão no banco de dados.
+	 * Funï¿½ï¿½o: Seleï¿½ï¿½o de todas as Categoria que estï¿½o no banco de dados.
 	 * Retorno: ArrayList de Categoria.
 	 * 
 	 * FUNCIONANDO (TESTADO)
@@ -140,9 +140,9 @@ public class CategoriaDAO {
 
 		while (rs.next()) {
 			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(rs.getInt("C.cd_categoria"));
+			categoria.setId(rs.getInt("C.cd_categoria"));
 			categoria
-					.setDescricaoCategoria(rs.getString("C.nm_descricao"));
+					.setDescricao(rs.getString("C.nm_descricao"));
 			categorias.add(categoria);
 		}
 

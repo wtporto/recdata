@@ -12,7 +12,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class DevolucaoDAO {
 
-	//---------------------------INICIO DA CONEXÃO COM BANCO DE DADOS -------------------
+	//---------------------------INICIO DA CONEXï¿½O COM BANCO DE DADOS -------------------
 	static ConnectionFactory banco;
 	private static DevolucaoDAO instance;
 
@@ -36,7 +36,7 @@ public class DevolucaoDAO {
 	//--------------------------------------FIM------------------------------------------
 	
 	/**
-	 * Função: Criar uma nova devolução no banco de dados.
+	 * Funï¿½ï¿½o: Criar uma nova devoluï¿½ï¿½o no banco de dados.
 	 * Retorno: VOID.
 	 * 
 	 * FUNCIONANDO (TESTADO)
@@ -52,9 +52,9 @@ public class DevolucaoDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, devolucao.getIdReserva());
-			stmt.setInt(2, devolucao.getIdUsuarioReserva());
-			stmt.setInt(3, devolucao.getIdUsuarioDevolucao());
+			stmt.setInt(1, devolucao.getId());
+			stmt.setInt(2, devolucao.getIdUsuarioDevolucao());
+			stmt.setInt(3, devolucao.getIdUsuarioRecebimento());
 			
 			stmt.execute();
 			stmt.close();
@@ -66,7 +66,7 @@ public class DevolucaoDAO {
 	}
 
 	/**
-	 * Função: Deletar uma devolução no banco de dados.
+	 * Funï¿½ï¿½o: Deletar uma devoluï¿½ï¿½o no banco de dados.
 	 * Retorno: VOID.
 	 * 
 	 * FUNCIONANDO (TESTADO)
@@ -80,7 +80,7 @@ public class DevolucaoDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, devolucao.getIdDevolucao());
+			stmt.setInt(1, devolucao.getId());
 
 			stmt.execute();
 			stmt.close();
@@ -92,7 +92,7 @@ public class DevolucaoDAO {
 	}
 
 	/**
-	 * Função: Atualiza quem devolveu o item no banco de dados pelo ID da devolução.
+	 * Funï¿½ï¿½o: Atualiza quem devolveu o item no banco de dados pelo ID da devoluï¿½ï¿½o.
 	 * Retorno: VOID.
 	 * 
 	 * FUNCIONANDO (TESTADO)
@@ -107,7 +107,7 @@ public class DevolucaoDAO {
 					.prepareStatement(sql);
 
 			stmt.setInt(1, devolucao.getIdUsuarioDevolucao());
-			stmt.setInt(2, devolucao.getIdDevolucao());
+			stmt.setInt(2, devolucao.getId());
 
 			stmt.execute();
 			stmt.close();
@@ -119,7 +119,7 @@ public class DevolucaoDAO {
 	}
 
 	/**
-	 * Função: Selecionar todos os itens devolvidos por tal pessoa ID.
+	 * Funï¿½ï¿½o: Selecionar todos os itens devolvidos por tal pessoa ID.
 	 * Retorno: ArrayList de DevolucaoItem.
 	 * 
 	 * FUNCIONANDO (TESTADO)
@@ -142,11 +142,11 @@ public class DevolucaoDAO {
 
 			while (rs.next()) {
 				devolucaoAux = new DevolucaoItem();
-				devolucaoAux.setIdDevolucao(rs.getInt("cd_devolucao"));
+				devolucaoAux.setId(rs.getInt("cd_devolucao"));
 				devolucaoAux.setIdReserva(rs.getInt("cd_reserva"));
-				devolucaoAux.setIdUsuarioReserva(rs.getInt("cd_usuario_recebimento"));
+				devolucaoAux.setIdUsuarioRecebimento(rs.getInt("cd_usuario_recebimento"));
 				devolucaoAux.setIdUsuarioDevolucao(rs.getInt("cd_usuario_devolucao"));
-				devolucaoAux.setDt_devolucao(rs.getDate("dt_devolucao"));
+				devolucaoAux.setDevolucao(rs.getDate("dt_devolucao"));
 				devolucoes.add(devolucaoAux);
 			}
 
@@ -158,7 +158,7 @@ public class DevolucaoDAO {
 	}
 
 	/**
-	 * Função: Selecionar todas as devoluções no banco de dados.
+	 * Funï¿½ï¿½o: Selecionar todas as devoluï¿½ï¿½es no banco de dados.
 	 * Retorno: ArrayList de DevolucaoItem
 	 * 
 	 * FUNCIONANDO (TESTADO)
@@ -176,11 +176,11 @@ public class DevolucaoDAO {
 
 		while (rs.next()) {
 			devolucaoAux = new DevolucaoItem();
-			devolucaoAux.setIdDevolucao(rs.getInt("cd_devolucao"));
+			devolucaoAux.setId(rs.getInt("cd_devolucao"));
 			devolucaoAux.setIdReserva(rs.getInt("cd_reserva"));
-			devolucaoAux.setIdUsuarioReserva(rs.getInt("cd_usuario_recebimento"));
+			devolucaoAux.setIdUsuarioRecebimento(rs.getInt("cd_usuario_recebimento"));
 			devolucaoAux.setIdUsuarioDevolucao(rs.getInt("cd_usuario_devolucao"));
-			devolucaoAux.setDt_devolucao(rs.getDate("dt_devolucao"));
+			devolucaoAux.setDevolucao(rs.getDate("dt_devolucao"));
 			devolucoes.add(devolucaoAux);
 		}
 

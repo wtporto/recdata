@@ -15,7 +15,7 @@ import com.mysql.jdbc.Statement;
 
 public class ItemDAO {
 
-	//------------------------INICIO DA CONEX�O COM BANCO DE DADOS-------------
+	//------------------------INICIO DA CONEX�O COM BANCO DE DADOS-------------
 	static ConnectionFactory banco;
 	private static ItemDAO instance;
 
@@ -46,11 +46,11 @@ public class ItemDAO {
 		
 		try {
 
-			String sql = "INSERT INTO tb_item (tb_categoria_IdCategoria,descricao_item)"
+			String sql = "INSERT INTO tb_item (cd_categoria,nm_item)"
 					+ " VALUES ("
-					+ item.getCategoria().getIdCategoria()
+					+ item.getCategoria().getId()
 					+ ",'"
-					+ item.getDescricaoItem() + "')";
+					+ item.getDescricao() + "')";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -75,10 +75,11 @@ public class ItemDAO {
 
 		try {
 
-			String sql = "SELECT * FROM tb_item as I, tb_categoria as C"
+			String sql = "SELECT I.cd_item, I.cd_categoria, I.cd_regiao, I.nm_item, I.dt_registro FROM "
+					+ "tb_item as I, tb_categoria as C"
 					+ " WHERE"
-					+ " AND C.IdCategoria = I.tb_categoria_IdCategoria"
-					+ " AND I.idItem = " + id;
+					+ " AND C.cd_categoria = I.cd_categoria"
+					+ " AND I.cd_item = " + id;
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -88,13 +89,13 @@ public class ItemDAO {
 
 			while (rs.next()) {
 				itemAux = new Item();
-				itemAux.setIdItem(rs.getInt("idItem"));
+				itemAux.setId(rs.getInt("cd_item"));
 				Categoria categoria = new Categoria();
-				categoria.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
-				categoria.setDescricaoCategoria(rs
-						.getString("descricao_categoria"));
+				categoria.setId(rs.getInt("cd_categoria"));
+				categoria.setDescricao(rs
+						.getString("nm_descricao"));
 				itemAux.setCategoria(categoria);
-				itemAux.setDescricaoItem(rs.getString("descricao_item"));
+				itemAux.setDescricao(rs.getString("nm_descricao"));
 				itens.add(itemAux);
 			}
 
@@ -112,9 +113,9 @@ public class ItemDAO {
 			// Define um update com os atributos e cada valor é representado por
 			// ?
 
-			String sql = "UPDATE `tb_item` SET `descricao_item`=\""
-					+ item.getDescricaoItem() + "\" WHERE `idItem`="
-					+ item.getIdItem();
+			String sql = "UPDATE tb_item SET nm_descricao=\""
+					+ item.getDescricao() + "\" WHERE `cd_item`="
+					+ item.getId();
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -134,7 +135,7 @@ public class ItemDAO {
 
 		try {
 
-			String sql = "DELETE FROM tb_item WHERE idItem=" + item.getIdItem();
+			String sql = "DELETE FROM tb_item WHERE cd_item=" + item.getId();
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -156,8 +157,9 @@ public class ItemDAO {
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		String sql = String.format("%s",
-				"SELECT * FROM tb_item as I, tb_categoria as C"
-						+ " WHERE I.tb_categoria_idCategoria = C.idCategoria");
+				"SELECT  I.cd_item, I.cd_categoria, I.cd_regiao, I.nm_item, I.dt_registro FROM "
+				+ "tb_item as I, tb_categoria as C"
+						+ " WHERE I.cd_categoria = C.cd_categoria");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
@@ -166,12 +168,12 @@ public class ItemDAO {
 
 		while (rs.next()) {
 			Item item = new Item();
-			item.setIdItem(rs.getInt("idItem"));
-			item.setDescricaoItem(rs.getString("descricao_item"));
+			item.setId(rs.getInt("cd_item"));
+			item.setDescricao(rs.getString("nm_descricao"));
 			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(rs.getInt("tb_categoria_idCategoria"));
+			categoria.setId(rs.getInt("cd_categoria"));
 			categoria
-					.setDescricaoCategoria(rs.getString("descricao_categoria"));
+					.setDescricao(rs.getString("nm_descricao"));
 			item.setCategoria(categoria);
 			itens.add(item);
 		}
@@ -184,12 +186,12 @@ public class ItemDAO {
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		String sql = String.format("%s '%s' %s",
-				"SELECT I.idItem, I.descricao_item, I.tb_categoria_idCategoria,"
-				+ " C.descricao_categoria"
+				"SELECT I.cd_item, I.nm_descricao, I.cd_categoria,"
+				+ " C.nm_descricao"
 				+ " FROM tb_item as I, tb_categoria as C"
-				+ " WHERE I.descricao_item LIKE",
-				item.getDescricaoItem() + "%", 
-				"AND I.tb_categoria_idCategoria = C.idCategoria");
+				+ " WHERE I.nm_descricao LIKE",
+				item.getDescricao() + "%", 
+				"AND I.cd_categoria = C.cd_categoria");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
@@ -198,12 +200,12 @@ public class ItemDAO {
 
 		while (rs.next()) {
 			Item itemConsulta = new Item();
-			itemConsulta.setIdItem(rs.getInt("I.idItem"));
-			itemConsulta.setDescricaoItem(rs.getString("I.descricao_item"));
+			itemConsulta.setId(rs.getInt("I.cd_item"));
+			itemConsulta.setDescricao(rs.getString("I.nm_descricao"));
 			Categoria categoria = new Categoria();
-			categoria.setIdCategoria(rs.getInt("I.tb_categoria_idCategoria"));
+			categoria.setId(rs.getInt("I.cd_categoria"));
 			categoria
-					.setDescricaoCategoria(rs.getString("C.descricao_categoria"));
+					.setDescricao(rs.getString("C.nm_descricao"));
 			itemConsulta.setCategoria(categoria);
 			itens.add(itemConsulta);
 		}

@@ -13,7 +13,6 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class CategoriaDAO {
 
-	//---------------------INICIO DA CONEX�O COM BANCO DE DADOS --------------------
 	static ConnectionFactory banco;
 	private static CategoriaDAO instance;
 

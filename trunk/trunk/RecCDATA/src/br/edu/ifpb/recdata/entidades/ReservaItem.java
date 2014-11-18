@@ -10,13 +10,14 @@ public class ReservaItem implements Entidade {
 	private int id;
 	private Usuario usuario;
 	private Item item;
+	private String observacao;
 	private Date horaDataInicio;
 	private Date horaDataFim;
 	private Date dataRegistro;
 	
 	public ReservaItem() {}
 	
-	public ReservaItem(int id, Usuario usuario, Item item,
+	public ReservaItem(int id, Usuario usuario, Item item,String observacao,
 			Date horaDataInicio, Date horaDataFim) {
 		super();
 		this.id = id;
@@ -24,23 +25,17 @@ public class ReservaItem implements Entidade {
 		this.item = item;
 		this.horaDataInicio = horaDataInicio;
 		this.horaDataFim = horaDataFim;
+		this.observacao = observacao;
 	}
 
 	@Override
 	public String toString() {
 		return "ReservaItem [idReserva=" + id + ", usuario="
-				+ usuario + ", item=" + item
+				+ usuario + ", item=" + item +" observacao="+observacao
 				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
 				+ horaDataFim + "]";
 	}
 
-	public int getIdReserva() {
-		return id;
-	}
-
-	public void setIdReserva(int id) {
-		this.id = id;
-	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -82,4 +77,21 @@ public class ReservaItem implements Entidade {
 		this.dataRegistro = dataRegistro;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	
 }

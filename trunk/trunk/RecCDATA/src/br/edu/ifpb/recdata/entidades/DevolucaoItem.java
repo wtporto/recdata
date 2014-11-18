@@ -8,16 +8,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class DevolucaoItem implements Entidade {
 
 	private int id;
-	private int idUsuarioRecebimento;
-	private int idUsuarioDevolucao;
-	private int idReserva;
-	private Date horaDataDevolucao;
+	private ReservaItem reserva;
+	private Usuario UsuarioRecebimento;
+	private Usuario UsuarioDevolucao;
 	private Date registro;
 	private Date devolucao;
-	
-	
-	public DevolucaoItem() {}
-	
+
+	public DevolucaoItem() {
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -26,38 +25,16 @@ public class DevolucaoItem implements Entidade {
 		this.id = id;
 	}
 
-
-	public int getIdReserva() {
-		return idReserva;
+	public Usuario getUsuarioRecebimento() {
+		return UsuarioRecebimento;
 	}
 
-	public void setIdReserva(int idReserva) {
-		this.idReserva = idReserva;
+	public void setUsuarioRecebimento(Usuario UsuarioRecebimento) {
+		this.UsuarioRecebimento = UsuarioRecebimento;
 	}
 
-	public Date getHoraDataDevolucao() {
-		return horaDataDevolucao;
-	}
-
-	public void setHoraDataDevolucao(Date horaDataDevolucao) {
-		this.horaDataDevolucao = horaDataDevolucao;
-	}
-
-	
-	public int getIdUsuarioRecebimento() {
-		return idUsuarioRecebimento;
-	}
-
-	public void setIdUsuarioRecebimento(int idUsuarioRecebimento) {
-		this.idUsuarioRecebimento = idUsuarioRecebimento;
-	}
-
-	public int getIdUsuarioDevolucao() {
-		return idUsuarioDevolucao;
-	}
-
-	public void setIdUsuarioDevolucao(int idUsuarioDeevolucao) {
-		this.idUsuarioDevolucao = idUsuarioDeevolucao;
+	public Usuario getUsuarioDevolucao() {
+		return UsuarioDevolucao;
 	}
 
 	public Date getRegistro() {
@@ -76,16 +53,24 @@ public class DevolucaoItem implements Entidade {
 		this.devolucao = devolucao;
 	}
 
-	
+	public ReservaItem getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(ReservaItem reserva) {
+		this.reserva = reserva;
+	}
+
+	public void setUsuarioDevolucao(Usuario usuarioDevolucao) {
+		UsuarioDevolucao = usuarioDevolucao;
+	}
 
 	@Override
 	public String toString() {
-		return "DevolucaoItem [id=" + id +  ", idUsuarioRecebimento=" + idUsuarioRecebimento
-				+ ", idUsuarioDeevolucao=" + idUsuarioDevolucao + ", idReserva="
-				+ idReserva + ", horaDataDevolucao=" + horaDataDevolucao
-				+ ", registro=" + registro + ", devolucao=" + devolucao + "]";
+		return "DevolucaoItem [id=" + id + ", reserva=" + reserva
+				+ ", UsuarioRecebimento=" + UsuarioRecebimento
+				+ ", UsuarioDevolucao=" + UsuarioDevolucao + ", registro="
+				+ registro + ", devolucao=" + devolucao + "]";
 	}
-
-	
 
 }

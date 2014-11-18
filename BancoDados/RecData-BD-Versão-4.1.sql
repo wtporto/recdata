@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS tb_item (
   cd_item int(11) NOT NULL AUTO_INCREMENT,
   cd_categoria int(11) NOT NULL,
   cd_regiao int(11) NOT NULL,
-  nm_item varchar(60) NOT NULL, -- Antiga descrição;
+  nm_item varchar(60) NOT NULL, -- Antiga descriï¿½ï¿½o;
   dt_registro timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (cd_item),
   KEY fk_tb_categoria_idx (cd_categoria),
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS tb_reserva (
   data_fim date NOT NULL,
   hora_fim time NOT NULL,
   dt_registro timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (idReserva),
+  PRIMARY KEY (cd_reserva),
   KEY fk_tb_reserva_tb_item_idx (cd_item),
   KEY fk_tb_reserva_tb_usuario_reserva_idx (cd_usuario_reserva)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS tb_retirada (
 CREATE TABLE IF NOT EXISTS tb_devolucao (
   cd_devolucao int(11) NOT NULL AUTO_INCREMENT,
   cd_reserva int(11) NOT NULL,
-  cd_usuario_recebimento int(11) NOT NULL, -- Usuário que recebe o item devolvido.
-  cd_usuario_devolucao int(11) NOT NULL, -- Usuário que devolve o item. 
+  cd_usuario_recebimento int(11) NOT NULL, -- Usuï¿½rio que recebe o item devolvido.
+  cd_usuario_devolucao int(11) NOT NULL, -- Usuï¿½rio que devolve o item. 
   dt_devolucao timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   dt_registro timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (cd_devolucao),
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS tb_devolucao (
 
 CREATE TABLE IF NOT EXISTS tb_tipousuario (
   cd_tipousuario int(11) NOT NULL AUTO_INCREMENT,
-  nm_tipousuario varchar(40) NOT NULL, -- Antigo descrição.
+  nm_tipousuario varchar(40) NOT NULL, -- Antigo descriï¿½ï¿½o.
   PRIMARY KEY (cd_tipousuario)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

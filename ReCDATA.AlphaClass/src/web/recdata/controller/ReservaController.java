@@ -31,7 +31,7 @@ public class ReservaController {
 		if (validacao == Validar.VALIDACAO_OK) {
 			
 			int idReserva = ReservaDAO.getInstance().creat(reserva);
-			reserva.setIdReserva(idReserva);
+			reserva.setId(idReserva);
 
 			builder.status(Response.Status.CREATED);
 			builder.entity(reserva);

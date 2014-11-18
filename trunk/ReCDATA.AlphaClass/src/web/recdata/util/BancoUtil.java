@@ -8,6 +8,8 @@ public class BancoUtil {
 
 	public static int IDVAZIO;
 	
+	public static String  PALAVRA_VAZIA = "";
+	
 	public BancoUtil() {
 	}
 

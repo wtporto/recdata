@@ -7,7 +7,6 @@ import java.util.Date;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import web.recdata.dao.ItemDAO;
 import web.recdata.dao.ReservaDAO;
 import web.recdata.validacao.Validar;
 import br.edu.ifpb.recdata.entidades.Erro;

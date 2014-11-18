@@ -150,8 +150,6 @@ public class Usuario implements Entidade {
 				+ nascimento + ", sexoUsuario=" + sexo
 				+ ", cpfUsuario=" + cpf + ", enderecoUsuario="
 				+ endereco + ", loginUsuario=" + login
-				+ ", senhaUsuario=" + senha + ", idTipoUsuario="
-				+ tipoUsuario.getId() + ", descricao_tipoUsuario="
-				+ tipoUsuario.getDescricao() + "]";
+				+ ", senhaUsuario=" + senha + "]";
 	}
 }

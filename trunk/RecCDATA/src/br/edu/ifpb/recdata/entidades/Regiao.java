@@ -6,6 +6,11 @@ public class Regiao {
 	
 	private String nome;
 
+	@Override
+	public String toString() {
+		return "[id = "+ id + ", nome = "+ nome +"]";
+	}
+	
 	public int getId() {
 		return id;
 	}

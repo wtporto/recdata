@@ -5,47 +5,59 @@ import java.util.Date;
 public class Retirada {
 
 	private int id;
-	private Item  idUsuarioLiberacao;
-	private int idReserva;
-	private Date registro;
+	
+	private Usuario usuarioLiberacao;
+	
+	private ReservaItem reserva;
+	
 	private Date retirada;
+	
+	private Date registro;	
+	
+	@Override
+	public String toString() {
+		return "Retirada [id=" + id + ", usuarioLiberacao="
+				+ usuarioLiberacao.getId() + ", reserva=" + reserva.getId()
+				+ ", registro=" + registro + ", retirada=" + retirada + "]";
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Item getIdUsuarioLiberacao() {
-		return idUsuarioLiberacao;
+
+	public Usuario getUsuarioLiberacao() {
+		return usuarioLiberacao;
 	}
-	public void setIdUsuarioLiberacao(Item idUsuarioLiberacao) {
-		this.idUsuarioLiberacao = idUsuarioLiberacao;
+
+	public void setUsuarioLiberacao(Usuario usuarioLiberacao) {
+		this.usuarioLiberacao = usuarioLiberacao;
 	}
-	public int getIdReserva() {
-		return idReserva;
+
+	public ReservaItem getReserva() {
+		return reserva;
 	}
-	public void setIdReserva(int idreserva) {
-		this.idReserva = idreserva;
+
+	public void setReserva(ReservaItem reserva) {
+		this.reserva = reserva;
 	}
-	public Date getRegistro() {
-		return registro;
-	}
-	public void setRegistro(Date registro) {
-		this.registro = registro;
-	}
+
 	public Date getRetirada() {
 		return retirada;
 	}
+
 	public void setRetirada(Date retirada) {
 		this.retirada = retirada;
 	}
-	@Override
-	public String toString() {
-		return "Retirada [id=" + id + ", idUsuarioLiberacao="
-				+ idUsuarioLiberacao + ", idReserva=" + idReserva
-				+ ", registro=" + registro + ", retirada=" + retirada + "]";
+
+	public Date getRegistro() {
+		return registro;
 	}
-	
-	
-	
+
+	public void setRegistro(Date registro) {
+		this.registro = registro;
+	}	
 }

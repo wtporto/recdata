@@ -36,7 +36,7 @@ public class UsuariosConverter implements Converter {
 			
 			for (Usuario usuario : usuarios) {
 				
-				if (usuario.getUsuarioId() == id) {
+				if (usuario.getId() == id) {
 					usuarioSelect = usuario;
 				}
 			}		
@@ -63,7 +63,7 @@ public class UsuariosConverter implements Converter {
 		try {
 			
 			Usuario state = (Usuario) value;			
-            idUsuario = Integer.toString(state.getUsuarioId());
+            idUsuario = Integer.toString(state.getId());
             
 		} catch (NullPointerException e) {
         	

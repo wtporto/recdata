@@ -24,14 +24,14 @@
 				<h:panelGrid columns="1">
 					
 					<!-- Nome do Item -->
-					<h:outputLabel value="Item" for="descricaoItem" />
-					<h:inputText class="defaultBoxRadius" id="descricaoItem"
-						value="#{listarItensBean.descricaoItem}" size="45"
+					<h:outputLabel value="Item" for="descricao" />
+					<h:inputText class="defaultBoxRadius" id="descricao"
+						value="#{listarItensBean.descricao}" size="45"
 						required="true">
 						<f:validateLength maximum="45" />
 						<p:ajax event="keyup" update="itens" listener="#{listarItensBean.listarItens}"></p:ajax>
 					</h:inputText>
-					<h:message for="descricaoItem" />					
+					<h:message for="descricao" />					
 				</h:panelGrid>
 								
 				<!-- Listagem dos itens-->
@@ -47,10 +47,10 @@
 			            <p:outputPanel>
 			                <h:panelGrid columns="1">
 			                    <h:outputText value="Descrição:" />
-			                    <h:outputText value="#{item.descricaoItem}"/>
+			                    <h:outputText value="#{item.descricao}"/>
 			 
 			                    <h:outputText value="Categoria:" />
-			                    <h:outputText value="#{item.categoria.descricaoCategoria}"/>
+			                    <h:outputText value="#{item.categoria.descricao}"/>
 			                </h:panelGrid>
 			            </p:outputPanel>
 			            

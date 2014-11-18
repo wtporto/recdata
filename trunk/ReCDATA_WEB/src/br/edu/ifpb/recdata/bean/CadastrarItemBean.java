@@ -5,7 +5,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -27,7 +26,7 @@ public class CadastrarItemBean extends Item {
 		ReCDATAService service = ProviderServiceFactory
 				.createServiceClient(ReCDATAService.class);
 
-		Item item = new Item(super.getCategoria().getIdCategoria(), getDescricaoItem());
+		Item item = new Item(super.getCategoria().getId(), getDescricao());
 		Response response = service.cadastrarItem(item);
 		int statusCode = response.getStatus();
 		
@@ -57,7 +56,7 @@ public class CadastrarItemBean extends Item {
 		for (Categoria categoriaAppBean : categoriasAppBean) {
 
 			this.categorias.add(new SelectItem(categoriaAppBean,
-					categoriaAppBean.getDescricaoCategoria()));
+					categoriaAppBean.getDescricao()));
 		}
 
 		return this.categorias;

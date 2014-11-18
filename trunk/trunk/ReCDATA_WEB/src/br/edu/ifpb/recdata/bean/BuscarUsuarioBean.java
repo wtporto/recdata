@@ -34,7 +34,7 @@ public class BuscarUsuarioBean implements Serializable {
 			
 			// Atribui a lista de categorias.
 			Usuario usuario = new Usuario();
-			usuario.setNomeUsuario(nome);
+			usuario.setNome(nome);
 			usuarioServico = service.consultarUsuarios(usuario);
 		}
 		

@@ -36,7 +36,7 @@ public class CategoriasConverter implements Converter {
 			
 			for (Categoria categoria : categorias) {
 				
-				if (categoria.getIdCategoria() == id) {
+				if (categoria.getId() == id) {
 					stateSelect = categoria;
 				}
 			}		
@@ -63,7 +63,7 @@ public class CategoriasConverter implements Converter {
 		try {
 			
 			Categoria state = (Categoria) value;			
-            idCategorias = Integer.toString(state.getIdCategoria());
+            idCategorias = Integer.toString(state.getId());
             
 		} catch (NullPointerException e) {
         	

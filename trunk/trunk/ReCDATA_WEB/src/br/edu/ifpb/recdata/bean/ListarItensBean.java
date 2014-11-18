@@ -26,7 +26,7 @@ public class ListarItensBean extends Item implements Serializable{
 		String navegacao = null;	
 
 		Item item = new Item();
-		item.setDescricaoItem(getDescricaoItem());
+		item.setDescricao(getDescricao());
 		this.itens = this.service.consultarItens(item);
 		
 		System.out.println(itens.toString());

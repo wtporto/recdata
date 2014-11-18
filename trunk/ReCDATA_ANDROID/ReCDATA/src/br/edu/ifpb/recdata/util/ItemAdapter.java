@@ -57,23 +57,23 @@ public class ItemAdapter extends BaseAdapter {
 		}
 		
 		TextView descricao = (TextView) layout.findViewById(R.id.text_view_item_descricao);
- 		descricao.setText("Descrição: "+item.getDescricaoItem().toString());
+ 		descricao.setText("Descrição: "+item.getDescricao().toString());
 		
  		String idItem="Id.Item: ";
 
 		TextView  iditem  = (TextView) layout.findViewById(R.id.text_view_item_id);
-		iditem.setText(idItem+String.valueOf(item.getIdItem()));
+		iditem.setText(idItem+String.valueOf(item.getId()));
 		
 		TextView categoria = (TextView) layout.findViewById(R.id.text_view_item_categoria);
-		categoria.setText("Categoria: "+item.getCategoria().getDescricaoCategoria().toString());
+		categoria.setText("Categoria: "+item.getCategoria().getDescricao().toString());
 	
 		String idCat="Id.Categoria: ";
 		
 		TextView idcategoria = (TextView) layout.findViewById(R.id.text_view_item_idcategoria);
-		idcategoria.setText(idCat+String.valueOf(item.getCategoria().getIdCategoria()));
+		idcategoria.setText(idCat+String.valueOf(item.getCategoria().getId()));
 		
 		ImageView imagem = (ImageView) layout.findViewById(R.id.image_view_icon_item_lista_result);
-		imagem.setImageResource(item.getImagem(item.getCategoria().getIdCategoria()));
+		imagem.setImageResource(item.getImagem(item.getCategoria().getId()));
 		
 		return layout;
 	}

@@ -58,7 +58,7 @@ public class TelaQrCode extends Activity implements OnClickListener {
 		// monta objeto e envia por parametro para o bundle
 		Item item = new Item(0,null);
 		int id = capturaId();
-		item.setIdItem(id);
+		item.setId(id);
 
 		// monta bundle para envia para tela de reserva;
 		Bundle params = new Bundle();

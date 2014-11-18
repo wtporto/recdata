@@ -5,8 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.edu.ifpb.recdata.telas.TelaLogin;
-import br.edu.ifpb.recdata.telas.TelaTipoUsuario;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;

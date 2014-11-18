@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +20,6 @@ import br.edu.ifpb.recdata.entity.Item;
 import br.edu.ifpb.recdata.entity.ReservaItem;
 import br.edu.ifpb.recdata.servicos.ReservarAsyncTask;
 import br.edu.ifpb.recdata.util.GlobalState;
-import br.edu.ifpb.recdata.util.Metodos;
 
 public class TelaReservar extends Activity implements OnClickListener {
 
@@ -58,7 +56,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 			@Override
 			public void onClick(View arg0) {
-				Intent chamarTelaQr = new Intent();
+				Intent chamarTelaQr = new Intent(TelaReservar.this,TelaListaFuncionalidadesPersonalizada.class);
 				startActivity(chamarTelaQr);
 				finish();
 			}
@@ -88,11 +86,11 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 			reservaItemJson = new JSONObject();
 			usuarioJson = new JSONObject();
-			usuarioJson.put("usuarioId", gs.getUsuario().getUsuarioId());
+			usuarioJson.put("Id", gs.getUsuario().getId());
 
 			itemJson = new JSONObject();
 
-			itemJson.put("idItem", itemBundle.getIdItem());
+			itemJson.put("id", itemBundle.getId());
 
 			Date dataHoraInicio = getDataHora(dataInicio.getYear(),
 					dataInicio.getMonth(), dataInicio.getDayOfMonth(),
@@ -104,6 +102,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 			
 			reservaItemJson.put("usuario", usuarioJson);
 			reservaItemJson.put("item", itemJson);
+			// colocar  o campo texto para inserir obseevação reservaItemJson
 			reservaItemJson.put("horaDataInicio", dataHoraInicio.getTime());
 			reservaItemJson.put("horaDataFim", dataHoraFim.getTime());
 			

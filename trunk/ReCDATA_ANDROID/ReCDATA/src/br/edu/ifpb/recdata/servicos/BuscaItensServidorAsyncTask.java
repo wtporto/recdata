@@ -1,6 +1,5 @@
 package br.edu.ifpb.recdata.servicos;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -67,9 +66,9 @@ public class BuscaItensServidorAsyncTask extends Activity {
 
 			try {
 				jsonObjectEnvia = new JSONObject();
-				jsonObjectEnvia.put("descricaoCategoria", item.getIdItem());
-				jsonObjectEnvia.put("idCategoria", item.getCategoria().getIdCategoria());
-				jsonObjectEnvia.put("idItem", item.getIdItem());
+				jsonObjectEnvia.put("descricao", item.getId());
+				jsonObjectEnvia.put("id", item.getCategoria().getId());
+				jsonObjectEnvia.put("idItem", item.getId());
 
 			} catch (JSONException e2) {
 				// TODO Auto-generated catch block
@@ -77,10 +76,9 @@ public class BuscaItensServidorAsyncTask extends Activity {
 			}
 
 			// Enviar a requisição HTTP via POST.
-			HttpService httpService = new HttpService();
 			HttpResponse response;
 			try {
-				response = httpService.sendJsonPostRequest("/item/leitor",
+				response = HttpService.sendJsonPostRequest("/item/leitor",
 						jsonObjectEnvia);
 
 				// Conversão do response ( resposta HTTP) para String.
@@ -96,10 +94,10 @@ public class BuscaItensServidorAsyncTask extends Activity {
 				for (int i = 0; i < jsonArray.length(); i++) {
 					Item itemAux = new Item();
 					JSONObject explrObject = jsonArray.getJSONObject(i);
-					itemAux.setDescricaoItem(explrObject
-							.getString("descricaoItem"));
-					itemAux.setCategoria(new Categoria(explrObject.getInt("idCategoria")));
-					itemAux.setIdItem(explrObject.getInt("idItem"));
+					itemAux.setDescricao(explrObject
+							.getString("descricao"));
+					itemAux.setCategoria(new Categoria(explrObject.getInt("id")));
+					itemAux.setId(explrObject.getInt("id"));
 
 					ListaItens.add(itemAux);
 				}

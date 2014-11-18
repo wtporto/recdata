@@ -16,15 +16,16 @@ public class Model {
 	public int getImagem(int position) {
 		switch (position) {
 		case 0:
-			 return (R.drawable.icon_consultas);
-		case 1:
-			return (R.drawable.icon_reservar);
-		case 2:
 			return(R.drawable.icon_qrcode);
-		case 3:
-			return (R.drawable.icon_feedback);
+			 //return (R.drawable.icon_consultas);
+		//case 1:
+			//return (R.drawable.icon_reservar);
+		//case 2:
+			//return(R.drawable.icon_qrcode);
+	//	case 2:
+		//	return (R.drawable.icon_feedback);
 			
-		case 4:
+		case 1:
 			return (R.drawable.icon_seta);
 		default:
 			return (R.drawable.icon_errodefault);

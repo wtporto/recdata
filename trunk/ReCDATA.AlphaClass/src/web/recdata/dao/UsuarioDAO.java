@@ -267,13 +267,13 @@ public class UsuarioDAO {
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
-		String sql = String.format("%s '%s'", 
+		String sql = String.format("%s '%s' %s", 
 				"SELECT U.cd_usuario, U.nm_usuario, T.cd_tipousuario,"
 				+ " T.nm_tipousuario"
 				+ " FROM tb_usuario as U, tb_tipousuario as T" 
 				+ " WHERE U.nm_usuario LIKE ",
-				usuario.getNome().trim() + "%"
-				+ " AND U.cd_tipousuario = T.cd_tipousuario");
+				usuario.getNome().trim() + "%",
+				" AND U.cd_tipousuario = T.cd_tipousuario");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);

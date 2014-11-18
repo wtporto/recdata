@@ -189,7 +189,7 @@ public class ItemDAO {
 				+ " R.cd_regiao, R.nm_regiao"
 				+ " FROM tb_item as I, tb_categoria as C, tb_regiao as R"
 				+ " WHERE I.nm_item LIKE ",
-				item.getDescricao() + "%", 
+				item.getDescricao().trim() + "%", 
 				" AND I.cd_categoria = C.cd_categoria",
 				" AND I.cd_regiao = R.cd_regiao");
 

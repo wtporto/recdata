@@ -4,32 +4,17 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="#FFFFFF"
-        android:orientation="vertical" >
-
-        <TextView
+     <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
             android:text="Seleciona Categoria do Item"
             android:textColor="#000000"
-            android:typeface="monospace" />
-
-        <Spinner
-            android:id="@+id/Spinner_Seleciona_Item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/linearLayout2" />
-    </LinearLayout>
+            android:typeface="monospace"
+    	    android:textSize="20dp"
+            />
 
     <Button
         android:id="@+id/BuscaButton"
@@ -40,5 +25,22 @@
         android:layout_marginTop="152dp"
         android:text="Buscar Items"
         android:typeface="monospace" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <Spinner
+            android:id="@+id/Spinner_Seleciona_Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/linearLayout2" />
+    </LinearLayout>
 
 </RelativeLayout>

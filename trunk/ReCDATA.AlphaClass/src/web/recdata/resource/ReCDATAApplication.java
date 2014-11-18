@@ -16,7 +16,8 @@ public class ReCDATAApplication extends Application {
 		this.singletons.add(new DevolucaoResource());
 		this.singletons.add(new ItemResource());
 		this.singletons.add(new ReservaResource());
-		this.singletons.add(new UsuarioResource());
+		this.singletons.add(new UsuarioResource());		
+		this.singletons.add(new RegiaoResource());
 		this.singletons.add(new VerificaServidor());
 	}
 

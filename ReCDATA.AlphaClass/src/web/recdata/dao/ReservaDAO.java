@@ -10,6 +10,7 @@ import java.util.Date;
 
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
+import web.recdata.util.StringUtil;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
@@ -42,10 +43,10 @@ public class ReservaDAO {
 
 		int idReserva = BancoUtil.IDVAZIO;
 		try {
-
+			
 			String sql = "INSERT INTO tb_reserva (tb_item_idItem,"
 					+ " tb_usuario_idUsuario, data_inicio, hora_inicio, "
-					+ "data_fim,hora_fim) "
+					+ "data_fim, hora_fim, nm_observacao) "
 					+ "VALUES ("
 					+ " " + reserva.getItem().getId() + ","
 					+ " " + reserva.getUsuario().getId() + ","
@@ -56,7 +57,15 @@ public class ReservaDAO {
 					+ " '" + new java.sql.Date(reserva.getHoraDataFim()
 							.getTime()) + "',"
 					+ " '" + new java.sql.Time(reserva.getHoraDataFim()
-							.getTime()) + "')";
+							.getTime()) + "'"
+					+ " %s )";
+			
+			String observacao = reserva.getObservacao();
+			if (StringUtil.ehVazio(observacao)) {
+				sql = String.format(sql, ", '" + reserva.getObservacao() + "'");
+			} else {
+				sql = String.format(sql, BancoUtil.PALAVRA_VAZIA);
+			}
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);

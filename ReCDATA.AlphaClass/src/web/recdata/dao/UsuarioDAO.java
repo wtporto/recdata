@@ -44,20 +44,21 @@ public class UsuarioDAO {
 		try {
 			String sql = String
 					.format("%s ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)",
-							"INSERT INTO tb_usuario (nm_login, nm_senha, "
-									+ " nm_nome, nm_email, nr_telefone, nr_cpf,"
+							"INSERT INTO tb_usuario (nm_login, nm_senha, nm_usuario, "
+									+ " nm_email, nr_telefone, nr_cpf,"
 									+ " nm_endereco, dt_nascimento, tp_sexo, "
-									+ " cd_tipousuario)" + " VALUES ", usuario
-									.getLogin(), usuario
-									.getSenha(), usuario
-									.getNome(), usuario
-									.getEmail(), usuario
-									.getTelefone(), usuario
-									.getCpf(), usuario
-									.getEndereco(), new Date(usuario
-									.getNascimento().getTime()), usuario
-									.getSexo(), usuario
-									.getTipoUsuario().getId());
+									+ " cd_tipousuario)" 
+									+ " VALUES ", 
+									usuario.getLogin(), 
+									usuario.getSenha(), 
+									usuario.getNome(), 
+									usuario.getEmail(), 
+									usuario.getTelefone(), 
+									usuario.getCpf(), 
+									usuario.getEndereco(), 
+									new Date(usuario.getNascimento().getTime()), 
+									usuario.getSexo(), 
+									usuario.getTipoUsuario().getId());
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -179,8 +180,8 @@ public class UsuarioDAO {
 			// Define um update com os atributos e cada valor é representado
 			// por
 			// ?
-			String sql = "UPDATE `tb_usuario` SET `nm_senha`=?"
-					+ " WHERE `nm_login`=?";
+			String sql = "UPDATE tb_usuario SET nm_senha=?"
+					+ " WHERE nm_login=?";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -266,9 +267,13 @@ public class UsuarioDAO {
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
-		String sql = String.format("%s '%s'", "SELECT U.cd_usuario, U.nm_nome"
-				+ " FROM tb_usuario as U" + " WHERE U.nm_nome LIKE ",
-				usuario.getNome() + "%");
+		String sql = String.format("%s '%s'", 
+				"SELECT U.cd_usuario, U.nm_usuario, T.cd_tipousuario,"
+				+ " T.nm_tipousuario"
+				+ " FROM tb_usuario as U, tb_tipousuario as T" 
+				+ " WHERE U.nm_usuario LIKE ",
+				usuario.getNome().trim() + "%"
+				+ " AND U.cd_tipousuario = T.cd_tipousuario");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
@@ -278,7 +283,14 @@ public class UsuarioDAO {
 		while (rs.next()) {
 			Usuario usuarioConsulta = new Usuario();
 			usuarioConsulta.setId(rs.getInt("U.cd_usuario"));
-			usuarioConsulta.setNome(rs.getString("U.nm_nome"));
+			usuarioConsulta.setNome(rs.getString("U.nm_usuario"));
+			
+			TipoUsuario tipoUsuario = new TipoUsuario();
+			tipoUsuario.setId(rs.getInt("T.cd_tipousuario"));
+			tipoUsuario.setDescricao(rs.getString("T.cd_tipousuario"));
+			
+			usuarioConsulta.setTipoUsuario(tipoUsuario);
+			
 			usuarios.add(usuarioConsulta);
 		}
 

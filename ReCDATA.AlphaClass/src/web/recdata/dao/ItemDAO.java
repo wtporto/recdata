@@ -43,11 +43,11 @@ public class ItemDAO {
 		
 		try {
 
-			String sql = "INSERT INTO tb_item (cd_categoria,nm_item)"
+			String sql = "INSERT INTO tb_item (cd_categoria, cd_regiao, nm_item)"
 					+ " VALUES ("
-					+ item.getCategoria().getId()
-					+ ",'"
-					+ item.getDescricao() + "')";
+					+ item.getCategoria().getId() + ", "
+					+ item.getRegiao().getId() + ", "
+					+ "'" + item.getDescricao().trim() + "')";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -72,7 +72,9 @@ public class ItemDAO {
 
 		try {
 
-			String sql = "SELECT I.cd_item, I.cd_categoria, I.cd_regiao, I.nm_item, I.dt_registro FROM "
+			String sql = "SELECT I.cd_item, I.cd_categoria, I.cd_regiao,"
+					+ " I.nm_item, I.dt_registro"
+					+ " FROM "
 					+ "tb_item as I, tb_categoria as C"
 					+ " WHERE"
 					+ " AND C.cd_categoria = I.cd_categoria"
@@ -109,12 +111,13 @@ public class ItemDAO {
 
 			// Define um update com os atributos e cada valor é representado por
 			// ?
+			String sql = "UPDATE tb_item"
+					+ " SET nm_descricao='" + item.getDescricao().trim() + "',"
+					+ " cd_categoria = " + item.getCategoria().getId() + ","
+					+ " cd_regiao = " + item.getRegiao().getId() + ","
+					+ " WHERE cd_item = " + item.getId();
 
-			String sql = "UPDATE tb_item SET nm_descricao=\""
-					+ item.getDescricao() + "\" WHERE `cd_item`="
-					+ item.getId();
-
-			// prepared statement para inserção
+			// prepared statement para inserção.
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -136,9 +139,7 @@ public class ItemDAO {
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
-
-			// seta os valores
-
+			
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
@@ -154,9 +155,9 @@ public class ItemDAO {
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		String sql = String.format("%s",
-				"SELECT  I.cd_item, I.cd_categoria, I.cd_regiao, I.nm_item, I.dt_registro FROM "
-				+ "tb_item as I, tb_categoria as C"
-						+ " WHERE I.cd_categoria = C.cd_categoria");
+				"SELECT  I.cd_item, I.cd_categoria, I.cd_regiao, I.nm_item, I.dt_registro"
+				+ " FROM  tb_item as I, tb_categoria as C"
+				+ " WHERE I.cd_categoria = C.cd_categoria");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);

@@ -48,8 +48,8 @@ public class ReservaDAO {
 					+ " tb_usuario_idUsuario, data_inicio, hora_inicio, "
 					+ "data_fim,hora_fim) "
 					+ "VALUES ("
-					+ " " + reserva.getItem().getIdItem() + ","
-					+ " " + reserva.getUsuario().getUsuarioId() + ","
+					+ " " + reserva.getItem().getId() + ","
+					+ " " + reserva.getUsuario().getId() + ","
 					+ " '" + new java.sql.Date(reserva.getHoraDataInicio()
 							.getTime()) + "',"
 					+ " '" + new java.sql.Time(reserva.getHoraDataInicio()
@@ -107,7 +107,7 @@ public class ReservaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getItem().getIdItem());
+			stmt.setInt(1, reserva.getItem().getId());
 			stmt.setInt(2, reserva.getIdReserva());
 
 			// envia para o Banco e fecha o objeto
@@ -133,7 +133,7 @@ public class ReservaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getUsuario().getUsuarioId());
+			stmt.setInt(1, reserva.getUsuario().getId());
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -142,11 +142,11 @@ public class ReservaDAO {
 				reservaAux.setIdReserva(rs.getInt("idReserva"));
 
 				Item item = new Item();
-				item.setIdItem(rs.getInt("tb_item_idItem"));
+				item.setId(rs.getInt("tb_item_idItem"));
 				reservaAux.setItem(item);
 
 				Usuario usuario = new Usuario();
-				usuario.setUsuarioId(rs.getInt("tb_usuario_idUsuario"));
+				usuario.setId(rs.getInt("tb_usuario_idUsuario"));
 				reservaAux.setUsuario(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()
@@ -185,11 +185,11 @@ public class ReservaDAO {
 			reservaAux.setIdReserva(rs.getInt("idReserva"));
 
 			Item item = new Item();
-			item.setIdItem(rs.getInt("tb_item_idItem"));
+			item.setId(rs.getInt("tb_item_idItem"));
 			reservaAux.setItem(item);
 
 			Usuario usuario = new Usuario();
-			usuario.setUsuarioId(rs.getInt("tb_usuario_idUsuario"));
+			usuario.setId(rs.getInt("tb_usuario_idUsuario"));
 			reservaAux.setUsuario(usuario);
 
 			long dateHoraInicio = rs.getDate("data_inicio").getTime()

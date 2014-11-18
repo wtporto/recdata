@@ -12,6 +12,7 @@ import java.util.List;
 import web.recdata.exececao.ReCDataSQLException;
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
+import br.edu.ifpb.recdata.entidades.TipoUsuario;
 //import br.edu.ifpb.recdata.entidades.TipoUsuario;
 import br.edu.ifpb.recdata.entidades.Usuario;
 

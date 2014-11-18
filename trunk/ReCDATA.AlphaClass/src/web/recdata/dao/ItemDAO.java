@@ -1,27 +1,26 @@
 package web.recdata.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-import web.recdata.factory.ConnectionFactory;
+import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
+import br.edu.ifpb.recdata.entidades.Regiao;
 
 public class ItemDAO {
-
-	//------------------------INICIO DA CONEX�O COM BANCO DE DADOS-------------
-	static ConnectionFactory banco;
+	
+	static DBPool banco;
 	private static ItemDAO instance;
 
 	public static ItemDAO getInstance() {
 		if (instance == null) {
-			banco = new ConnectionFactory();
+			banco = DBPool.getInstance();
 			instance = new ItemDAO(banco);
 		}
 		return instance;
@@ -30,15 +29,13 @@ public class ItemDAO {
 	// a conexão com o banco de dados
 	public Connection connection;
 
-	public ItemDAO(ConnectionFactory banco) {
-		this.connection = (Connection) banco.getConnection();
+	public ItemDAO(DBPool banco) {
+		this.connection = (Connection) banco.getConn();
 	}
 
 	public ItemDAO() {
-		this.connection = (Connection) banco.getConnection();
+		this.connection = (Connection) banco.getConn();
 	}
-	//------------------------------FIM----------------------------------------
-	
 	
 	public int create(Item item) {
 
@@ -185,13 +182,15 @@ public class ItemDAO {
 		
 		ArrayList<Item> itens = new ArrayList<Item>();
 
-		String sql = String.format("%s '%s' %s",
-				"SELECT I.cd_item, I.nm_descricao, I.cd_categoria,"
-				+ " C.nm_descricao"
-				+ " FROM tb_item as I, tb_categoria as C"
-				+ " WHERE I.nm_descricao LIKE",
+		String sql = String.format("%s '%s' %s %s",
+				"SELECT I.cd_item, I.nm_item,"
+				+ " I.dt_registro, C.cd_categoria, C.nm_descricao,"
+				+ " R.cd_regiao, R.nm_regiao"
+				+ " FROM tb_item as I, tb_categoria as C, tb_regiao as R"
+				+ " WHERE I.nm_item LIKE ",
 				item.getDescricao() + "%", 
-				"AND I.cd_categoria = C.cd_categoria");
+				" AND I.cd_categoria = C.cd_categoria",
+				" AND I.cd_regiao = R.cd_regiao");
 
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
@@ -201,16 +200,22 @@ public class ItemDAO {
 		while (rs.next()) {
 			Item itemConsulta = new Item();
 			itemConsulta.setId(rs.getInt("I.cd_item"));
-			itemConsulta.setDescricao(rs.getString("I.nm_descricao"));
+			itemConsulta.setDescricao(rs.getString("I.nm_item"));
+			
 			Categoria categoria = new Categoria();
-			categoria.setId(rs.getInt("I.cd_categoria"));
+			categoria.setId(rs.getInt("C.cd_categoria"));
 			categoria
 					.setDescricao(rs.getString("C.nm_descricao"));
 			itemConsulta.setCategoria(categoria);
+			
+			Regiao regiao = new Regiao();
+			regiao.setId(rs.getInt("R.cd_regiao"));
+			regiao.setNome(rs.getString("R.nm_regiao"));
+			itemConsulta.setRegiao(regiao);
+			
 			itens.add(itemConsulta);
 		}
 
 		return itens;
 	}
-
 }

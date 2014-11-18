@@ -13,7 +13,6 @@ import web.recdata.exececao.ReCDataSQLException;
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.TipoUsuario;
-//import br.edu.ifpb.recdata.entidades.TipoUsuario;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 public class UsuarioDAO {
@@ -36,9 +35,7 @@ public class UsuarioDAO {
 		this.connection = (Connection) banco.getConn();
 	}
 
-	public UsuarioDAO() {
-
-	}
+	public UsuarioDAO() {}
 
 	public int creat(Usuario usuario) throws ReCDataSQLException {
 
@@ -120,6 +117,7 @@ public class UsuarioDAO {
 			}
 
 			stmt.close();
+			rs.close();
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
@@ -163,6 +161,9 @@ public class UsuarioDAO {
 
 				users.add(usuario);
 			}
+			
+			stmt.close();
+			rs.close();
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
@@ -175,7 +176,7 @@ public class UsuarioDAO {
 	public void update(Usuario user) {
 
 		try {
-			// Define um update com os atributos e cada valor � representado
+			// Define um update com os atributos e cada valor é representado
 			// por
 			// ?
 			String sql = "UPDATE `tb_usuario` SET `nm_senha`=?"
@@ -255,6 +256,7 @@ public class UsuarioDAO {
 		}
 
 		stmt.close();
+		rs.close();
 
 		return users;
 	}
@@ -280,6 +282,7 @@ public class UsuarioDAO {
 			usuarios.add(usuarioConsulta);
 		}
 
+		rs.close();
 		stmt.close();
 
 		return usuarios;

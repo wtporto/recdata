@@ -1,24 +1,23 @@
 package web.recdata.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import web.recdata.factory.ConnectionFactory;
+import web.recdata.factory.DBPool;
 import br.edu.ifpb.recdata.entidades.Categoria;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 public class CategoriaDAO {
 
-	static ConnectionFactory banco;
+	static DBPool banco;
 	private static CategoriaDAO instance;
 
 	public static CategoriaDAO getInstance() {
 		if (instance == null) {
-			banco = new ConnectionFactory();
+			banco = DBPool.getInstance();
 			instance = new CategoriaDAO(banco);
 		}
 		return instance;
@@ -26,18 +25,16 @@ public class CategoriaDAO {
 
 	public Connection connection;
 
-	public CategoriaDAO(ConnectionFactory banco) {
-		this.connection = (Connection) banco.getConnection();
+	public CategoriaDAO(DBPool banco) {
+		this.connection = (Connection) banco.getConn();
 	}
 
 	public CategoriaDAO() {
-		this.connection = (Connection) banco.getConnection();
+		this.connection = (Connection) banco.getConn();
 	}
-	//--------------------------------FIM ------------------------------------------
-	
 	
 	/**
-	 * Fun��o: Sele��o de Categoria no banco de dados pelo ID. 
+	 * Função: Seleção de Categoria no banco de dados pelo ID. 
 	 * Retorno: Retorna somente uma Categoria.
 	 * */
 	public Categoria readById(Categoria categoria) {
@@ -63,6 +60,9 @@ public class CategoriaDAO {
 				categoriaAux.setDescricao(rs
 						.getString("nm_descricao"));
 			}
+			
+			stmt.close();
+			rs.close();
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
@@ -72,7 +72,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Fun��o: Atualizar o valor da descri��o da categoria identificando pelo ID.
+	 * Função: Atualizar o valor da descrição da categoria identificando pelo ID.
 	 * Retorno: VOID.
 	 * */
 	public void update(Categoria categoria) {
@@ -97,7 +97,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Fun��o: Deleta a categoria identificada pelo ID.
+	 * Função: Deleta a categoria identificada pelo ID.
 	 * Retorno: VOID.
 	 * */
 	public void delete(Categoria categoria) {
@@ -120,7 +120,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Fun��o: Sele��o de todas as Categoria que est�o no banco de dados.
+	 * Função: Seleção de todas as Categoria que estão no banco de dados.
 	 * Retorno: ArrayList de Categoria.
 	 * 
 	 * FUNCIONANDO (TESTADO)

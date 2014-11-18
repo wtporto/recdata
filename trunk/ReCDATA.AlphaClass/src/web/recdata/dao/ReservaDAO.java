@@ -1,13 +1,11 @@
 package web.recdata.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import web.recdata.factory.DBPool;
+import web.recdata.factory.ConnectionFactory;
 import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
@@ -85,7 +83,7 @@ public class ReservaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getIdReserva());
+			stmt.setInt(1, reserva.getId());
 
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
@@ -108,7 +106,7 @@ public class ReservaDAO {
 					.prepareStatement(sql);
 
 			stmt.setInt(1, reserva.getItem().getId());
-			stmt.setInt(2, reserva.getIdReserva());
+			stmt.setInt(2, reserva.getId());
 
 			// envia para o Banco e fecha o objeto
 			stmt.execute();
@@ -139,14 +137,14 @@ public class ReservaDAO {
 
 			while (rs.next()) {
 				reservaAux = new ReservaItem();
-				reservaAux.setIdReserva(rs.getInt("idReserva"));
+				reservaAux.setId(rs.getInt("cd_reserva"));
 
 				Item item = new Item();
-				item.setId(rs.getInt("tb_item_idItem"));
+				item.setId(rs.getInt("cd_item"));
 				reservaAux.setItem(item);
 
 				Usuario usuario = new Usuario();
-				usuario.setId(rs.getInt("tb_usuario_idUsuario"));
+				usuario.setId(rs.getInt("cd_usuario"));
 				reservaAux.setUsuario(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()
@@ -172,7 +170,10 @@ public class ReservaDAO {
 	public ArrayList<ReservaItem> listarTodos() throws SQLException {
 		ArrayList<ReservaItem> reservas = new ArrayList<ReservaItem>();
 		ReservaItem reservaAux = null;
-		String sql = "SELECT * FROM tb_reserva";
+		String sql = "SELECT cd_reserva, cd_item,"
+					+ "cd_usuario_reserva, nm_observacao_reserva, data_inicio, hora_inicio, "
+					+ "data_fim,hora_fim "
+					+ "FROM tb_reserva";
 
 		// prepared statement para inseeção
 		PreparedStatement stmt = (PreparedStatement) connection
@@ -182,14 +183,14 @@ public class ReservaDAO {
 
 		while (rs.next()) {
 			reservaAux = new ReservaItem();
-			reservaAux.setIdReserva(rs.getInt("idReserva"));
+			reservaAux.setId(rs.getInt("cd_reserva"));
 
 			Item item = new Item();
-			item.setId(rs.getInt("tb_item_idItem"));
+			item.setId(rs.getInt("cd_item"));
 			reservaAux.setItem(item);
 
 			Usuario usuario = new Usuario();
-			usuario.setId(rs.getInt("tb_usuario_idUsuario"));
+			usuario.setId(rs.getInt("cd_usuario_reserva"));
 			reservaAux.setUsuario(usuario);
 
 			long dateHoraInicio = rs.getDate("data_inicio").getTime()

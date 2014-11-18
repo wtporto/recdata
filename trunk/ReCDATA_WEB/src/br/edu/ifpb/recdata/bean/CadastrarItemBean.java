@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response.Status;
 
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
+import br.edu.ifpb.recdata.entidades.Regiao;
 import br.edu.ifpb.recdata.service.ProviderServiceFactory;
 import br.edu.ifpb.recdata.service.ReCDATAService;
 
@@ -19,6 +20,8 @@ import br.edu.ifpb.recdata.service.ReCDATAService;
 public class CadastrarItemBean extends Item {
 
 	private List<SelectItem> categorias;
+	
+	private List<SelectItem> regioes;
 
 	public String cadastrarItem() {
 		String navegacao = null;
@@ -46,23 +49,41 @@ public class CadastrarItemBean extends Item {
 
 	public List<SelectItem> getCategorias() {
 
-		CategoriaAppScopeBean cityStateAppBean = (CategoriaAppScopeBean) GenericBean
+		CategoriaAppScopeBean categoriaAppBean = (CategoriaAppScopeBean) GenericBean
 				.getApplicationContextValue("categoriaAppScopeBean");
 
-		List<Categoria> categoriasAppBean = cityStateAppBean.getCategorias();
+		List<Categoria> categorias = categoriaAppBean.getCategorias();
 
 		this.categorias = GenericBean.initSelectOneItem();
 
-		for (Categoria categoriaAppBean : categoriasAppBean) {
+		for (Categoria categoria : categorias) {
 
-			this.categorias.add(new SelectItem(categoriaAppBean,
-					categoriaAppBean.getDescricao()));
+			this.categorias.add(new SelectItem(categoria,
+					categoria.getDescricao()));
 		}
 
 		return this.categorias;
 	}
 	
+	public List<SelectItem> getRegioes() {
+		
+		RegiaoAppScopeBean regiaoAppBean = (RegiaoAppScopeBean) GenericBean
+				.getApplicationContextValue("regiaoAppScopeBean");
+
+		List<Regiao> regioes = regiaoAppBean.getRegioes();
+
+		this.regioes = GenericBean.initSelectOneItem();
+
+		for (Regiao regiao : regioes) {
+
+			this.regioes.add(new SelectItem(regiao,
+					regiao.getNome()));
+		}
+		
+		return this.regioes;
+	}
+	
 	private void resetCadastrarItemBean() {		
 		GenericBean.resetRequestScopedBean("cadastrarItemBean");
-	}
+	}	
 }

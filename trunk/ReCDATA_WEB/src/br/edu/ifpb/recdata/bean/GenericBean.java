@@ -130,7 +130,7 @@ public class GenericBean {
 	}
 
 	/**
-	 * Recuperar as configura��es do Tomcat
+	 * Recuperar as configurações do Tomcat
 	 * 
 	 * @return
 	 */
@@ -154,7 +154,7 @@ public class GenericBean {
 	}
 	
 	/**
-	 * Recuperar valores armazenados na Sess�o do cliente.
+	 * Recuperar valores armazenados na Sessão do cliente.
 	 * 
 	 * @param key
 	 * @return

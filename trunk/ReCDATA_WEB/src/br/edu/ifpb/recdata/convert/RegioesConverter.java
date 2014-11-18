@@ -10,34 +10,34 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import br.edu.ifpb.recdata.bean.CategoriaAppScopeBean;
 import br.edu.ifpb.recdata.bean.GenericBean;
-import br.edu.ifpb.recdata.entidades.Categoria;
+import br.edu.ifpb.recdata.bean.RegiaoAppScopeBean;
+import br.edu.ifpb.recdata.entidades.Regiao;
 
-@FacesConverter("br.edu.ifpb.recdata.convert.CategoriasConverter")
-public class CategoriasConverter implements Converter {
+@FacesConverter("br.edu.ifpb.recdata.convert.RegioesConverter")
+public class RegioesConverter implements Converter {
 
 	public static String EMPYT = "0";
 	
 	@Override
-	public Categoria getAsObject(FacesContext context, UIComponent component,
+	public Regiao getAsObject(FacesContext context, UIComponent component,
 			String value) {
 
-		Categoria categoriaSelect = null;
+		Regiao regiaoSelect = null;
 
 		try {
 			
-			CategoriaAppScopeBean categoriaAppBean = (CategoriaAppScopeBean) GenericBean
-					.getApplicationContextValue("categoriaAppScopeBean");
+			RegiaoAppScopeBean regiaoAppBean = (RegiaoAppScopeBean) GenericBean
+					.getApplicationContextValue("regiaoAppScopeBean");
 			
-			List<Categoria> categorias = categoriaAppBean.getCategorias();
+			List<Regiao> regioes = regiaoAppBean.getRegioes();
 
 			int id = Integer.parseInt(value);
 			
-			for (Categoria categoria : categorias) {
+			for (Regiao regiao : regioes) {
 				
-				if (categoria.getId() == id) {
-					categoriaSelect = categoria;
+				if (regiao.getId() == id) {
+					regiaoSelect = regiao;
 				}
 			}		
 
@@ -51,23 +51,23 @@ public class CategoriasConverter implements Converter {
 			throw new ConverterException(msg);
 		}
 		
-		return categoriaSelect;
+		return regiaoSelect;
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent componente,
 			Object value) {
 		
-		String idCategorias = null;
+		String idRegiao = null;
         
 		try {
 			
-			Categoria categoria = (Categoria) value;			
-            idCategorias = Integer.toString(categoria.getId());
+			Regiao regiao = (Regiao) value;			
+            idRegiao = Integer.toString(regiao.getId());
             
 		} catch (NullPointerException e) {
         	
-			idCategorias = EMPYT;
+			idRegiao = EMPYT;
 			
         } catch(Throwable ex) {
         	
@@ -78,6 +78,6 @@ public class CategoriasConverter implements Converter {
             throw new ConverterException(msg);
         }
 		
-        return idCategorias;
+        return idRegiao;
 	}
 }

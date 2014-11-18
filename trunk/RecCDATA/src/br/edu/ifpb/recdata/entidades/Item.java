@@ -1,5 +1,7 @@
 package br.edu.ifpb.recdata.entidades;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,6 +13,10 @@ public class Item implements Entidade {
 	private String descricao;
 	
 	private Categoria categoria;
+	
+	private Regiao regiao;
+	
+	private Date registro;
 
 	public Item() {}
 
@@ -68,5 +74,22 @@ public class Item implements Entidade {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	@XmlElement
+	public Regiao getRegiao() {
+		return regiao;
+	}
+
+	public void setRegiao(Regiao regiao) {
+		this.regiao = regiao;
+	}
+
+	public Date getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(Date registro) {
+		this.registro = registro;
 	}
 }

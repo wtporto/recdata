@@ -24,11 +24,11 @@
 
 				<h:panelGrid columns="1">
 				
-					<p:outputLabel value="Item:" for="descricaoItem" />
-					<h:inputText value="#{reservarItemBean.item.descricaoItem}" 
-						readonly="true" id="descricaoItem">
+					<p:outputLabel value="Item:" for="descricao" />
+					<h:inputText value="#{reservarItemBean.item.descricao}" 
+						readonly="true" id="descricao">
                     </h:inputText>
-                    <h:message for="descricaoItem" />
+                    <h:message for="descricao" />
 				
 				
 					<!-- Autocomplete - Usuário -->
@@ -36,12 +36,12 @@
 					<p:autoComplete id="nomeUsuario" multiple="true"
 						value="#{reservarItemBean.usuariosSelecionados}"
 						completeMethod="#{reservarItemBean.completeUsuarios}"
-						var="usuario" itemLabel="#{usuario.nomeUsuario}"
+						var="usuario" itemLabel="#{usuario.nome}"
 						itemValue="#{usuario}"
 						converter="br.edu.ifpb.recdata.convert.UsuariosConverter"
 						forceSelection="true">
 						<p:column>
-							<h:outputText value="#{usuario.nomeUsuario}" />
+							<h:outputText value="#{usuario.nome}" />
 						</p:column>
 					</p:autoComplete>
 					<h:message for="nomeUsuario" />

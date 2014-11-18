@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ReservaItem implements Entidade {
 
 	private int id;
+	//TODO: private Usuario usuarioReserva; -- Usuário responsável por realizar a reserva.
 	private Usuario usuario;
 	private Item item;
 	private String observacao;
@@ -91,7 +92,5 @@ public class ReservaItem implements Entidade {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-
-	
+	}	
 }

@@ -36,11 +36,15 @@ public class Item implements Entidade {
 	 * @param idCategoria
 	 * @param descricaoItem
 	 */
-	public Item(int idCategoria, String descricao) {
+	public Item(int idCategoria, int idRegiao, String descricao) {
+		
 		categoria = new Categoria();
 		categoria.setId(idCategoria);
-		setDescricao(descricao);
 		
+		regiao = new Regiao();
+		regiao.setId(idRegiao);
+		
+		setDescricao(descricao);		
 	}
 
 	

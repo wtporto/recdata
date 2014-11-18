@@ -1,24 +1,22 @@
 package br.edu.ifpb.recdata.entity;
 
-import java.io.Serializable;
+import java.util.Date;
 
 import br.edu.ifpb.R;
 
-public class Item implements Serializable {
+public class Item  {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private int idItem;
-
-	private String descricaoItem;
-
+	private int id;
+	
+	private String descricao;
+	
 	private Categoria categoria;
+	
+	private Regiao regiao;
+	
+	private Date registro;
 
-	public Item() {
-	}
+	public Item() {}
 
 	/**
 	 * Construtor pra readById.
@@ -27,7 +25,7 @@ public class Item implements Serializable {
 	 */
 	public Item(int idCategoria) {
 		categoria = new Categoria();
-		categoria.setIdCategoria(idCategoria);
+		categoria.setId(idCategoria);
 	}
 
 	/**
@@ -36,35 +34,37 @@ public class Item implements Serializable {
 	 * @param idCategoria
 	 * @param descricaoItem
 	 */
-	public Item(int idCategoria, String descricaoItem) {
+	public Item(int idCategoria, String descricao) {
 		categoria = new Categoria();
-		categoria.setIdCategoria(idCategoria);
-		setDescricaoItem(descricaoItem);
+		categoria.setId(idCategoria);
+		setDescricao(descricao);
+		
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Item [idItem=" + idItem + ", descricaoItem=" + descricaoItem
-				+ ", idCategoria=" + categoria.getIdCategoria()
-				+ ", descricaoCategoria=" + categoria.getDescricaoCategoria()
+		return "Item [id=" + id + ", descricao=" + descricao + ", categoria="
+				+ categoria + ", regiao=" + regiao + ", registro=" + registro
 				+ "]";
 	}
 
-	public int getIdItem() {
-		return idItem;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdItem(int idItem) {
-		this.idItem = idItem;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getDescricaoItem() {
-		return descricaoItem;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescricaoItem(String descricaoItem) {
-		this.descricaoItem = descricaoItem;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
+
 
 	public Categoria getCategoria() {
 		return categoria;
@@ -74,6 +74,21 @@ public class Item implements Serializable {
 		this.categoria = categoria;
 	}
 
+	public Regiao getRegiao() {
+		return regiao;
+	}
+
+	public void setRegiao(Regiao regiao) {
+		this.regiao = regiao;
+	}
+
+	public Date getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(Date registro) {
+		this.registro = registro;
+	}
 	public int getImagem(int idcategoria) {
 		switch (idcategoria) {
 		case 1:

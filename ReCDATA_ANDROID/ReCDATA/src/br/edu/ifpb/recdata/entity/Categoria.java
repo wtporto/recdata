@@ -1,50 +1,47 @@
 package br.edu.ifpb.recdata.entity;
 
-import java.io.Serializable;
+import java.util.Date;
 
+public class Categoria {
 
-public class Categoria implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int idCategoria;
-	private String descricaoCategoria;
+	private int id;
+	
+	private String descricao;
+	
+	private Date registro;
 	
 	public Categoria(int id) {
-		setIdCategoria(id);
-	}
-	public Categoria(){
-		
-	}
-
-	public Categoria(int id, String categoria){
-		
-		setIdCategoria(id);
-		setDescricaoCategoria(categoria);
+		setId(id);
 	}
 	
-	public int getIdCategoria() {
-		return idCategoria;
+	public Categoria(){}
+
+	public Categoria(int id, String categoria){		
+		setId(id);
+		setDescricao(categoria);
+	}
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getDescricaoCategoria() {
-		return descricaoCategoria;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescricaoCategoria(String descricaoCategoria) {
-		this.descricaoCategoria = descricaoCategoria;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override
 	public String toString() {
-		return "Categoria [idCategoria=" + idCategoria
-				+ ", descricaoCategoria=" + descricaoCategoria + "]";
+		return "Categoria [idCategoria=" + id
+				+ ", descricaoCategoria=" + descricao 
+				+ "registro=" + registro + "]";
 	}
 	
 }

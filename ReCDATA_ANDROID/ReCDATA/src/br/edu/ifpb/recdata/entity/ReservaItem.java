@@ -2,42 +2,38 @@ package br.edu.ifpb.recdata.entity;
 
 import java.util.Date;
 
+
 public class ReservaItem {
 
-	private int idReserva;
+	private int id;
 	private Usuario usuario;
 	private Item item;
+	private String observacao;
 	private Date horaDataInicio;
 	private Date horaDataFim;
 	private Date dataRegistro;
 	
 	public ReservaItem() {}
 	
-	public ReservaItem(int idReserva, Usuario usuario, Item item,
+	public ReservaItem(int id, Usuario usuario, Item item,String observacao,
 			Date horaDataInicio, Date horaDataFim) {
 		super();
-		this.idReserva = idReserva;
+		this.id = id;
 		this.usuario = usuario;
 		this.item = item;
 		this.horaDataInicio = horaDataInicio;
 		this.horaDataFim = horaDataFim;
+		this.observacao = observacao;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservaItem [idReserva=" + idReserva + ", usuario="
-				+ usuario + ", item=" + item
+		return "ReservaItem [idReserva=" + id + ", usuario="
+				+ usuario + ", item=" + item +" observacao="+observacao
 				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
 				+ horaDataFim + "]";
 	}
 
-	public int getIdReserva() {
-		return idReserva;
-	}
-
-	public void setIdReserva(int idReserva) {
-		this.idReserva = idReserva;
-	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -79,4 +75,21 @@ public class ReservaItem {
 		this.dataRegistro = dataRegistro;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	
 }

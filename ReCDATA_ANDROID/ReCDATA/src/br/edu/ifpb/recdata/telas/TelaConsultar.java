@@ -16,8 +16,8 @@ import br.edu.ifpb.recdata.servicos.BuscaItensServidorAsyncTask;
 
 public class TelaConsultar extends Activity {
 
-	String[] listaItem = { "Selecione Categoria", "CHAVE", "CAIXA DE SOM",
-			"DATASHOW", "NOTEBOOK" };
+	String[] listaItem = { "Selecione Categoria", "Sala","Laboratório", "Caixa de Som",
+			"Datashow", "Notebook" };
 
 	private int idCategoriaSpinner = 0; // setar o id categoria atravez do item
 										

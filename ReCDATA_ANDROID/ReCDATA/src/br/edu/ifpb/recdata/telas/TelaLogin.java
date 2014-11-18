@@ -51,8 +51,8 @@ public class TelaLogin extends Activity implements OnClickListener {
 		JSONObject jsonObject = new JSONObject();
 
 		try {
-			jsonObject.put("loginUsuario", login.getText().toString());
-			jsonObject.put("senhaUsuario", senha.getText().toString());
+			jsonObject.put("login", login.getText().toString());
+			jsonObject.put("senha", senha.getText().toString());
 
 		} catch (JSONException e) {
 			Log.e("ReCDATA", e.getMessage());

@@ -53,14 +53,13 @@ public class UsuarioLoginAsyncTask extends
 			if (httpCode > 200 && httpCode < 400) {
 
 				Usuario usuario = new Usuario();
-				usuario.setUsuarioId(jsonObject.getInt("usuarioId"));
-				usuario.setNomeUsuario(jsonObject.getString("nomeUsuario"));
-
+				usuario.setId(jsonObject.getInt("id"));
+				usuario.setNome(jsonObject.getString("nome"));
 				gs = (GlobalState) activity.getApplication();
 				gs.setUsuario(usuario);
 
 				Toast.makeText(activity.getApplicationContext(),
-						"Bem vindo, " + usuario.getNomeUsuario(),
+						"Bem vindo, " + usuario.getNome(),
 						Toast.LENGTH_SHORT).show();
 
 				Intent intent = new Intent(activity,

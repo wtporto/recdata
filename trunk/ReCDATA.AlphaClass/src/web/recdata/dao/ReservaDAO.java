@@ -1,17 +1,18 @@
 package web.recdata.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import web.recdata.factory.ConnectionFactory;
+import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
-
-import java.sql.Statement;
 
 public class ReservaDAO {
 
@@ -170,10 +171,11 @@ public class ReservaDAO {
 	public ArrayList<ReservaItem> listarTodos() throws SQLException {
 		ArrayList<ReservaItem> reservas = new ArrayList<ReservaItem>();
 		ReservaItem reservaAux = null;
-		String sql = "SELECT cd_reserva, cd_item,"
-					+ "cd_usuario_reserva, nm_observacao_reserva, data_inicio, hora_inicio, "
-					+ "data_fim,hora_fim "
-					+ "FROM tb_reserva";
+		String sql = "SELECT R.cd_reserva, R.cd_item, "
+					+ "R.cd_usuario_reserva, R.nm_observacao_reserva, "
+					+ "R.data_inicio, R.hora_inicio, "
+					+ "R.data_fim,hora_fim "
+					+ "FROM tb_reserva as R";
 
 		// prepared statement para inseeção
 		PreparedStatement stmt = (PreparedStatement) connection
@@ -183,23 +185,23 @@ public class ReservaDAO {
 
 		while (rs.next()) {
 			reservaAux = new ReservaItem();
-			reservaAux.setId(rs.getInt("cd_reserva"));
+			reservaAux.setId(rs.getInt("R.cd_reserva"));
 
 			Item item = new Item();
-			item.setId(rs.getInt("cd_item"));
+			item.setId(rs.getInt("R.cd_item"));
 			reservaAux.setItem(item);
 
 			Usuario usuario = new Usuario();
-			usuario.setId(rs.getInt("cd_usuario_reserva"));
+			usuario.setId(rs.getInt("R.cd_usuario_reserva"));
 			reservaAux.setUsuario(usuario);
 
-			long dateHoraInicio = rs.getDate("data_inicio").getTime()
-					+ rs.getTime("hora_inicio").getTime();
+			long dateHoraInicio = rs.getDate("R.data_inicio").getTime()
+					+ rs.getTime("R.hora_inicio").getTime();
 
 			reservaAux.setHoraDataInicio(new Date(dateHoraInicio));
 
-			long dateHoraFim = rs.getDate("data_fim").getTime()
-					+ rs.getTime("hora_fim").getTime();
+			long dateHoraFim = rs.getDate("R.data_fim").getTime()
+					+ rs.getTime("R.hora_fim").getTime();
 
 			reservaAux.setHoraDataFim(new Date(dateHoraFim));
 

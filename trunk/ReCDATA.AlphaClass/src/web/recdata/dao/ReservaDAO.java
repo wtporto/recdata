@@ -44,9 +44,9 @@ public class ReservaDAO {
 		int idReserva = BancoUtil.IDVAZIO;
 		try {
 			
-			String sql = "INSERT INTO tb_reserva (tb_item_idItem,"
-					+ " tb_usuario_idUsuario, data_inicio, hora_inicio, "
-					+ "data_fim, hora_fim, nm_observacao) "
+			String sql = "INSERT INTO tb_reserva (cd_item,"
+					+ " cd_usuario_reserva, data_inicio, hora_inicio,"
+					+ " data_fim, hora_fim %s) "
 					+ "VALUES ("
 					+ " " + reserva.getItem().getId() + ","
 					+ " " + reserva.getUsuario().getId() + ","
@@ -61,10 +61,13 @@ public class ReservaDAO {
 					+ " %s )";
 			
 			String observacao = reserva.getObservacao();
-			if (StringUtil.ehVazio(observacao)) {
-				sql = String.format(sql, ", '" + reserva.getObservacao() + "'");
+			
+			if (!StringUtil.ehVazio(observacao)) {
+				sql = String.format(sql, ", nm_observacao", 
+						", '" + reserva.getObservacao() + "'");
 			} else {
-				sql = String.format(sql, BancoUtil.PALAVRA_VAZIA);
+				sql = String.format(sql, BancoUtil.PALAVRA_VAZIA, 
+						BancoUtil.PALAVRA_VAZIA);
 			}
 
 			PreparedStatement stmt = (PreparedStatement) connection

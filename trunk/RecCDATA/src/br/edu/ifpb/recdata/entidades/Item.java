@@ -40,13 +40,15 @@ public class Item implements Entidade {
 		categoria = new Categoria();
 		categoria.setId(idCategoria);
 		setDescricao(descricao);
+		
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", descricao=" + descricao
-				+ ", idCategoria=" + categoria.getId() + ", descricaoCategoria="
-				+ categoria.getDescricao() + "]";
+		return "Item [id=" + id + ", descricao=" + descricao + ", categoria="
+				+ categoria + ", regiao=" + regiao + ", registro=" + registro
+				+ "]";
 	}
 
 	@XmlElement

@@ -1,11 +1,14 @@
 package br.edu.ifpb.recdata.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Usuario implements Entidade {
+public class Usuario implements Entidade, Serializable {
+
+	private static final long serialVersionUID = 1753761555110528878L;
 
 	private int id;
 	

@@ -85,7 +85,7 @@ public class UsuarioDAO {
 
 		try {
 
-			String sql = "SELECT U.cd_usuario, U.nm_login, U.nm_nome, U.nm_email,"
+			String sql = "SELECT U.cd_usuario, U.nm_login, U.nm_usuario, U.nm_email,"
 					+ " U.nr_telefone, U.nr_cpf, U.nm_endereco,"
 					+ " U.dt_nascimento, U.tp_sexo, U.cd_tipousuario"
 					+ " FROM tb_usuario as U"
@@ -104,7 +104,7 @@ public class UsuarioDAO {
 				usuarioConsulta = new Usuario();
 				usuarioConsulta.setId(rs.getInt("U.cd_usuario"));
 				usuarioConsulta.setLogin(rs.getString("U.nm_login"));
-				usuarioConsulta.setNome(rs.getString("U.nm_nome"));
+				usuarioConsulta.setNome(rs.getString("U.nm_usuario"));
 				usuarioConsulta.setEmail(rs.getString("U.nm_email"));
 				usuarioConsulta.setTelefone(rs
 						.getString("U.nr_telefone"));
@@ -149,7 +149,7 @@ public class UsuarioDAO {
 				usuario.setId(rs.getInt("u.cd_usuario"));
 				usuario.setLogin(rs.getString("u.nm_login"));
 				usuario.setSenha(rs.getString("u.nm_senha"));
-				usuario.setNome(rs.getString("u.nm_nome"));
+				usuario.setNome(rs.getString("u.nm_usuario"));
 				usuario.setEmail(rs.getString("u.nm_email"));
 				usuario.setTelefone(rs.getString("u.nr_telefone"));
 				usuario.setCpf(rs.getString("u.nr_cpf"));
@@ -241,7 +241,7 @@ public class UsuarioDAO {
 			user.setId(rs.getInt("cd_usuario"));
 			user.setLogin(rs.getString("nm_login"));
 			user.setSenha(rs.getString("nm_senha"));
-			user.setNome(rs.getString("nm_nome"));
+			user.setNome(rs.getString("nm_usuario"));
 			user.setEmail(rs.getString("nm_email"));
 			user.setTelefone(rs.getString("nr_telefone"));
 			user.setCpf(rs.getString("nr_cpf"));
@@ -250,7 +250,7 @@ public class UsuarioDAO {
 			user.setSexo(rs.getString("tp_sexo"));			
 			TipoUsuario tipoUsuario = new TipoUsuario();
 			tipoUsuario.setId(rs.getInt("cd_tipousuario"));
-			tipoUsuario.setDescricao(rs.getString("nm_descricao"));
+			tipoUsuario.setDescricao(rs.getString("nm_tipousuario"));
 			user.setTipoUsuario(tipoUsuario);
 
 			users.add(user);

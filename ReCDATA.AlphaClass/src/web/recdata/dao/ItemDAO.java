@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
+import web.recdata.util.StringUtil;
 import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.Regiao;
@@ -183,13 +184,32 @@ public class ItemDAO {
 		
 		ArrayList<Item> itens = new ArrayList<Item>();
 
-		String sql = String.format("%s '%s' %s %s",
+		String descricao = BancoUtil.STRING_VAZIA;
+		if (!StringUtil.ehVazio(item.getDescricao())) {
+			descricao = "I.nm_item LIKE '" + item.getDescricao().trim() + "%'";
+		}
+		
+		Categoria categoria = item.getCategoria();
+		String idCategoria = BancoUtil.STRING_VAZIA;
+		if (categoria!=null && categoria.getId()!=BancoUtil.IDVAZIO) {
+			idCategoria = "AND cd_categoria = " + categoria.getId();
+		}
+		
+		Regiao regiao = item.getRegiao();
+		String idRegiao = BancoUtil.STRING_VAZIA;
+		if (regiao!=null && regiao.getId()!=BancoUtil.IDVAZIO) {
+			idRegiao = "AND cd_regiao = " + regiao.getId();
+		}
+		
+		String sql = String.format("%s %s %s %s %s %s",
 				"SELECT I.cd_item, I.nm_item,"
 				+ " I.dt_registro, C.cd_categoria, C.nm_descricao,"
 				+ " R.cd_regiao, R.nm_regiao"
 				+ " FROM tb_item as I, tb_categoria as C, tb_regiao as R"
-				+ " WHERE I.nm_item LIKE ",
-				item.getDescricao().trim() + "%", 
+				+ " WHERE ",
+				descricao,
+				idCategoria,
+				idRegiao,
 				" AND I.cd_categoria = C.cd_categoria",
 				" AND I.cd_regiao = R.cd_regiao");
 
@@ -203,16 +223,16 @@ public class ItemDAO {
 			itemConsulta.setId(rs.getInt("I.cd_item"));
 			itemConsulta.setDescricao(rs.getString("I.nm_item"));
 			
-			Categoria categoria = new Categoria();
-			categoria.setId(rs.getInt("C.cd_categoria"));
-			categoria
+			Categoria categoriaConsulta = new Categoria();
+			categoriaConsulta.setId(rs.getInt("C.cd_categoria"));
+			categoriaConsulta
 					.setDescricao(rs.getString("C.nm_descricao"));
-			itemConsulta.setCategoria(categoria);
+			itemConsulta.setCategoria(categoriaConsulta);
 			
-			Regiao regiao = new Regiao();
-			regiao.setId(rs.getInt("R.cd_regiao"));
-			regiao.setNome(rs.getString("R.nm_regiao"));
-			itemConsulta.setRegiao(regiao);
+			Regiao regiaoConsulta = new Regiao();
+			regiaoConsulta.setId(rs.getInt("R.cd_regiao"));
+			regiaoConsulta.setNome(rs.getString("R.nm_regiao"));
+			itemConsulta.setRegiao(regiaoConsulta);
 			
 			itens.add(itemConsulta);
 		}

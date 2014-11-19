@@ -66,8 +66,8 @@ public class ReservaDAO {
 				sql = String.format(sql, ", nm_observacao", 
 						", '" + reserva.getObservacao() + "'");
 			} else {
-				sql = String.format(sql, BancoUtil.PALAVRA_VAZIA, 
-						BancoUtil.PALAVRA_VAZIA);
+				sql = String.format(sql, BancoUtil.STRING_VAZIA, 
+						BancoUtil.STRING_VAZIA);
 			}
 
 			PreparedStatement stmt = (PreparedStatement) connection

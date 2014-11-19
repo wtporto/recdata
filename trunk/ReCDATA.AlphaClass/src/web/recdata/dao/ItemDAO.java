@@ -216,6 +216,9 @@ public class ItemDAO {
 			
 			itens.add(itemConsulta);
 		}
+		
+		stmt.close();
+		rs.close();
 
 		return itens;
 	}

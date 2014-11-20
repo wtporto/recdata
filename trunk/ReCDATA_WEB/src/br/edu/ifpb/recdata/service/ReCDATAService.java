@@ -14,6 +14,7 @@ import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.Regiao;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
+import br.edu.ifpb.recdata.entidades.Retirada;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 /**
@@ -63,4 +64,11 @@ public interface ReCDATAService {
 	@Path("/regiao/listar")
 	@Produces("application/json")
 	public List<Regiao> listarRegioes();
+	
+	@POST
+	@Path("/retirada/criar")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response creat(Retirada retirada);
+	
 }

@@ -24,11 +24,17 @@
 
 				<h:panelGrid columns="1">
 				
-					<p:outputLabel value="Item:" for="descricao" />
-					<h:inputText value="#{reservarItemBean.item.descricao}" 
-						readonly="true" id="descricao">
-                    </h:inputText>
-                    <h:message for="descricao" />
+					<h:panelGrid columns="2" id="itemReserva">
+						<p:outputLabel value="Item:" for="descricao" />
+						<h:inputText value="#{reservarItemBean.itemCategoriaDescricaoRegiao}" 
+							readonly="true" id="descricao">
+	                    </h:inputText>
+	                    <h:message for="descricao" />
+	                    <p:commandLink id="mudarItemLink" 
+	                    	actionListener="#{reservarItemBean.mudarItem}" ajax="false">
+	       					<h:outputText value="Mudar Item" />
+	   					</p:commandLink>
+   					</h:panelGrid>
 				
 				
 					<!-- Autocomplete - Usuário -->
@@ -74,6 +80,18 @@
 							widgetVar="horaFinalWidgetVar" 
 							id="horaFinal" />
 						<h:message for="horaFinal" />
+					</h:panelGrid>
+					
+					<!-- Observação da reserva -->
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Observação" for="observacao"/>							
+						<p:inputTextarea id="observacao" rows="8" cols="25" 
+							value="#{reservarItemBean.observacao}" 
+							maxlength="255"
+							required="false">
+							<f:validateLength maximum="255"/>
+						</p:inputTextarea>
+						<h:message for="observacao"/>
 					</h:panelGrid>
 					
 					<h:panelGrid columns="3">

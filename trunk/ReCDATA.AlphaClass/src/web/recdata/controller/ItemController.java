@@ -3,6 +3,7 @@ package web.recdata.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -18,7 +19,7 @@ public class ItemController {
 		return ItemDAO.getInstance().listarTodos();
 	}
 
-	public ArrayList<Item> consultarItens(Item item) throws SQLException {
+	public List<Item> consultarItens(Item item) throws SQLException {
 		return ItemDAO.getInstance().listarItens(item);
 	}
 	
@@ -47,8 +48,8 @@ public class ItemController {
 		return builder.build();
 	}
 
+	//TODO: Mudar para Item.
 	public ArrayList<Item> readById(Item item) {
-
 		return ItemDAO.getInstance().readById(item.getId());
 	}
 

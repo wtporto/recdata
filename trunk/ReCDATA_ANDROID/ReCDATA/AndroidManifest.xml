@@ -50,7 +50,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.recdata.telas.TelaConsultar"
+            android:name="br.edu.ifpb.recdata.telas.TelaConsultarItem"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -69,7 +69,11 @@
             android:name="br.edu.ifpb.recdata.telas.TelaQrCode"
             android:label="@string/app_name" >
         </activity>
-        
+        <activity
+            android:name="br.edu.ifpb.recdata.telas.TelaResultadoItem"
+            android:label="@string/app_name" >
+        </activity>
+                
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
             android:label="Leitor de Código Qr"

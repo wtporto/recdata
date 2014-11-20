@@ -46,7 +46,7 @@ public class BuscaItensServidorAsyncTask extends
 
 		int httpCode = response.getStatusLine().getStatusCode();
 
-		if (httpCode > 200 && httpCode < 400) {
+		if (httpCode >= 200 && httpCode < 400) {
 
 			// Conversão do response ( resposta HTTP) para String.
 			String itensJson = HttpUtil.entityToString(response);

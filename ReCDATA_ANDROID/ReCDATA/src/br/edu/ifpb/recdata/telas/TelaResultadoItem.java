@@ -60,7 +60,7 @@ public class TelaResultadoItem extends Activity {
 	
 		
 		
-		listview = (ListView) findViewById(R.id.listaResultados);
+		listview = (ListView) findViewById(R.id.lv_resultado);
         listview.setAdapter(new ItemAdapter(TelaResultadoItem.this,
                         ListaItens));
         

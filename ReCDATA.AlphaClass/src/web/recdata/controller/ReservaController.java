@@ -3,6 +3,7 @@ package web.recdata.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -13,8 +14,13 @@ import br.edu.ifpb.recdata.entidades.Erro;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 
 public class ReservaController {
-	public ArrayList<ReservaItem> listarTodos() throws SQLException {
+	
+	public List<ReservaItem> listarTodos() throws SQLException {
 		return ReservaDAO.getInstance().listarTodos();
+	}
+	
+	public List<ReservaItem> consultarReservas(ReservaItem reserva) throws SQLException {
+		return ReservaDAO.getInstance().consultarReservas(reserva);
 	}
 
 	public ArrayList<ReservaItem> readById(ReservaItem reserva) {

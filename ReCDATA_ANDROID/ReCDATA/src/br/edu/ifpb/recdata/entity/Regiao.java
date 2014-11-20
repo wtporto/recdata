@@ -9,7 +9,11 @@ public class Regiao {
 	public int getId() {
 		return id;
 	}
-
+	public Regiao( String nome){
+		setNome(nome);
+	}
+	public Regiao( ){
+	}
 	public void setId(int id) {
 		this.id = id;
 	}

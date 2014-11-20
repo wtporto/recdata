@@ -13,7 +13,9 @@ public class Categoria {
 	public Categoria(int id) {
 		setId(id);
 	}
-	
+	public Categoria(String descricao) {
+		setDescricao(descricao);
+	}
 	public Categoria(){}
 
 	public Categoria(int id, String categoria){		

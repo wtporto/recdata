@@ -2,6 +2,7 @@ package web.recdata.resource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,7 +22,7 @@ public class ItemResource {
 	@GET
 	@Path("/listar")
 	@Produces("application/json")
-	public ArrayList<Item> listarTodos() throws SQLException {
+	public List<Item> listarTodos() throws SQLException {
 		return new ItemController().listarTodos();
 	}
 	
@@ -29,7 +30,7 @@ public class ItemResource {
 	@Path("/consultarItens")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public ArrayList<Item> consultarItens(Item item) throws SQLException {
+	public List<Item> consultarItens(Item item) throws SQLException {
 		return new ItemController().consultarItens(item);
 	}
 	

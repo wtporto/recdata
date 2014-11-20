@@ -2,6 +2,7 @@ package web.recdata.resource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,10 +20,18 @@ public class ReservaResource {
 	@GET
 	@Path("/listar")
 	@Produces("application/json")
-	public ArrayList<ReservaItem> listarTodos() throws SQLException {
+	public List<ReservaItem> listarTodos() throws SQLException {
 		return new ReservaController().listarTodos();
 	}
 
+	@POST
+	@Path("/consultarReservas")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public List<ReservaItem> consultarReservas(ReservaItem reserva) throws SQLException {
+		return new ReservaController().consultarReservas(reserva);
+	}
+	
 	@POST
 	@Path("/leitor")
 	@Consumes("application/json")

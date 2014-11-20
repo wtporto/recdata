@@ -4,43 +4,128 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF" >
 
-     <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
-            android:text="Seleciona Categoria do Item"
-            android:textColor="#000000"
-            android:typeface="monospace"
-    	    android:textSize="20dp"
-            />
-
-    <Button
-        android:id="@+id/BuscaButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="152dp"
-        android:text="Buscar Items"
-        android:typeface="monospace" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="500dp"
+        android:layout_height="120dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true"
         android:background="#FFFFFF"
         android:orientation="vertical" >
 
-        <Spinner
-            android:id="@+id/Spinner_Seleciona_Item"
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/linearLayout2"
+            android:src="@drawable/logoprojeto" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout2"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/linearLayout2" />
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Seleciona Categoria do Item"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:typeface="monospace" />
+
+        <Spinner
+            android:id="@+id/Spinner_Seleciona_Categoria"
+            android:layout_width="238dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Seleciona a Região"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:typeface="monospace" />
+
+        <Spinner
+            android:id="@+id/Spinner_Regiao"
+            android:layout_width="238dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout3"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Informe o Nome do Item"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:typeface="monospace" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editText_descricaoItem"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+                <ImageButton
+                    android:id="@+id/imageButton_buscar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="#FFF"
+                    android:src="@drawable/icon_lupa" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

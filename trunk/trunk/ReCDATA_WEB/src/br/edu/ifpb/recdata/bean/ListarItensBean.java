@@ -43,6 +43,10 @@ public class ListarItensBean extends Item implements Serializable{
 		reservaItem.redirecionarReservaItem();		
 	}
 	
+	public void detalharItem(Item item) {
+		
+	}
+	
 	public List<Item> getItens() {
 		return itens;
 	}

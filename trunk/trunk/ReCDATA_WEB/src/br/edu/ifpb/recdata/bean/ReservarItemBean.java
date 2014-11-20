@@ -21,6 +21,8 @@ import br.edu.ifpb.recdata.service.ReCDATAService;
 @SessionScoped
 public class ReservarItemBean extends ReservaItem{
 	
+	private String itemCategoriaDescricaoRegiao;
+	
 	// Usuário selecionados.
 	private List<Usuario> usuariosSelecionados = new ArrayList<Usuario>();
 	
@@ -73,6 +75,13 @@ public class ReservarItemBean extends ReservaItem{
 		return navegacao;		
 	}
 	
+	public void mudarItem(){
+		
+		resetReservarItem();
+		
+		GenericBean.sendRedirect(PathRedirect.LISTARITEM);
+	}
+	
 	private void resetReservarItem() {
 		GenericBean.resetSessionScopedBean("reservarItemBean");		
 	}
@@ -80,9 +89,10 @@ public class ReservarItemBean extends ReservaItem{
 	private ReservaItem getReservaItem(Date dataHoraInicio, Date dataHoraFim) {
 		ReservaItem reservaItem = new ReservaItem();
 		reservaItem.setUsuario(usuariosSelecionados.get(0));
-		reservaItem.setItem(getItem());
+		reservaItem.setItem(super.getItem());
 		reservaItem.setHoraDataInicio(dataHoraInicio);
 		reservaItem.setHoraDataFim(dataHoraFim);
+		reservaItem.setObservacao(super.getObservacao());
 		
 		return reservaItem;
 	}
@@ -102,7 +112,8 @@ public class ReservarItemBean extends ReservaItem{
 	}
 	
 	public void redirecionarReservaItem() {
-		GenericBean.sendRedirect(PathRedirect.reservarItem);
+		
+		GenericBean.sendRedirect(PathRedirect.RESERVARITEM);
 	}    
 
     public List<Usuario> completeUsuarios(String query) {
@@ -170,5 +181,20 @@ public class ReservarItemBean extends ReservaItem{
 
 	public void setRetirarItem(boolean retirarItem) {
 		this.retirarItem = retirarItem;
+	}
+
+	public String getItemCategoriaDescricaoRegiao() {
+		
+		Item item = super.getItem();
+		
+		this.setItemCategoriaDescricaoRegiao(item.getCategoria().getDescricao() 
+				+ " " + item.getDescricao() 
+				+ " - " + item.getRegiao().getNome());
+		
+		return this.itemCategoriaDescricaoRegiao;
+	}
+
+	public void setItemCategoriaDescricaoRegiao(String itemCategoriaDescricaoRegiao) {
+		this.itemCategoriaDescricaoRegiao = itemCategoriaDescricaoRegiao;
 	}
 }

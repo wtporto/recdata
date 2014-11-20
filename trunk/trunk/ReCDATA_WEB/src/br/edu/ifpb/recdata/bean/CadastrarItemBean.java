@@ -29,7 +29,9 @@ public class CadastrarItemBean extends Item {
 		ReCDATAService service = ProviderServiceFactory
 				.createServiceClient(ReCDATAService.class);
 
-		Item item = new Item(super.getCategoria().getId(), getDescricao());
+		Item item = new Item(super.getCategoria().getId(), 
+				super.getRegiao().getId(), getDescricao());
+		
 		Response response = service.cadastrarItem(item);
 		int statusCode = response.getStatus();
 		

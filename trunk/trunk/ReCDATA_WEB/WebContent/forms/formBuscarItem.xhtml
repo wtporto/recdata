@@ -51,12 +51,20 @@
 			 
 			                    <h:outputText value="Categoria:" />
 			                    <h:outputText value="#{item.categoria.descricao}"/>
+			                    
+			                    <h:outputText value="Região:" />
+			                    <h:outputText value="#{item.regiao.nome}"/>
 			                </h:panelGrid>
 			            </p:outputPanel>
 			            
-			            <p:commandLink id="reservarItemLink" actionListener="#{listarItensBean.reservarItem(item)}" ajax="false">
-        					<h:outputText value="Reservar" />
-    					</p:commandLink>
+			            <h:panelGrid  rocolumns="2" id="linksBuscaItem">
+				            <p:commandLink id="reservarItemLink" actionListener="#{listarItensBean.reservarItem(item)}" ajax="false">
+	        					<h:outputText value="Reservar" />
+	    					</p:commandLink>
+	    					<!-- p:commandLink id="detalharItemLink" actionListener="#{listarItensBean.detalharItem(item)}" ajax="false">
+	        					<h:outputText value="Detalhar" />
+	    					</p:commandLink -->
+    					</h:panelGrid>
 			        </h:panelGrid>
 			    </p:dataScroller>
 			</h:form>

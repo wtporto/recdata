@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
@@ -180,9 +181,9 @@ public class ItemDAO {
 		return itens;
 	}
 	
-	public ArrayList<Item> listarItens(Item item) throws SQLException {
+	public List<Item> listarItens(Item item) throws SQLException {
 		
-		ArrayList<Item> itens = new ArrayList<Item>();
+		List<Item> itens = new ArrayList<Item>();
 
 		String descricao = BancoUtil.STRING_VAZIA;
 		if (!StringUtil.ehVazio(item.getDescricao())) {
@@ -192,13 +193,13 @@ public class ItemDAO {
 		Categoria categoria = item.getCategoria();
 		String idCategoria = BancoUtil.STRING_VAZIA;
 		if (categoria!=null && categoria.getId()!=BancoUtil.IDVAZIO) {
-			idCategoria = "AND cd_categoria = " + categoria.getId();
+			idCategoria = "AND I.cd_categoria = " + categoria.getId();
 		}
 		
 		Regiao regiao = item.getRegiao();
 		String idRegiao = BancoUtil.STRING_VAZIA;
 		if (regiao!=null && regiao.getId()!=BancoUtil.IDVAZIO) {
-			idRegiao = "AND cd_regiao = " + regiao.getId();
+			idRegiao = "AND I.cd_regiao = " + regiao.getId();
 		}
 		
 		String sql = String.format("%s %s %s %s %s %s",

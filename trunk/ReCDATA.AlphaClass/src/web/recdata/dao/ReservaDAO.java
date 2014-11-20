@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
 import web.recdata.util.StringUtil;
+import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Item;
+import br.edu.ifpb.recdata.entidades.Regiao;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
@@ -180,8 +183,10 @@ public class ReservaDAO {
 		return reservas;
 	}
 
-	public ArrayList<ReservaItem> listarTodos() throws SQLException {
-		ArrayList<ReservaItem> reservas = new ArrayList<ReservaItem>();
+	public List<ReservaItem> listarTodos() throws SQLException {
+		
+		List<ReservaItem> reservas = new ArrayList<ReservaItem>();
+		
 		ReservaItem reservaAux = null;
 		String sql = "SELECT R.cd_reserva, R.cd_item, "
 					+ "R.cd_usuario_reserva, R.nm_observacao_reserva, "
@@ -220,6 +225,88 @@ public class ReservaDAO {
 			reservas.add(reservaAux);
 		}
 
+		return reservas;
+	}
+	
+	public List<ReservaItem> consultarReservas(ReservaItem reserva) throws SQLException {
+		
+		List<ReservaItem> reservas = new ArrayList<ReservaItem>();		
+		
+		String juncaoItem = BancoUtil.STRING_VAZIA;
+		String idCategoria = BancoUtil.STRING_VAZIA;
+		String idRegiao = BancoUtil.STRING_VAZIA;
+		String descricao = BancoUtil.STRING_VAZIA;
+		
+		Item item = reserva.getItem();
+		
+		if (item!=null) {			
+			// Categoria
+			juncaoItem = "R.cd_item = I.cd_item";
+			
+			Categoria categoria = item.getCategoria();
+			if (categoria!=null && categoria.getId()!=BancoUtil.IDVAZIO) {
+				idCategoria = "AND I.cd_categoria = " + categoria.getId();
+			}
+			// Região
+			Regiao regiao = item.getRegiao();
+			if (regiao!=null && regiao.getId()!=BancoUtil.IDVAZIO) {
+				idRegiao = "AND I.cd_regiao = " + regiao.getId();
+			}
+			// Descrição
+			if (!StringUtil.ehVazio(item.getDescricao())) {
+				descricao = "AND I.nm_item LIKE '" + item.getDescricao() + "%'";
+			}
+		}		
+		
+		String dataReserva = BancoUtil.STRING_VAZIA;
+		
+		String sql = String.format("%s %s %s %s %s %s", 
+				"SELECT R.cd_reserva, R.cd_item,"
+				+ " I.nm_item, R.cd_usuario_reserva, R.nm_observacao, "
+				+ "R.data_inicio, R.hora_inicio,  R.data_fim, R.hora_fim "
+				+ "FROM tb_reserva as R, tb_item as I"
+				+ " WHERE ",
+				juncaoItem,
+				idCategoria,
+				idRegiao,
+				descricao,
+				dataReserva);
+
+		// prepared statement para consulta
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery(sql);
+
+		while (rs.next()) {
+			ReservaItem reservaConsulta = new ReservaItem();
+			reservaConsulta.setId(rs.getInt("R.cd_reserva"));
+
+			Item itemConsulta = new Item();
+			itemConsulta.setId(rs.getInt("R.cd_item"));
+			itemConsulta.setDescricao(rs.getString("I.nm_item"));
+			reservaConsulta.setItem(itemConsulta);
+
+			Usuario usuario = new Usuario();
+			usuario.setId(rs.getInt("R.cd_usuario_reserva"));
+			reservaConsulta.setUsuario(usuario);
+
+			long dateHoraInicio = rs.getDate("R.data_inicio").getTime()
+					+ rs.getTime("R.hora_inicio").getTime();
+
+			reservaConsulta.setHoraDataInicio(new Date(dateHoraInicio));
+
+			long dateHoraFim = rs.getDate("R.data_fim").getTime()
+					+ rs.getTime("R.hora_fim").getTime();
+
+			reservaConsulta.setHoraDataFim(new Date(dateHoraFim));
+
+			reservas.add(reservaConsulta);
+		}
+		
+		stmt.close();
+		rs.close();
+		
 		return reservas;
 	}
 }

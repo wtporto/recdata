@@ -1,10 +1,9 @@
 package br.edu.ifpb.recdata.servicos;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
-import org.json.JSONArray;
+import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,148 +12,63 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
-import br.edu.ifpb.R;
-import br.edu.ifpb.recdata.entity.Categoria;
-import br.edu.ifpb.recdata.entity.Item;
-import br.edu.ifpb.recdata.telas.TelaReservar;
-import br.edu.ifpb.recdata.util.ItemAdapter;
+import br.edu.ifpb.recdata.telas.TelaConsultarItem;
+import br.edu.ifpb.recdata.telas.TelaResultadoItem;
+import br.edu.ifpb.recdata.util.Constantes;
 
-public class BuscaItensServidorAsyncTask extends Activity {
+public class BuscaItensServidorAsyncTask extends
+		AsyncTask<JSONObject, Void, HttpResponse> {
 
-	ListView listview;
-	ArrayList<Item> ListaItens;
+	Activity activity;
+
+	public BuscaItensServidorAsyncTask(Activity activity) {
+		this.activity = activity;
+	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lista_view_item);
+	protected void onPreExecute() {
+		super.onPreExecute();
+	}
 
-		ListaItens = new ArrayList<Item>();
+	@Override
+	protected HttpResponse doInBackground(JSONObject... jsonObjects) {
 
-		new Busca().execute();
+		// Enviar a requisição HTTP via GET.
+		HttpResponse response = HttpService.sendJsonPostRequest(
+				"/item/consultarItens", jsonObjects[0]);
+		return response;
 
 	}
 
-	private class Busca extends AsyncTask<Void, Integer, JSONObject> {
+	@Override
+	protected void onPostExecute(HttpResponse response) {
 
-		private Intent intent;
-		private Bundle paramsBundle;
+		int httpCode = response.getStatusLine().getStatusCode();
 
-		public Busca() {
+		if (httpCode > 200 && httpCode < 400) {
 
-		}
+			// Conversão do response ( resposta HTTP) para String.
+			String itensJson = HttpUtil.entityToString(response);
+			Log.i("ReCDATA ", "Resquest - POST: " + itensJson);
 
-		@Override
-		protected JSONObject doInBackground(Void... params) {
+			if (httpCode == HttpStatus.SC_ACCEPTED) {
 
-			// recupera o valor da categoria de outra intent
-			intent = getIntent();
-			paramsBundle = intent.getExtras();
-			int categoriaIdBunble = paramsBundle.getInt("idcategoria");
+				Toast.makeText(activity.getApplicationContext(),
+						Constantes.ITEM_ENCONTRADO, Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(this.activity, TelaResultadoItem.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("itens", itensJson);
+				intent.putExtras(bundle);
+				this.activity.startActivity(intent);
 
-			Log.i("IdCategoria ->", paramsBundle.toString());
-
-			JSONObject jsonObjectEnvia = null;
-			JSONObject jsonObjectRecebe = null;
-			Item item = new Item();
-
-			item.setCategoria(new Categoria(categoriaIdBunble));
-
-			try {
-				jsonObjectEnvia = new JSONObject();
-				jsonObjectEnvia.put("descricao", item.getId());
-				jsonObjectEnvia.put("id", item.getCategoria().getId());
-				jsonObjectEnvia.put("idItem", item.getId());
-
-			} catch (JSONException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+			} else {
+				Toast.makeText(activity.getApplicationContext(),
+						Constantes.ITEM_NAO_ENCONTRADO, Toast.LENGTH_SHORT)
+						.show();
 			}
 
-			// Enviar a requisição HTTP via POST.
-			HttpResponse response;
-			try {
-				response = HttpService.sendJsonPostRequest("/item/leitor",
-						jsonObjectEnvia);
-
-				// Conversão do response ( resposta HTTP) para String.
-				String json = HttpUtil.entityToString(response);
-
-				Log.i("AsyncTaskKJson", "Resquest - POST: " + json);
-
-				jsonObjectRecebe = new JSONObject(json);
-				JSONArray jsonArray = jsonObjectRecebe.getJSONArray("item");
-				// itemAux serve para ser montado o objeto Item no lado
-				// cliente
-
-				for (int i = 0; i < jsonArray.length(); i++) {
-					Item itemAux = new Item();
-					JSONObject explrObject = jsonArray.getJSONObject(i);
-					itemAux.setDescricao(explrObject
-							.getString("descricao"));
-					itemAux.setCategoria(new Categoria(explrObject.getInt("id")));
-					itemAux.setId(explrObject.getInt("id"));
-
-					ListaItens.add(itemAux);
-				}
-
-			} catch (JSONException e) {
-
-				Log.e("AsyncTaskKJson", "Error parsing data " + e.toString());
-
-			}
-
-			jsonObjectEnvia = null;
-
-			return jsonObjectRecebe;
-
 		}
 
-		@Override
-		protected void onPostExecute(JSONObject result) {
-
-			listview = (ListView) findViewById(R.id.listaResultados);
-			listview.setAdapter(new ItemAdapter(BuscaItensServidorAsyncTask.this,
-					ListaItens));
-			super.onPostExecute(result);
-
-			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					Intent chamaTelaResultado;
-
-					Item itemEnviaResultado = new Item();
-					itemEnviaResultado = (Item) arg0.getItemAtPosition(arg2);
-
-					Bundle params = new Bundle();
-
-					if (itemEnviaResultado != null) {
-
-						chamaTelaResultado = new Intent(
-								BuscaItensServidorAsyncTask.this, TelaReservar.class);
-
-						params.putSerializable("Item",
-								(Serializable) itemEnviaResultado);
-						chamaTelaResultado.putExtras(params);
-						startActivity(chamaTelaResultado);
-						Log.i("Valor Passado por paramentor Bundle->",
-								params.toString());
-					} else {
-						Toast.makeText(getApplicationContext(),
-								"Não Foi identificado Item!", Toast.LENGTH_LONG)
-								.show();
-						// trocar isto para outra intent :D depois
-					}
-				}
-
-			});
-
-		}
 	}
 }

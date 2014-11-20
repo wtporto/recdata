@@ -42,27 +42,18 @@
                 android:layout_marginTop="10dp"
                 android:textSize="12dp"
                 android:typeface="monospace" />
-              
-              <TextView
-                android:id="@+id/text_view_item_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="12dp"
-                android:textSize="12dp"                
-                android:typeface="monospace" />
                
               <TextView
                 android:id="@+id/text_view_item_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="14dp"
+                 android:layout_marginRight="20dp"
+                android:layout_marginTop="12dp"
                 android:textSize="12dp"
                 android:typeface="monospace" />
               
               <TextView
-                android:id="@+id/text_view_item_idcategoria"
+                android:id="@+id/text_view_item_regiao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"

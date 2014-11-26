@@ -51,11 +51,10 @@ public class ReservarAsyncTask extends
 				JSONObject jsonObject = new JSONObject(json);
 
 				if (httpCode == HttpStatus.SC_CREATED) {
-
+				
 					Toast.makeText(activity.getApplicationContext(), Constantes.RESERVA_CONCLUIDA,
 							Toast.LENGTH_SHORT).show();
 
-					// Poderá navegar entre as páginas.
 				} else {
 					Toast.makeText(activity.getApplicationContext(),Constantes.RESERVA_NAO_CONCLUIDA, Toast.LENGTH_SHORT)
 							.show();

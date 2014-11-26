@@ -22,7 +22,7 @@ import android.util.Log;
 public class HttpService {
 
 	// URL to get JSON Array
-	private static String url = "http://192.168.0.106:8080/ReCDATA.AlphaClass";
+	private static String url = "http://10.0.0.105:8080/ReCDATA.AlphaClass";
 
 	// constructor
 	public HttpService() {
@@ -64,9 +64,9 @@ public class HttpService {
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setHeader("Content-type", "application/json");
 
-			StringEntity se = new StringEntity(json.toString(), HTTP.UTF_8);
+			StringEntity se = new StringEntity(json.toString(), HTTP.ISO_8859_1);
 			se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,
-					"application/json;charset=" + HTTP.UTF_8));
+					"application/json;charset=" + HTTP.ISO_8859_1));
 
 			httpPost.setEntity(se);
 

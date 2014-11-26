@@ -1,10 +1,17 @@
 package br.edu.ifpb.recdata.entity;
 
-import java.util.Date;
+
+
+import java.io.Serializable;
 
 import br.edu.ifpb.R;
 
-public class Item  {
+public class Item implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	
@@ -14,7 +21,7 @@ public class Item  {
 	
 	private Regiao regiao;
 	
-	private Date registro;
+	private String registro;
 
 	public Item() {}
 
@@ -82,13 +89,6 @@ public class Item  {
 		this.regiao = regiao;
 	}
 
-	public Date getRegistro() {
-		return registro;
-	}
-
-	public void setRegistro(Date registro) {
-		this.registro = registro;
-	}
 	public int getImagem(int idcategoria) {
 		switch (idcategoria) {
 		case 1:
@@ -103,5 +103,13 @@ public class Item  {
 		default:
 			return (R.drawable.icon_errodefault);
 		}
+	}
+	
+	public String getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(String registro) {
+		this.registro = registro;
 	}
 }

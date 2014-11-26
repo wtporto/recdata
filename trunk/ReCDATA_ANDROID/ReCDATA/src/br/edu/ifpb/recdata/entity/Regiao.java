@@ -1,6 +1,13 @@
 package br.edu.ifpb.recdata.entity;
 
-public class Regiao {
+import java.io.Serializable;
+
+public class Regiao implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	
@@ -25,4 +32,9 @@ public class Regiao {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	@Override
+	public String toString() {
+		return "Regiao [id=" + id + ", nome=" + nome + "]";
+	}
+	
 }

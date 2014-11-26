@@ -1,22 +1,29 @@
 package br.edu.ifpb.recdata.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import br.edu.ifpb.R;
 
-public class ReservaItem {
 
+public class ReservaItem implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Usuario usuario;
 	private Item item;
 	private String observacao;
-	private Date horaDataInicio;
-	private Date horaDataFim;
+	private String horaDataInicio;
+	private String horaDataFim;
 	private Date dataRegistro;
 	
 	public ReservaItem() {}
 	
 	public ReservaItem(int id, Usuario usuario, Item item,String observacao,
-			Date horaDataInicio, Date horaDataFim) {
+			String horaDataInicio, String horaDataFim) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -51,19 +58,19 @@ public class ReservaItem {
 		this.item = item;
 	}
 
-	public Date getHoraDataInicio() {
+	public String getHoraDataInicio() {
 		return horaDataInicio;
 	}
 
-	public void setHoraDataInicio(Date horaDataInicio) {
+	public void setHoraDataInicio(String horaDataInicio) {
 		this.horaDataInicio = horaDataInicio;
 	}
 
-	public Date getHoraDataFim() {
+	public String getHoraDataFim() {
 		return horaDataFim;
 	}
 
-	public void setHoraDataFim(Date horaDataFim) {
+	public void setHoraDataFim(String horaDataFim) {
 		this.horaDataFim = horaDataFim;
 	}
 
@@ -90,6 +97,13 @@ public class ReservaItem {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
+	public int getImagem(int idcategoria) {
+		switch (idcategoria) {
+		case 1:
+			return (R.drawable.icon_reserva);
+		default:
+			return (R.drawable.icon_errodefault);
+		}
+	}
 	
 }

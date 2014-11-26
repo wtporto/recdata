@@ -4,10 +4,13 @@ import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.edu.ifpb.recdata.telas.TelaErroConexao;
 import br.edu.ifpb.recdata.telas.TelaLogin;
+import br.edu.ifpb.recdata.util.Constantes;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.sax.StartElementListener;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,8 +25,20 @@ public class VerificaServidorOnlineAsyncTasck extends AsyncTask<Void, Integer, J
 
 	@Override
 	protected void onPreExecute() {
-
-		super.onPreExecute();
+			
+/*		boolean existeConexao = HttpUtil.isConnect(activity);
+		String existe= existeConexao?"true":"false";
+		Log.i("Conexao Existe?: ",existe);
+		if (existeConexao == true) {
+			 Toast.makeText(activity.getApplicationContext(),
+					Constantes.EXISTE_CONEXAO, Toast.LENGTH_SHORT).show();
+		}else{
+			 
+			Intent intent = new Intent(this.activity, TelaErroConexao.class);
+			activity.startActivity(intent);
+			activity.finish();
+		}
+*/			
 
 	}
 

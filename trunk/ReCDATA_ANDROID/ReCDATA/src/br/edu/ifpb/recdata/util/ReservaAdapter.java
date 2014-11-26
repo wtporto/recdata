@@ -11,15 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import br.edu.ifpb.R;
 import br.edu.ifpb.recdata.entity.Item;
+import br.edu.ifpb.recdata.entity.ReservaItem;
 
-public class ItemAdapter extends BaseAdapter {
+public class ReservaAdapter extends BaseAdapter {
 
 	
 	private Context context;
-	private ArrayList<Item> lista;
+	private ArrayList<ReservaItem> lista;
 	
 	
-	public ItemAdapter(Context busca, ArrayList<Item> itens) {
+	public ReservaAdapter(Context busca, ArrayList<ReservaItem> itens) {
 		this.context=busca;
 		this.lista=  itens;
 		
@@ -45,28 +46,26 @@ public class ItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 	
-		Item item =lista.get(position);
+		ReservaItem reserva =lista.get(position);
 		View layout;
 		
 		if (convertView == null){
 			LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			layout = inflater.inflate(R.layout.listaactivity_resultados_item,null);
+			layout = inflater.inflate(R.layout.listaactivity_reserva,null);
 		}
 		else{
 			layout = convertView;
 		}
 		
-		TextView descricao = (TextView) layout.findViewById(R.id.text_view_item_descricao);
- 		descricao.setText("Descrição: "+item.getDescricao().toString());
+		TextView descricao = (TextView) layout.findViewById(R.id.text_view_horaDataInicio);
+ 		descricao.setText("Hora/Data Inicio : "+reserva.getHoraDataInicio().toString());
 	
-		TextView categoria = (TextView) layout.findViewById(R.id.text_view_item_categoria);
-		categoria.setText("Categoria: "+item.getCategoria().getDescricao().toString());
+		TextView categoria = (TextView) layout.findViewById(R.id.text_view_horaDataFim);
+		categoria.setText("Hora/Data Fim: "+reserva.getHoraDataFim().toString());
 	
-		TextView regiao = (TextView) layout.findViewById(R.id.text_view_item_regiao);
-		regiao.setText("Região: "+item.getRegiao().getNome().toString());
 		
 		ImageView imagem = (ImageView) layout.findViewById(R.id.image_view_icon_item_lista_result);
-		imagem.setImageResource(item.getImagem(item.getCategoria().getId()));
+		imagem.setImageResource(reserva.getImagem(1));
 		
 		return layout;
 	}

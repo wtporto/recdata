@@ -36,7 +36,6 @@ public class BuscaItensServidorAsyncTask extends
 		HttpResponse response = HttpService.sendJsonPostRequest(
 				"/item/consultarItens", jsonObjects[0]);
 		return response;
-
 	}
 
 	@Override
@@ -50,7 +49,8 @@ public class BuscaItensServidorAsyncTask extends
 			String itensJson = HttpUtil.entityToString(response);
 			Log.i("ReCDATA ", "Resquest - POST: " + itensJson);
 
-			// TODO: Deve transforma em JsonArray para verificar quantos itens foram
+			// TODO: Deve transforma em JsonArray para verificar quantos itens
+			// foram
 			// encontrados, caso maior que um redirecinar a intent enviando a
 			// String do Json
 
@@ -59,14 +59,15 @@ public class BuscaItensServidorAsyncTask extends
 
 				if (jsonArray.length() > 0) {
 					Toast.makeText(activity.getApplicationContext(),
-							Constantes.ITEM_ENCONTRADO, Toast.LENGTH_SHORT).show();
-					/*
-					 * Intent intent = new Intent(this.activity,
-					 * TelaResultadoItem.class); Bundle bundle = new Bundle();
-					 * bundle.putString("itens", itensJson);
-					 * intent.putExtras(bundle);
-					 * this.activity.startActivity(intent);
-					 */
+							Constantes.ITEM_ENCONTRADO, Toast.LENGTH_SHORT)
+							.show();
+					Intent intent = new Intent(this.activity,
+							TelaResultadoItem.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("itens", itensJson);
+					intent.putExtras(bundle);
+					this.activity.startActivity(intent);
+
 				} else {
 					Toast.makeText(activity.getApplicationContext(),
 							Constantes.ITEM_NAO_ENCONTRADO, Toast.LENGTH_SHORT)
@@ -77,7 +78,6 @@ public class BuscaItensServidorAsyncTask extends
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 }

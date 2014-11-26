@@ -86,7 +86,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 			reservaItemJson = new JSONObject();
 			usuarioJson = new JSONObject();
-			usuarioJson.put("Id", gs.getUsuario().getId());
+			usuarioJson.put("id", gs.getUsuario().getId());
 
 			itemJson = new JSONObject();
 

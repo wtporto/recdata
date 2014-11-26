@@ -1,14 +1,20 @@
 package br.edu.ifpb.recdata.entity;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Categoria {
+
+public class Categoria implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	
 	private String descricao;
 	
-	private Date registro;
+
 	
 	public Categoria(int id) {
 		setId(id);
@@ -43,7 +49,7 @@ public class Categoria {
 	public String toString() {
 		return "Categoria [idCategoria=" + id
 				+ ", descricaoCategoria=" + descricao 
-				+ "registro=" + registro + "]";
+				+  "]";
 	}
 	
 }

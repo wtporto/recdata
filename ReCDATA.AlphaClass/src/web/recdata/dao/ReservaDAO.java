@@ -42,50 +42,86 @@ public class ReservaDAO {
 		this.connection = (Connection) banco.getConn();
 	}
 
+	
+	public int reservaPossivel(int codItem, long reservaInicio, long reservaFim){
+		String testarFonte = "SELECT data_inicio,hora_inicio,data_fim,hora_fim"
+				+ " FROM tb_reserva WHERE cd_item = ?";
+		
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(testarFonte);
+		
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()){
+			long dataHoraInicio = rs.getDate("data_inicio").getTime() 
+					+ rs.getTime("hora_inicio").getTime();
+			long dataHoraFim = rs.getDate("data_fim").getTime()
+					+ rs.getTime("hora_fim").getTime();
+			
+			if(dataHoraInicio < reservaInicio && reservaInicio < dataHoraFim){
+				return 1;
+			} else {
+				if(dataHoraInicio < reservaFim && reservaFim < dataHoraFim){
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		}
+		return 0;
+	}
+	
 	public int creat(ReservaItem reserva) {
 
 		int idReserva = BancoUtil.IDVAZIO;
-		try {
-			
-			String sql = "INSERT INTO tb_reserva (cd_item,"
-					+ " cd_usuario_reserva, data_inicio, hora_inicio,"
-					+ " data_fim, hora_fim %s) "
-					+ "VALUES ("
-					+ " " + reserva.getItem().getId() + ","
-					+ " " + reserva.getUsuario().getId() + ","
-					+ " '" + new java.sql.Date(reserva.getHoraDataInicio()
-							.getTime()) + "',"
-					+ " '" + new java.sql.Time(reserva.getHoraDataInicio()
-							.getTime()) + "',"
-					+ " '" + new java.sql.Date(reserva.getHoraDataFim()
-							.getTime()) + "',"
-					+ " '" + new java.sql.Time(reserva.getHoraDataFim()
-							.getTime()) + "'"
-					+ " %s )";
-			
-			String observacao = reserva.getObservacao();
-			
-			if (!StringUtil.ehVazio(observacao)) {
-				sql = String.format(sql, ", nm_observacao", 
-						", '" + reserva.getObservacao() + "'");
-			} else {
-				sql = String.format(sql, BancoUtil.STRING_VAZIA, 
-						BancoUtil.STRING_VAZIA);
-			}
-
-			PreparedStatement stmt = (PreparedStatement) connection
-					.prepareStatement(sql);
-
-			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-
-			idReserva = BancoUtil.getGenerateKey(stmt);
-
-			stmt.close();
-
-		} catch (SQLException sqle) {
-			throw new RuntimeException(sqle);
-		}
 		
+		if(reservaPossivel(reserva.getItem().getId(), 
+				reserva.getHoraDataInicio().getTime(),
+				reserva.getHoraDataFim().getTime()) == 0){
+		
+			try {
+				
+				String sql = "INSERT INTO tb_reserva (cd_item,"
+						+ " cd_usuario_reserva, data_inicio, hora_inicio,"
+						+ " data_fim, hora_fim %s) "
+						+ "VALUES ("
+						+ " " + reserva.getItem().getId() + ","
+						+ " " + reserva.getUsuario().getId() + ","
+						+ " '" + new java.sql.Date(reserva.getHoraDataInicio()
+								.getTime()) + "',"
+						+ " '" + new java.sql.Time(reserva.getHoraDataInicio()
+								.getTime()) + "',"
+						+ " '" + new java.sql.Date(reserva.getHoraDataFim()
+								.getTime()) + "',"
+						+ " '" + new java.sql.Time(reserva.getHoraDataFim()
+								.getTime()) + "'"
+						+ " %s )";
+				
+				String observacao = reserva.getObservacao();
+				
+				if (!StringUtil.ehVazio(observacao)) {
+					sql = String.format(sql, ", nm_observacao", 
+							", '" + reserva.getObservacao() + "'");
+				} else {
+					sql = String.format(sql, BancoUtil.STRING_VAZIA, 
+							BancoUtil.STRING_VAZIA);
+				}
+	
+				PreparedStatement stmt = (PreparedStatement) connection
+						.prepareStatement(sql);
+	
+				stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+	
+				idReserva = BancoUtil.getGenerateKey(stmt);
+	
+				stmt.close();
+	
+			} catch (SQLException sqle) {
+				throw new RuntimeException(sqle);
+			}
+		}else {
+			return -1;
+		}
 		return idReserva;
 
 	}

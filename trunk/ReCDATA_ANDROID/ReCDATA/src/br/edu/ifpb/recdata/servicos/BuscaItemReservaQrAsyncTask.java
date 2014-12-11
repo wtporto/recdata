@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class BuscaItemReservaQrAsyncTask extends
 		AsyncTask<JSONObject, Void, HttpResponse> {
 
-	Activity activity;
+	private Activity activity;
 
 	public BuscaItemReservaQrAsyncTask(Activity activity) {
 		this.activity = activity;
@@ -30,8 +30,7 @@ public class BuscaItemReservaQrAsyncTask extends
 	protected HttpResponse doInBackground(JSONObject... jsonObjects) {
 
 		// Enviar a requisição HTTP via GET.
-		HttpService httpService = new HttpService();
-		HttpResponse response = httpService.sendJsonPostRequest("/item/busca",
+		HttpResponse response = HttpService.sendJsonPostRequest("/item/busca",
 				jsonObjects[0]);
 		return response;
 	}
@@ -64,7 +63,7 @@ public class BuscaItemReservaQrAsyncTask extends
 				}
 
 			} catch (JSONException e) {
-				Log.e("RecDATA", "Erro na reserva do item: " + e.getMessage());
+				Log.e("RecDATA", "Erro na listagem do item: " + e.getMessage());
 			}
 
 		}

@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.edu.ifpb.R;
-import br.edu.ifpb.recdata.entity.Item;
 import br.edu.ifpb.recdata.entity.ReservaItem;
 
 public class ReservaAdapter extends BaseAdapter {
@@ -57,14 +56,17 @@ public class ReservaAdapter extends BaseAdapter {
 			layout = convertView;
 		}
 		
-		TextView descricao = (TextView) layout.findViewById(R.id.text_view_horaDataInicio);
- 		descricao.setText("Hora/Data Inicio : "+reserva.getHoraDataInicio().toString());
+		TextView descricao = (TextView) layout.findViewById(R.id.textView_descricaoItem);
+		descricao.setText("Descrição: "+String.valueOf(reserva.getId()));
 	
-		TextView categoria = (TextView) layout.findViewById(R.id.text_view_horaDataFim);
-		categoria.setText("Hora/Data Fim: "+reserva.getHoraDataFim().toString());
+		TextView horaDataInicio = (TextView) layout.findViewById(R.id.text_view_horaDataInicio);
+		horaDataInicio.setText("Hora/Data Inicio: "+reserva.getHoraDataInicio().toString());
+	
+		TextView horaDataFim = (TextView) layout.findViewById(R.id.text_view_horaDataFim);
+		horaDataFim.setText("Hora/Data Fim: "+reserva.getHoraDataFim().toString());
 	
 		
-		ImageView imagem = (ImageView) layout.findViewById(R.id.image_view_icon_item_lista_result);
+		ImageView imagem = (ImageView) layout.findViewById(R.id.imageView_iconReserva);
 		imagem.setImageResource(reserva.getImagem(1));
 		
 		return layout;

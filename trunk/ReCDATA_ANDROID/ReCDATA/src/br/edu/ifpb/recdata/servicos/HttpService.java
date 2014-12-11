@@ -17,15 +17,26 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
+import br.edu.ifpb.recdata.excecao.HttpServiceException;
+import br.edu.ifpb.recdata.util.Constantes;
+
+import android.app.Activity;
 import android.util.Log;
 
 public class HttpService {
 
 	// URL to get JSON Array
-	private static String url = "http://10.0.0.105:8080/ReCDATA.AlphaClass";
+	private static String url = "http://192.168.0.135:8080/ReCDATA.AlphaClass";
 
 	// constructor
-	public HttpService() {
+	public HttpService(Activity activity) throws HttpServiceException {
+		
+		boolean existeConexao = HttpUtil.isConnect(activity);
+		Log.i("ReCDATA", "Conexão existe? " + existeConexao);
+		
+		if (!existeConexao) {
+			throw new HttpServiceException(Constantes.NA0_EXISTE_CONEXAO);
+		}
 	}
 
 	public HttpResponse sendGETRequest(String service) {

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 import br.edu.ifpb.recdata.entity.Usuario;
 import br.edu.ifpb.recdata.telas.TelaListaFuncionalidadesPersonalizada;
+import br.edu.ifpb.recdata.util.Constantes;
 import br.edu.ifpb.recdata.util.GlobalState;
 
 public class UsuarioLoginAsyncTask extends
@@ -59,7 +60,7 @@ public class UsuarioLoginAsyncTask extends
 				gs.setUsuario(usuario);
 
 				Toast.makeText(activity.getApplicationContext(),
-						"Bem vindo, " + usuario.getNome(),
+						Constantes.USUARIO_EXISTE + usuario.getNome(),
 						Toast.LENGTH_SHORT).show();
 
 				Intent intent = new Intent(activity,
@@ -68,9 +69,17 @@ public class UsuarioLoginAsyncTask extends
 				activity.finish();
 
 			} else {
-				Toast.makeText(activity.getApplicationContext(),
-						jsonObject.getString("mensagem ERRO Ao LOGAR! "),
-						Toast.LENGTH_SHORT).show();
+				if (httpCode >=403) {
+					Toast.makeText(activity.getApplicationContext(),Constantes.ERRO_LOGAR,
+							Toast.LENGTH_SHORT).show();
+				
+				//	EditText login = (EditText) findViewById(R.id.LoginApp);
+					//EditText senha = (EditText) findViewById(R.id.SenhaApp);
+					
+					//login.setText("");
+				//	senha.setText("");
+				}
+					
 			}
 
 		} catch (JSONException e) {

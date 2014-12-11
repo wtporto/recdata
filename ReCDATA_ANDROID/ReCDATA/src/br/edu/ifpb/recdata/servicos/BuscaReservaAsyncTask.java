@@ -14,7 +14,6 @@ import android.util.Log;
 import android.widget.Toast;
 import br.edu.ifpb.recdata.telas.TelaResultadosReserva;
 import br.edu.ifpb.recdata.util.Constantes;
-import br.edu.ifpb.recdata.util.GlobalState;
 
 public class BuscaReservaAsyncTask extends
 		AsyncTask<JSONObject, Void, HttpResponse> {
@@ -29,7 +28,6 @@ public class BuscaReservaAsyncTask extends
 	protected void onPreExecute() {
 		super.onPreExecute();
 	}
-	
 
 	@Override
 	protected HttpResponse doInBackground(JSONObject... jsonObjects) {
@@ -39,7 +37,6 @@ public class BuscaReservaAsyncTask extends
 				"/reserva/listaReservaUser", jsonObjects[0]);
 		return response;
 	}
-	
 
 	@Override
 	protected void onPostExecute(HttpResponse response) {
@@ -52,14 +49,10 @@ public class BuscaReservaAsyncTask extends
 			String reservasJson = HttpUtil.entityToString(response);
 			Log.i("ReCDATA ", "Resquest - POST: " + reservasJson);
 
-		
 			try {
-				JSONArray jsonArray = new JSONArray(reservasJson);
+				JSONArray reservasJsonArray = new JSONArray(reservasJson);
 
-				if (jsonArray.length() > 0) {
-					Toast.makeText(activity.getApplicationContext(),
-							Constantes.RESERVA_ENCONTRADA, Toast.LENGTH_SHORT)
-							.show();
+				if (reservasJsonArray.length() > 0) {
 					Intent intent = new Intent(this.activity,
 							TelaResultadosReserva.class);
 					Bundle bundle = new Bundle();
@@ -69,12 +62,11 @@ public class BuscaReservaAsyncTask extends
 
 				} else {
 					Toast.makeText(activity.getApplicationContext(),
-							Constantes.RESERVA_NAO_ENCONTRADA, Toast.LENGTH_SHORT)
-							.show();
+							Constantes.RESERVA_NAO_ENCONTRADA,
+							Toast.LENGTH_SHORT).show();
 				}
-
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				//TODO: Tratar erro.
 				e.printStackTrace();
 			}
 		}

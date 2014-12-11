@@ -1,7 +1,6 @@
 package br.edu.ifpb.recdata.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import br.edu.ifpb.R;
 
@@ -18,7 +17,6 @@ public class ReservaItem implements Serializable{
 	private String observacao;
 	private String horaDataInicio;
 	private String horaDataFim;
-	private Date dataRegistro;
 	
 	public ReservaItem() {}
 	
@@ -72,14 +70,6 @@ public class ReservaItem implements Serializable{
 
 	public void setHoraDataFim(String horaDataFim) {
 		this.horaDataFim = horaDataFim;
-	}
-
-	public Date getDataRegistro() {
-		return dataRegistro;
-	}
-
-	public void setDataRegistro(Date dataRegistro) {
-		this.dataRegistro = dataRegistro;
 	}
 
 	public int getId() {

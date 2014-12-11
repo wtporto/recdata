@@ -29,11 +29,13 @@ public class TelaLogin extends Activity implements OnClickListener {
 		login = (EditText) findViewById(R.id.LoginApp);
 		senha = (EditText) findViewById(R.id.SenhaApp);
 
+		//Login usuário
 		final Button logarbutton = (Button) findViewById(R.id.LoginButton);
 		logarbutton.setOnClickListener(this);
 
 		final TextView txtCadastrar = (TextView) findViewById(R.id.textview_cadastrar);
 
+		// Cadastrar usuário
 		txtCadastrar.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -68,11 +70,28 @@ public class TelaLogin extends Activity implements OnClickListener {
 				&& (Metodos.validaCampo(senha) == true)) {
 
 			JSONObject jsonObject = logarUsuario();
-		       
+
 			UsuarioLoginAsyncTask usuarioLogar = new UsuarioLoginAsyncTask(this);
-			usuarioLogar.execute(jsonObject);			
-			}else
-			{
+			usuarioLogar.execute(jsonObject);
+			
+		} else {
+			
+			Button butonLogar = (Button) findViewById(R.id.LoginButton);
+			butonLogar.setVisibility(0);
+			// pegar o campo errado e limpar só ele!
+			if (Metodos.validaCampo(login) == false) {
+
+				EditText login = (EditText) findViewById(R.id.LoginApp);
+				login.setText("");
+
+			} else {
+				if (Metodos.validaCampo(login) == false) {
+
+					EditText senha = (EditText) findViewById(R.id.SenhaApp);
+					senha.setText("");
 				}
 			}
+
+		}
+	}
 }

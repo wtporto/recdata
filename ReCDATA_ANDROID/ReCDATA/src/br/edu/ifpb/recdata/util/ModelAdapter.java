@@ -13,17 +13,14 @@ import br.edu.ifpb.R;
 
 public class ModelAdapter extends BaseAdapter {
 
-	
 	private Context context;
 	private ArrayList<Model> lista;
-	
-	public ModelAdapter (Context context, ArrayList<Model>lista){
-		this.context=context;
-		this.lista=lista;
-		
-		
+
+	public ModelAdapter(Context context, ArrayList<Model> lista) {
+		this.context = context;
+		this.lista = lista;
 	}
-	 
+
 	@Override
 	public int getCount() {
 		return lista.size();
@@ -36,29 +33,33 @@ public class ModelAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		
+
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-	
-		Model item =lista.get(position);
+
+		Model item = lista.get(position);
 		View layout;
-		
-		if (convertView == null){
-			LayoutInflater inflater =(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			layout = inflater.inflate(R.layout.listactivity_list_view_personalizada,null);
-		}
-		else{
+
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			layout = inflater.inflate(
+					R.layout.listactivity_list_view_personalizada, null);
+		} else {
 			layout = convertView;
 		}
-		TextView nome = (TextView) layout.findViewById(R.id.text_view_item_nome);
+		
+		TextView nome = (TextView) layout
+				.findViewById(R.id.text_view_item_nome);
 		nome.setText(item.getNome());
-		
-		ImageView imagem = (ImageView) layout.findViewById(R.id.image_view_icon_item_lista);
+
+		ImageView imagem = (ImageView) layout
+				.findViewById(R.id.image_view_icon_item_lista);
 		imagem.setImageResource(item.getImagem(position));
-		
+
 		return layout;
 	}
 

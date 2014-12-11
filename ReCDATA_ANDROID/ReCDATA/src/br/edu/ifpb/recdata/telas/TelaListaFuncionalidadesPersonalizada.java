@@ -26,54 +26,50 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity {
 
 		ArrayList<Model> itens = new ArrayList<Model>();
 
-		Model model1 = new Model();
-		model1.setNome("Minhas Reservas");
-		Model model2 = new Model();
-		model2.setNome("Reservar Item");
-		Model model3 = new Model();
-		model3.setNome("Reservar via QR CODE");
-		Model model4 = new Model();
-		model4.setNome("Voltar");
+		Model minhasReservasModel = new Model();
+		minhasReservasModel.setNome("Minhas Reservas");
+		Model reservarItemModel = new Model();
+		reservarItemModel.setNome("Reservar Item");
+		Model reservaQrCodeModel = new Model();
+		reservaQrCodeModel.setNome("Reservar via QR CODE");
+		Model voltarModel = new Model();
+		voltarModel.setNome("Voltar");
 
-		itens.add(model1);
-		itens.add(model2);
-		itens.add(model3);
-		itens.add(model4);
+		itens.add(minhasReservasModel);
+		itens.add(reservarItemModel);
+		itens.add(reservaQrCodeModel);
+		itens.add(voltarModel);
 
-		
-		ListView listview = (ListView) findViewById(R.id.lv);
-		listview.setAdapter(new ModelAdapter(this, itens));
+		ListView listView = (ListView) findViewById(R.id.lv);
+		listView.setAdapter(new ModelAdapter(this, itens));
 
-		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> parent, View view,
+	                  int position, long id) {
 				Intent intent;
 
-				switch (arg2) {
+				switch (position) {
 				case 0:
-						GlobalState gs = (GlobalState) getApplication();
+					GlobalState gs = (GlobalState) getApplication();
 
-						JSONObject usuarioJsonObject = new JSONObject();
+					JSONObject usuarioJsonObject = new JSONObject();
 					try {
 						usuarioJsonObject.put("id", gs.getUsuario().getId());
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 
-					BuscaReservaAsyncTask buscareservarAsyncTask = new
-							BuscaReservaAsyncTask
-							(TelaListaFuncionalidadesPersonalizada.this);
-	 				buscareservarAsyncTask.execute(usuarioJsonObject);
-					
-					intent = new Intent(getBaseContext(), TelaResultadosReserva.class);
-					startActivity(intent);
-				
+					BuscaReservaAsyncTask buscareservarAsyncTask = new BuscaReservaAsyncTask(
+							TelaListaFuncionalidadesPersonalizada.this);
+					buscareservarAsyncTask.execute(usuarioJsonObject);
+
 					break;
-			
+
 				case 1:
-					intent = new Intent(getBaseContext(), TelaConsultarItem.class);
+					intent = new Intent(getBaseContext(),
+							TelaConsultarItem.class);
 					startActivity(intent);
 					break;
 				case 2:

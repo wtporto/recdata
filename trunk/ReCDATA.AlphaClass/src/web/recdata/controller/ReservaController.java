@@ -27,7 +27,7 @@ public class ReservaController {
 		return ReservaDAO.getInstance().readById(reserva);
 	}
 
-	public Response creat(ReservaItem reserva) {
+	public Response creat(ReservaItem reserva) throws SQLException {
 		
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());

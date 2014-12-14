@@ -63,9 +63,7 @@ public class ReservaDAO {
 			} else {
 				if(dataHoraInicio < reservaFim && reservaFim < dataHoraFim){
 					return 1;
-				} else {
-					return 0;
-				}
+				} 
 			}
 		}
 		return 0;

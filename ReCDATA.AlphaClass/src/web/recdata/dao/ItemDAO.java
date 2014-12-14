@@ -67,10 +67,9 @@ public class ItemDAO {
 		return idItem;
 	}
 
-	public ArrayList<Item> readById(int id) {
+	public Item readById(int id) {
 
 		Item itemAux = null;
-		ArrayList<Item> itens = new ArrayList<Item>();
 
 		try {
 
@@ -97,14 +96,13 @@ public class ItemDAO {
 						.getString("nm_descricao"));
 				itemAux.setCategoria(categoria);
 				itemAux.setDescricao(rs.getString("nm_descricao"));
-				itens.add(itemAux);
 			}
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
 
-		return itens;
+		return itemAux;
 	}
 
 	public void update(Item item) {

@@ -32,7 +32,7 @@ public class ReservaController {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 
-		int validacao = Validar.validarItem();
+		int validacao = Validar.validarRetirada(); //TODO: Estava validarItem() o que eu faço aqui?
 		if (validacao == Validar.VALIDACAO_OK) {
 			
 			int idReserva = ReservaDAO.getInstance().creat(reserva);

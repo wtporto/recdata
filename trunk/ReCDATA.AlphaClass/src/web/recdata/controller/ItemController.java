@@ -28,7 +28,7 @@ public class ItemController {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 
-		int validacao = Validar.validarItem();
+		int validacao = Validar.validarItem(item);
 		if (validacao == Validar.VALIDACAO_OK) {
 			
 			int idInstituicao = ItemDAO.getInstance().create(item);
@@ -41,15 +41,14 @@ public class ItemController {
 			
 			Erro erro = new Erro();
 			erro.setCodigo(1);
-			erro.setMensagem("Solicita√ß√£o inv√°lida");
+			erro.setMensagem("SolicitaÁ„o inv·lida");
 			builder.entity(erro);
 		}
 
 		return builder.build();
 	}
 
-	//TODO: Mudar para Item.
-	public ArrayList<Item> readById(Item item) {
+	public Item readById(Item item) {
 		return ItemDAO.getInstance().readById(item.getId());
 	}
 

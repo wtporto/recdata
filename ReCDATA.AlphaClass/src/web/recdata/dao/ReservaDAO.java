@@ -43,7 +43,7 @@ public class ReservaDAO {
 	}
 
 	
-	public int reservaPossivel(int codItem, long reservaInicio, long reservaFim){
+	public int reservaPossivel(int codItem, long reservaInicio, long reservaFim) throws SQLException{
 		String testarFonte = "SELECT data_inicio,hora_inicio,data_fim,hora_fim"
 				+ " FROM tb_reserva WHERE cd_item = ?";
 		
@@ -71,7 +71,7 @@ public class ReservaDAO {
 		return 0;
 	}
 	
-	public int creat(ReservaItem reserva) {
+	public int creat(ReservaItem reserva) throws SQLException {
 
 		int idReserva = BancoUtil.IDVAZIO;
 		

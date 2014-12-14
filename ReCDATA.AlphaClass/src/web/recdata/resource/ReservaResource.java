@@ -44,7 +44,7 @@ public class ReservaResource {
 	@Path("/criar")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response creat(ReservaItem reserva) {
+	public Response creat(ReservaItem reserva) throws SQLException {
 		return new ReservaController().creat(reserva);
 	}
 

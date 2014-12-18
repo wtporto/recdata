@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS tb_tipousuario (
 CREATE TABLE IF NOT EXISTS tb_usuario (
   cd_usuario int(11) NOT NULL AUTO_INCREMENT,
   nm_login varchar(40) NOT NULL,
-  nm_senha varchar(23) NOT NULL,
+  nm_senha varchar(64) NOT NULL,
   nm_usuario varchar(50) NOT NULL,
   nm_email varchar(45) NOT NULL,
   nr_telefone varchar(10) NOT NULL,

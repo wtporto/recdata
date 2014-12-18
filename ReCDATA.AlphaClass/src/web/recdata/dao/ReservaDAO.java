@@ -58,10 +58,10 @@ public class ReservaDAO {
 			long dataHoraFim = rs.getDate("data_fim").getTime()
 					+ rs.getTime("hora_fim").getTime();
 			
-			if(dataHoraInicio < reservaInicio && reservaInicio < dataHoraFim){
+			if(dataHoraInicio <= reservaInicio && reservaInicio <= dataHoraFim || reservaInicio > reservaFim){
 				return 1;
 			} else {
-				if(dataHoraInicio < reservaFim && reservaFim < dataHoraFim){
+				if(dataHoraInicio <= reservaFim && reservaFim <= dataHoraFim){
 					return 1;
 				} 
 			}

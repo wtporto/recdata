@@ -73,7 +73,7 @@ public class UsuarioResource {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response creat(Usuario usuario) {
-
+		
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 

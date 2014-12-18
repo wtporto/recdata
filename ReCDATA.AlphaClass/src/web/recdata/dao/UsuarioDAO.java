@@ -12,6 +12,7 @@ import java.util.List;
 import web.recdata.exececao.ReCDataSQLException;
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
+import web.recdata.util.Criptografia;
 import br.edu.ifpb.recdata.entidades.TipoUsuario;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
@@ -40,7 +41,7 @@ public class UsuarioDAO {
 	public int creat(Usuario usuario) throws ReCDataSQLException {
 
 		int chave = BancoUtil.IDVAZIO;
-
+		
 		try {
 			String sql = String
 					.format("%s ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d)",
@@ -50,7 +51,7 @@ public class UsuarioDAO {
 									+ " cd_tipousuario)" 
 									+ " VALUES ", 
 									usuario.getLogin(), 
-									usuario.getSenha(), 
+									Criptografia.criptografar(usuario.getSenha()), 
 									usuario.getNome(), 
 									usuario.getEmail(), 
 									usuario.getTelefone(), 
@@ -59,7 +60,7 @@ public class UsuarioDAO {
 									new Date(usuario.getNascimento().getTime()), 
 									usuario.getSexo(), 
 									usuario.getTipoUsuario().getId());
-
+			
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -93,7 +94,7 @@ public class UsuarioDAO {
 					+ usuario.getLogin()
 					+ "'"
 					+ " AND U.nm_senha = '"
-					+ usuario.getSenha() + "'";
+					+ Criptografia.criptografar(usuario.getSenha()) + "'";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection

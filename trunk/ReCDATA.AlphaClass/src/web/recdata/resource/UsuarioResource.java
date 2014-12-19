@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
 import web.recdata.controller.UsuarioController;
-import web.recdata.exececao.ReCDataSQLException;
+import web.recdata.excecao.ReCDataSQLException;
 import web.recdata.validacao.Validar;
 import br.edu.ifpb.recdata.entidades.Erro;
 import br.edu.ifpb.recdata.entidades.Usuario;

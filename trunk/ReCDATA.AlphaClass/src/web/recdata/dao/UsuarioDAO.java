@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import web.recdata.exececao.ReCDataSQLException;
+import web.recdata.excecao.ReCDataSQLException;
 import web.recdata.factory.DBPool;
 import web.recdata.util.BancoUtil;
 import web.recdata.util.Criptografia;

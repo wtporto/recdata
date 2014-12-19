@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import web.recdata.dao.UsuarioDAO;
-import web.recdata.exececao.ReCDataSQLException;
+import web.recdata.excecao.ReCDataSQLException;
 import br.edu.ifpb.recdata.entidades.Usuario;
 
 public class UsuarioController {

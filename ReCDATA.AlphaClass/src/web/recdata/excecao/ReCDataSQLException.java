@@ -1,4 +1,4 @@
-package web.recdata.exececao;
+package web.recdata.excecao;
 
 import java.sql.SQLException;
 import java.util.HashMap;

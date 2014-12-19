@@ -138,3 +138,25 @@ CREATE TABLE IF NOT EXISTS tb_usuario (
   UNIQUE KEY nm_email (nm_email),
   KEY fk_tb_usuario_tb_tipousuario_idx (cd_tipousuario)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- INSERT DE TESTES (Padrão)
+
+INSERT INTO tb_categoria (cd_categoria,nm_descricao) VALUES (1,"Data Show");
+
+INSERT INTO tb_categoria (cd_categoria,nm_descricao) VALUES (2,"Chave de Laboratorio");
+
+INSERT INTO tb_categoria (cd_categoria,nm_descricao) VALUES (3,"Chave de Sala");
+
+INSERT INTO tb_categoria (cd_categoria,nm_descricao) VALUES (4,"Aparelho de som");
+
+INSERT INTO tb_categoria (cd_categoria,nm_descricao) VALUES (5,"Notebook");
+
+INSERT INTO tb_categoria (cd_categoria,nm_descricao) VALUES (6,"Televisão");
+
+INSERT INTO tb_tipousuario VALUES (1,"Professor");
+
+INSERT INTO tb_tipousuario VALUES (2,"Monitor de Disciplina");
+
+INSERT INTO tb_tipousuario VALUES (3,"Administrador");
+
+INSERT INTO tb_tipousuario VALUES (4,"Aluno");

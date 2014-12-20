@@ -33,11 +33,6 @@ public class RegiaoDAO {
 		this.connection = (Connection) banco.getConn();
 	}
 
-	/**
-	 * Função: Seleção de todas as Regiões que estão no banco de dados.
-	 * Retorno: ArrayList de Regiao.
-	 * 
-	 * */
 	public List<Regiao> listarTodos() throws SQLException {
 
 		ArrayList<Regiao> regioes = new ArrayList<Regiao>();

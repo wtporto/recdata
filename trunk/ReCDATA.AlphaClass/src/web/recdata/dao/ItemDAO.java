@@ -28,7 +28,6 @@ public class ItemDAO {
 		return instance;
 	}
 
-	// a conexão com o banco de dados
 	public Connection connection;
 
 	public ItemDAO(DBPool banco) {
@@ -81,7 +80,6 @@ public class ItemDAO {
 					+ " AND C.cd_categoria = I.cd_categoria"
 					+ " AND I.cd_item = " + id;
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -109,19 +107,15 @@ public class ItemDAO {
 
 		try {
 
-			// Define um update com os atributos e cada valor é representado por
-			// ?
 			String sql = "UPDATE tb_item"
 					+ " SET nm_descricao='" + item.getDescricao().trim() + "',"
 					+ " cd_categoria = " + item.getCategoria().getId() + ","
 					+ " cd_regiao = " + item.getRegiao().getId() + ","
 					+ " WHERE cd_item = " + item.getId();
 
-			// prepared statement para inserção.
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 

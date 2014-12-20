@@ -61,11 +61,9 @@ public class UsuarioDAO {
 									usuario.getSexo(), 
 									usuario.getTipoUsuario().getId());
 			
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// envia para o Banco e fecha o objeto
 			stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 
 			chave = BancoUtil.getGenerateKey(stmt);
@@ -96,7 +94,6 @@ public class UsuarioDAO {
 					+ " AND U.nm_senha = '"
 					+ Criptografia.criptografar(usuario.getSenha()) + "'";
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
@@ -134,12 +131,10 @@ public class UsuarioDAO {
 
 		try {
 
-			//TODO: Ajustar a consulta. Não retorna usuário pelo ID;
 			String sql = String.format("%s %d",
 					"SELECT * FROM tb_usuario as u WHERE u.cd_usuario=",
 					usuario.getId());
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -178,21 +173,15 @@ public class UsuarioDAO {
 	public void update(Usuario user) {
 
 		try {
-			// Define um update com os atributos e cada valor é representado
-			// por
-			// ?
 			String sql = "UPDATE tb_usuario SET nm_senha=?"
 					+ " WHERE nm_login=?";
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// seta os valores
 			stmt.setString(1, user.getSenha());
 			stmt.setString(2, user.getLogin());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
@@ -211,10 +200,8 @@ public class UsuarioDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			// seta os valores
 			stmt.setInt(1, usuario.getId());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 

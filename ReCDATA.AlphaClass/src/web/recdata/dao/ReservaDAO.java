@@ -31,7 +31,6 @@ public class ReservaDAO {
 		return instance;
 	}
 
-	// a conexão com o banco de dados
 	public Connection connection;
 
 	public ReservaDAO(DBPool banco) {
@@ -135,7 +134,6 @@ public class ReservaDAO {
 
 			stmt.setInt(1, reserva.getId());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
@@ -151,14 +149,12 @@ public class ReservaDAO {
 
 			String sql = "UPDATE tb_reserva SET tb_item_idItem = ? WHERE idReserva = ?";
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
 			stmt.setInt(1, reserva.getItem().getId());
 			stmt.setInt(2, reserva.getId());
 
-			// envia para o Banco e fecha o objeto
 			stmt.execute();
 			stmt.close();
 
@@ -177,7 +173,6 @@ public class ReservaDAO {
 
 			String sql = "SELECT * FROM tb_reserva WHERE tb_usuario_idUsuario = ?";
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
@@ -228,7 +223,6 @@ public class ReservaDAO {
 					+ "R.data_fim,hora_fim "
 					+ "FROM tb_reserva as R";
 
-		// prepared statement para inseeção
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
 
@@ -274,19 +268,16 @@ public class ReservaDAO {
 		Item item = reserva.getItem();
 		
 		if (item!=null) {			
-			// Categoria
 			juncaoItem = "R.cd_item = I.cd_item";
 			
 			Categoria categoria = item.getCategoria();
 			if (categoria!=null && categoria.getId()!=BancoUtil.IDVAZIO) {
 				idCategoria = "AND I.cd_categoria = " + categoria.getId();
 			}
-			// Região
 			Regiao regiao = item.getRegiao();
 			if (regiao!=null && regiao.getId()!=BancoUtil.IDVAZIO) {
 				idRegiao = "AND I.cd_regiao = " + regiao.getId();
 			}
-			// Descrição
 			if (!StringUtil.ehVazio(item.getDescricao())) {
 				descricao = "AND I.nm_item LIKE '" + item.getDescricao() + "%'";
 			}
@@ -306,7 +297,6 @@ public class ReservaDAO {
 				descricao,
 				dataReserva);
 
-		// prepared statement para consulta
 		PreparedStatement stmt = (PreparedStatement) connection
 				.prepareStatement(sql);
 

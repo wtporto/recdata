@@ -11,7 +11,6 @@ public class ReCDATAApplication extends Application {
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 
 	public ReCDATAApplication() {
-		// ADD YOUR RESTFUL RESOURCES HERE
 		this.singletons.add(new CategoriaResource());
 		this.singletons.add(new DevolucaoResource());
 		this.singletons.add(new ItemResource());

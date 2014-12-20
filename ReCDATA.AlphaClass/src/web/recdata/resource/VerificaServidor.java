@@ -7,11 +7,10 @@ import javax.ws.rs.Produces;
 
 
 
-@Path("/servicos")
+@Path("/servidor")
 public class VerificaServidor {
-// está classe serve para  a verificação se o servidor esta online ou não
 	@GET
-    @Path("servidorOnline/")
+    @Path("/online")
     @Produces("application/json")
     public Server servidorOnline() {
             

@@ -33,10 +33,6 @@ public class CategoriaDAO {
 		this.connection = (Connection) banco.getConn();
 	}
 	
-	/**
-	 * Função: Seleção de Categoria no banco de dados pelo ID. 
-	 * Retorno: Retorna somente uma Categoria.
-	 * */
 	public Categoria readById(Categoria categoria) {
 
 		Categoria categoriaAux = null;
@@ -71,10 +67,6 @@ public class CategoriaDAO {
 		return categoriaAux;
 	}
 
-	/**
-	 * Função: Atualizar o valor da descrição da categoria identificando pelo ID.
-	 * Retorno: VOID.
-	 * */
 	public void update(Categoria categoria) {
 
 		try {
@@ -96,10 +88,6 @@ public class CategoriaDAO {
 		}
 	}
 
-	/**
-	 * Função: Deleta a categoria identificada pelo ID.
-	 * Retorno: VOID.
-	 * */
 	public void delete(Categoria categoria) {
 
 		try {
@@ -119,12 +107,6 @@ public class CategoriaDAO {
 		}
 	}
 
-	/**
-	 * Função: Seleção de todas as Categoria que estão no banco de dados.
-	 * Retorno: ArrayList de Categoria.
-	 * 
-	 * FUNCIONANDO (TESTADO)
-	 * */
 	public List<Categoria> listarTodos() throws SQLException {
 
 		ArrayList<Categoria> categorias = new ArrayList<Categoria>();

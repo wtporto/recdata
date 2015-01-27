@@ -40,9 +40,9 @@ public class ReservaDAO {
 	public ReservaDAO() {
 		this.connection = (Connection) banco.getConn();
 	}
-
 	
 	public int reservaPossivel(int codItem, long reservaInicio, long reservaFim) throws SQLException{
+		
 		String testarFonte = "SELECT data_inicio,hora_inicio,data_fim,hora_fim"
 				+ " FROM tb_reserva WHERE cd_item = ?";
 		
@@ -190,7 +190,7 @@ public class ReservaDAO {
 
 				Usuario usuario = new Usuario();
 				usuario.setId(rs.getInt("cd_usuario"));
-				reservaAux.setUsuario(usuario);
+				reservaAux.setUsuarioReserva(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()
 						+ rs.getTime("hora_inicio").getTime();
@@ -238,7 +238,7 @@ public class ReservaDAO {
 
 			Usuario usuario = new Usuario();
 			usuario.setId(rs.getInt("R.cd_usuario_reserva"));
-			reservaAux.setUsuario(usuario);
+			reservaAux.setUsuarioReserva(usuario);
 
 			long dateHoraInicio = rs.getDate("R.data_inicio").getTime()
 					+ rs.getTime("R.hora_inicio").getTime();
@@ -313,7 +313,7 @@ public class ReservaDAO {
 
 			Usuario usuario = new Usuario();
 			usuario.setId(rs.getInt("R.cd_usuario_reserva"));
-			reservaConsulta.setUsuario(usuario);
+			reservaConsulta.setUsuarioReserva(usuario);
 
 			long dateHoraInicio = rs.getDate("R.data_inicio").getTime()
 					+ rs.getTime("R.hora_inicio").getTime();

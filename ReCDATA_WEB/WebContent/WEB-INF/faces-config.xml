@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+
+	<!-- i18n -->
+	<!-- Messages -->
+	<application>
+		<message-bundle>br.edu.ifpb.recdata.i18n.messages</message-bundle>
+		<locale-config>
+			<default-locale>pt</default-locale>
+		</locale-config>
+	</application>
+	
+	<!-- Resource -->
+	<application>
+		<resource-bundle>
+			<base-name>br.edu.ifpb.recdata.i18n.messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+		<!-- set locales -->
+		<locale-config>
+			<default-locale>pt</default-locale>
+		</locale-config>
+		<!-- end locals -->
+	</application>
+</faces-config>

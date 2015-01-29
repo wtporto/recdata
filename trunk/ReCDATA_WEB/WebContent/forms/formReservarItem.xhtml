@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div id='cadastraritem-form'>
+		<div class='inside'>
+		
+			<!-- Progress -->
+			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Aguarde"   
+					draggable="false" closable="false">  
+				<p:graphicImage value="resources/imagens/progress.gif" />  
+			</p:dialog>
+			
+			<!-- Formulário -->
+			<h:form>
+
+				<h:messages id="messagesReservarItem" globalOnly="true" />
+
+				<h:panelGrid columns="1">
+				
+					<h:panelGrid columns="2" id="itemReserva">
+						<p:outputLabel value="Item:" for="descricao" />
+						<h:inputText value="#{reservarItemBean.itemCategoriaDescricaoRegiao}" 
+							readonly="true" id="descricao">
+	                    </h:inputText>
+	                    <h:message for="descricao" />
+	                    <p:commandLink id="mudarItemLink" 
+	                    	actionListener="#{reservarItemBean.mudarItem}" ajax="false">
+	       					<h:outputText value="Mudar Item" />
+	   					</p:commandLink>
+   					</h:panelGrid>
+				
+				
+					<!-- Autocomplete - Usuário -->
+					<p:outputLabel value="Nome do usuário:" for="nomeUsuario" />
+					<p:autoComplete id="nomeUsuario" multiple="true"
+						value="#{reservarItemBean.usuariosSelecionados}"
+						completeMethod="#{reservarItemBean.completeUsuarios}"
+						var="usuario" itemLabel="#{usuario.nome}"
+						itemValue="#{usuario}"
+						converter="br.edu.ifpb.recdata.convert.UsuariosConverter"
+						forceSelection="true">
+						<p:column>
+							<h:outputText value="#{usuario.nome}" />
+						</p:column>
+					</p:autoComplete>
+					<h:message for="nomeUsuario" />
+
+					<h:outputScript name="calendario_pt_BR.js" library="js" />
+					
+					<!-- Data/Hora inicial -->
+					<p:outputLabel value="Data/Hora inicial:" for="dataHoraInicial" />
+					<h:panelGrid columns="4" id="dataHoraInicial">						
+						<p:calendar id="dataInicio" value="#{reservarItemBean.dataInicio}"
+							locale="pt_BR" navigator="true" pattern="dd-MMM-yyyy" />
+						<h:message for="dataInicio" />	
+						
+						<pe:timePicker value="#{reservarItemBean.horaInicio}" 
+							mode="popup"
+							widgetVar="horaInicioWidgetVar" 
+							id="horaInicio" />
+						<h:message for="horaInicio" />
+					</h:panelGrid>
+					
+					<!-- Data/Hora final -->
+					<p:outputLabel value="Data/Hora final:" for="dataHoraFinal" />
+					<h:panelGrid columns="4" id="dataHoraFinal">						
+						<p:calendar id="dataFinal" value="#{reservarItemBean.dataFim}"
+							locale="pt_BR" navigator="true" pattern="dd-MMM-yyyy" />
+						<h:message for="dataFinal" />	
+						
+						<pe:timePicker value="#{reservarItemBean.horaFim}" 
+							mode="popup"
+							widgetVar="horaFinalWidgetVar" 
+							id="horaFinal" />
+						<h:message for="horaFinal" />
+					</h:panelGrid>
+					
+					<!-- Observação da reserva -->
+					<h:panelGrid columns="3">
+						<h:outputLabel value="Observação" for="observacao"/>							
+						<p:inputTextarea id="observacao" rows="8" cols="25" 
+							value="#{reservarItemBean.observacao}" 
+							maxlength="255"
+							required="false">
+							<f:validateLength maximum="255"/>
+						</p:inputTextarea>
+						<h:message for="observacao"/>
+					</h:panelGrid>
+					
+					<h:panelGrid columns="3">
+						<h:selectBooleanCheckbox id="retirarItem" value="#{reservarItemBean.retirarItem}" />
+	    				<h:outputLabel value="Deseja retirar o item agora?" for="retirarItem" />
+	    				<h:message for="retirarItem" />	
+    				</h:panelGrid>
+    				
+    				<h:panelGrid columns="2">
+    					<input id="bt_clean" type="reset" value="Limpar"/>	
+						<h:commandButton id="bt_send" value="Reservar" action="#{reservarItemBean.reservarItem}"/>							
+					</h:panelGrid>				
+				</h:panelGrid>
+			</h:form>
+		</div>
+	</div>
+</ui:composition>

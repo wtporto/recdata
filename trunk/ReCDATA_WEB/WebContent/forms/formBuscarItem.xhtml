@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<div id='cadastraritem-form'>
+		<div class='inside'>
+
+			<h1>Buscar Item</h1>			
+
+			<!-- Progress -->
+			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Aguarde"   
+					draggable="false" closable="false">  
+				<p:graphicImage value="resources/imagens/progress.gif" />  
+			</p:dialog>
+			
+			<!-- Formulário -->
+			<h:form>
+				<h:messages id="messagesBuscarItem" globalOnly="true" />
+				<h:panelGrid columns="1">
+					
+					<!-- Nome do Item -->
+					<h:outputLabel value="Item" for="descricao" />
+					<h:inputText class="defaultBoxRadius" id="descricao"
+						value="#{listarItensBean.descricao}" size="45"
+						required="true">
+						<f:validateLength maximum="45" />
+						<p:ajax event="keyup" update="itens" listener="#{listarItensBean.listarItens}"></p:ajax>
+					</h:inputText>
+					<h:message for="descricao" />					
+				</h:panelGrid>
+								
+				<!-- Listagem dos itens-->
+				<p:dataScroller value="#{listarItensBean.itens}" var="item" chunkSize="10" id="itens">
+			        <f:facet name="header">
+			            Lista dos itens
+			        </f:facet>
+			 
+			        <h:panelGrid columns="3" columnClasses="logo, detail, link">
+			            
+			            <p:graphicImage value="resources/imagens/missingphoto.png"/> 
+			 
+			            <p:outputPanel>
+			                <h:panelGrid columns="1">
+			                    <h:outputText value="Descrição:" />
+			                    <h:outputText value="#{item.descricao}"/>
+			 
+			                    <h:outputText value="Categoria:" />
+			                    <h:outputText value="#{item.categoria.descricao}"/>
+			                    
+			                    <h:outputText value="Região:" />
+			                    <h:outputText value="#{item.regiao.nome}"/>
+			                </h:panelGrid>
+			            </p:outputPanel>
+			            
+			            <h:panelGrid  rocolumns="2" id="linksBuscaItem">
+				            <p:commandLink id="reservarItemLink" actionListener="#{listarItensBean.reservarItem(item)}" ajax="false">
+	        					<h:outputText value="Reservar" />
+	    					</p:commandLink>
+	    					<!-- p:commandLink id="detalharItemLink" actionListener="#{listarItensBean.detalharItem(item)}" ajax="false">
+	        					<h:outputText value="Detalhar" />
+	    					</p:commandLink -->
+    					</h:panelGrid>
+			        </h:panelGrid>
+			    </p:dataScroller>
+			</h:form>
+		</div>
+	</div>
+</ui:composition>

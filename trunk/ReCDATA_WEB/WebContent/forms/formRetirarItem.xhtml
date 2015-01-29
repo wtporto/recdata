@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div id='retiraritem-form'>
+		<div class='inside'>
+		 <h:form>
+		 	<!-- pt-BR do calendario -->
+		 	<h:outputScript name="calendario_pt_BR.js" library="js" />
+	 		<h:panelGrid columns="1">	
+				
+				<!-- Nome do usuário da reserva -->
+				
+				<!-- Categoria do Item -->
+				<h:outputLabel value="Categorias" for="categorias"/>
+		        <h:selectOneMenu id="categorias"
+		                         value="#{retirarItemBean.categoria}"
+		                         required="true">
+		            <f:converter converterId="br.edu.ifpb.recdata.convert.CategoriasConverter"/>
+		            <f:selectItems value="#{retirarItemBean.categorias}" />
+		        </h:selectOneMenu>
+		        <h:message for="categorias"/>
+		        
+		        <!-- Região do Item -->
+				<h:outputLabel value="Regiões" for="regioes"/>
+		        <h:selectOneMenu id="regioes"
+		                         value="#{retirarItemBean.regiao}"
+		                         required="true">
+		            <f:converter converterId="br.edu.ifpb.recdata.convert.RegioesConverter"/>
+		            <f:selectItems value="#{retirarItemBean.regioes}" />
+		        </h:selectOneMenu>
+		        <h:message for="regioes"/>
+				
+				<!-- Nome do Item -->
+				<h:outputLabel value="Item" for="descricao"/>							
+				<h:inputText class="defaultBoxRadius" id="descricao" 
+					value="#{retirarItemBean.descricao}" size="45" required="true">
+					<f:validateLength maximum="45"/>
+				</h:inputText>
+				<h:message for="descricao"/>
+				
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<input id="bt_clean" type="reset" value="Limpar"/>		
+				<h:commandButton id="bt_send" value="Listar reserva" action="#{retirarItemBean.listarReservas}"/>					
+			</h:panelGrid>			
+			
+			<!-- Listagem dos itens-->
+			<p:dataScroller value="#{retirarItemBean.reservas}" var="reserva" chunkSize="10" id="itens">
+		        <f:facet name="header">
+		            Lista das Reservas
+		        </f:facet>
+		 
+		        <h:panelGrid columns="3" columnClasses="logo, detail, link">
+		            
+		            <p:graphicImage value="resources/imagens/missingphoto.png"/> 
+		 
+		            <p:outputPanel>
+		                <h:panelGrid columns="1">
+		                    <h:outputText value="Descrição:" />
+		                    <h:outputText value="#{reserva.id}"/>
+		                </h:panelGrid>
+		            </p:outputPanel>
+		            
+		            <h:panelGrid rocolumns="2" id="linksRetirarItem">
+			            <p:commandLink id="retirarItemLink" actionListener="#{retirarItemBean.retirarItem(reserva)}" ajax="false">
+        					<h:outputText value="Retirar" />
+    					</p:commandLink>
+   					</h:panelGrid>
+		        </h:panelGrid>
+		    </p:dataScroller>				 
+		 </h:form>			
+		</div>
+	</div>
+</ui:composition>

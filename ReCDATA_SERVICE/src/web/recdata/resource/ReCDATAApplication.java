@@ -20,6 +20,7 @@ public class ReCDATAApplication extends Application {
 		this.singletons.add(new RegiaoResource());
 		this.singletons.add(new RetiradaResource());
 		this.singletons.add(new VerificaServidor());
+		this.singletons.add(new FileResource());
 	}
 
 	public Set<Class<?>> getClasses() {

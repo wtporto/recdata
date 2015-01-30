@@ -14,7 +14,7 @@ public class Retirada {
 	
 	private ReservaItem reserva;
 	
-	private Date retirada;
+	private Date dataHoraRetirada;
 	
 	private Date registro;	
 	
@@ -22,7 +22,7 @@ public class Retirada {
 	public String toString() {
 		return "Retirada [id=" + id + ", usuarioLiberacao="
 				+ usuarioLiberacao.getId() + ", reserva=" + reserva.getId()
-				+ ", registro=" + registro + ", retirada=" + retirada + "]";
+				+ ", registro=" + registro + ", Data/hora da retirada=" + dataHoraRetirada + "]";
 	}
 
 	@XmlElement
@@ -53,12 +53,12 @@ public class Retirada {
 	}
 
 	@XmlElement
-	public Date getRetirada() {
-		return retirada;
+	public Date getDataHoraRetirada() {
+		return dataHoraRetirada;
 	}
 
-	public void setRetirada(Date retirada) {
-		this.retirada = retirada;
+	public void setDataHoraRetirada(Date retirada) {
+		this.dataHoraRetirada = retirada;
 	}
 
 	@XmlElement

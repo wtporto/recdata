@@ -25,8 +25,15 @@ import android.util.Log;
 
 public class HttpService {
 
+	// Porta
+	private static String PORTA = "8080";
+	
+	// IP ou Domínio
+	private static String IP = "192.168.0.135";
+	
 	// URL to get JSON Array
-	private static String url = "http://192.168.0.135:8080/ReCDATA.AlphaClass";
+	private static String url = "http://" + IP + ":" + PORTA 
+			+ "/ReCDATA_SERVICE";
 
 	// constructor
 	public HttpService(Activity activity) throws HttpServiceException {

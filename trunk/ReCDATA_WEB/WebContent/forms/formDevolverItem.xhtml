@@ -3,7 +3,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<div id='cadastraritem-form'>
 		<div class='inside'>
@@ -25,9 +26,9 @@
 					
 					<!-- Autocomplete - Usuário -->
 					<p:outputLabel value="Nome do usuário:" for="nomeUsuario" />
-					<p:autoComplete id="nomeUsuario" multiple="false"
-						value="#{reservarItemBean.usuariosSelecionados}"
-						completeMethod="#{reservarItemBean.completeUsuarios}"
+					<p:autoComplete id="nomeUsuario" multiple="true"
+						value="#{devolverBean.usuariosSelecionados}"
+						completeMethod="#{devolverBean.completeUsuarios}"
 						var="usuario" itemLabel="#{usuario.nome}"
 						itemValue="#{usuario}"
 						converter="br.edu.ifpb.recdata.convert.UsuariosConverter"
@@ -36,13 +37,67 @@
 							<h:outputText value="#{usuario.nome}" />
 						</p:column>
 					</p:autoComplete>
-					<h:message for="nomeUsuario" />
+					<h:message for="nomeUsuario" />					
 					
-										
+					<!-- Data/Hora da retirada -->
+					<h:outputScript name="calendario_pt_BR.js" library="js" />
+					
+					<p:outputLabel value="Data/Hora Inicio da reserva:" for="dataHoraInicial" />
+					<h:panelGrid columns="4" id="dataHoraInicial">						
+						
+						<p:calendar id="dataInicial" value="#{devolverBean.dataInicio}"
+							locale="pt_BR" navigator="true" pattern="dd-MMM-yyyy" />
+						<h:message for="dataInicial" />	
+						
+						<pe:timePicker value="#{devolverBean.horaInicio}" 
+							mode="popup"
+							widgetVar="horaFinalWidgetVar" 
+							id="horaInicial" />
+						<h:message for="horaInicial" />
+						
+					</h:panelGrid>
+							
+					<h:panelGrid columns="2">
+    					<input id="bt_clean" type="reset" value="Limpar"/>	
+						<h:commandButton id="bt_buscar" value="Buscar" 
+							action="#{devolverBean.consultarRetiradas}" />							
+					</h:panelGrid>
+								
 				</h:panelGrid>
 								
 				<!-- Listagem dos itens retirados -->
-				
+				<p:dataTable id="retiradas" 
+					var="retirada" 
+					value="#{devolverBean.retiradas}">
+	
+					<p:column headerText="Usuário da liberação">
+						<h:outputText value="#{retirada.usuarioLiberacao.nome}" />
+					</p:column>
+					
+					<p:column headerText="Usuário da reserva">
+						<h:outputText value="#{retirada.reserva.usuario.nome}" />
+					</p:column>
+					
+					<p:column headerText="Item">
+						<h:outputText value="#{retirada.item.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Data/Hora da Retirada">
+						<h:outputText value="#{retirada.dataHoraRetirada}" />
+					</p:column>
+		
+					<p:column headerText="Opções">	
+						<p:panelGrid columns="1">
+						
+							<p:commandLink id="cl_devolver" immediate="true" 
+								action="#{devolverBean.devolverItem(retirada)}">
+								<h:outputText value="Devolver Item" />
+							</p:commandLink>
+							
+						</p:panelGrid>					
+					</p:column>
+					
+				</p:dataTable>
 			</h:form>
 		</div>
 	</div>

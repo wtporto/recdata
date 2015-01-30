@@ -19,7 +19,7 @@ import br.edu.ifpb.recdata.service.ReCDATAService;
 
 @ManagedBean(name="reservarItemBean")
 @SessionScoped
-public class ReservarItemBean extends ReservaItem{
+public class ReservarItemBean extends ReservaItem {
 	
 	private String itemCategoriaDescricaoRegiao;
 	
@@ -120,7 +120,6 @@ public class ReservarItemBean extends ReservaItem{
     	
         BuscarUsuarioBean buscarUsuarioBean = new BuscarUsuarioBean();
         this.usuariosConsulta = buscarUsuarioBean.getUsuariosByNome(query);
-        System.out.println(this.usuariosConsulta);
         
         GenericBean.setSessionValue("buscarUsuarioBean", buscarUsuarioBean);       
         

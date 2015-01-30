@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<div id='cadastraritem-form'>
+		<div class='inside'>
+
+			<h1>Devolver Item</h1>			
+
+			<!-- Progress -->
+			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+
+			<p:dialog modal="true" widgetVar="statusDialog" header="Aguarde"   
+					draggable="false" closable="false">  
+				<p:graphicImage value="resources/imagens/progress.gif" />  
+			</p:dialog>
+			
+			<!-- Formulário -->
+			<h:form>
+				<h:messages id="messagesBuscarItem" globalOnly="true" />
+				<h:panelGrid columns="1">
+					
+					<!-- Autocomplete - Usuário -->
+					<p:outputLabel value="Nome do usuário:" for="nomeUsuario" />
+					<p:autoComplete id="nomeUsuario" multiple="false"
+						value="#{reservarItemBean.usuariosSelecionados}"
+						completeMethod="#{reservarItemBean.completeUsuarios}"
+						var="usuario" itemLabel="#{usuario.nome}"
+						itemValue="#{usuario}"
+						converter="br.edu.ifpb.recdata.convert.UsuariosConverter"
+						forceSelection="true">
+						<p:column>
+							<h:outputText value="#{usuario.nome}" />
+						</p:column>
+					</p:autoComplete>
+					<h:message for="nomeUsuario" />
+					
+										
+				</h:panelGrid>
+								
+				<!-- Listagem dos itens retirados -->
+				
+			</h:form>
+		</div>
+	</div>
+</ui:composition>

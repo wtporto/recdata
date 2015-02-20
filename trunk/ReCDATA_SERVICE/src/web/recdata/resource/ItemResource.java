@@ -1,7 +1,6 @@
 package web.recdata.resource;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -46,7 +45,7 @@ public class ItemResource {
 	@Path("/buscar")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public ArrayList<Item> readById(Item item) {
+	public Item readById(Item item) {
 		return new ItemController().readById(item);
 	}
 	

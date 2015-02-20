@@ -133,15 +133,14 @@ public class UsuarioDAO {
 
 		try {
 
-			//TODO: Ajustar a consulta. Não retorna usuário pelo ID;
-			String sql = String.format("%s %d",
-					"SELECT * FROM tb_usuario as u WHERE u.cd_usuario=",
-					usuario.getId());
+			String sql = "SELECT * FROM tb_usuario as u WHERE u.cd_usuario = ?";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
+			stmt.setInt(1, usuario.getId());
+			
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {

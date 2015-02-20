@@ -67,10 +67,9 @@ public class ItemDAO {
 		return idItem;
 	}
 
-	public ArrayList<Item> readById(int id) {
+	public Item readById(int id) {
 
 		Item itemAux = null;
-		ArrayList<Item> itens = new ArrayList<Item>();
 
 		try {
 
@@ -80,11 +79,12 @@ public class ItemDAO {
 					+ "tb_item as I, tb_categoria as C"
 					+ " WHERE"
 					+ " AND C.cd_categoria = I.cd_categoria"
-					+ " AND I.cd_item = " + id;
+					+ " AND I.cd_item = ? ";
 
-			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
+			
+			stmt.setInt(1, id);
 
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -97,14 +97,13 @@ public class ItemDAO {
 						.getString("nm_descricao"));
 				itemAux.setCategoria(categoria);
 				itemAux.setDescricao(rs.getString("nm_descricao"));
-				itens.add(itemAux);
 			}
 
 		} catch (SQLException sqle) {
 			throw new RuntimeException(sqle);
 		}
 
-		return itens;
+		return itemAux;
 	}
 
 	public void update(Item item) {

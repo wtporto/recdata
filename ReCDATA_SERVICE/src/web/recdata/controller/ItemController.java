@@ -48,8 +48,7 @@ public class ItemController {
 		return builder.build();
 	}
 
-	//TODO: Mudar para Item.
-	public ArrayList<Item> readById(Item item) {
+	public Item readById(Item item) {
 		return ItemDAO.getInstance().readById(item.getId());
 	}
 

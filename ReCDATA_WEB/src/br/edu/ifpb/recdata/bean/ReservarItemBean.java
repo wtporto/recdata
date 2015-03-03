@@ -9,7 +9,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+
+import org.apache.http.HttpStatus;
 
 import br.edu.ifpb.recdata.entidades.Item;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
@@ -37,8 +38,6 @@ public class ReservarItemBean extends ReservaItem {
 	
 	private Date horaFim;
 	
-	private boolean retirarItem;
-	
 	public ReservarItemBean() {}
 	
 	public ReservarItemBean(Item item) {
@@ -47,7 +46,7 @@ public class ReservarItemBean extends ReservaItem {
 	
 	public String reservarItem() {      
         
-		String navegacao = null;
+		String sendRedirect = null;
 		
         Date dataHoraInicio = getDataHora(dataInicio, horaInicio);
         Date dataHoraFim = getDataHora(dataFim, horaFim);
@@ -60,26 +59,33 @@ public class ReservarItemBean extends ReservaItem {
         Response response = service.cadastrarReservaItem(reservaItem);
 		int statusCode = response.getStatus();
 		
-		if (statusCode == Status.CREATED.getStatusCode()) {
+		if (statusCode == HttpStatus.SC_CREATED) {
+			
 			//Exibir mensagem de sucesso.
-			GenericBean.setMessage(null, "info.sucessoReservaItem",
+			GenericBean.setMessage("messagesReservarItemRetirada", 
+					"info.sucessoReservaItem",
 					FacesMessage.SEVERITY_INFO);
+			
+			reservaItem = response.readEntity(ReservaItem.class);
+			
 			// Limpar sessão.
-			resetReservarItem();
+			//resetReservarItem();			
+			sendRedirect = PathRedirect.CONFIRMA_ITEM_RETIRADA;
+			
 		} else {
 			//Exibir mensagem de erro.
 			GenericBean.setMessage(null, "erro.problemaReservaItem",
 					FacesMessage.SEVERITY_ERROR);
 		}       
         
-		return navegacao;		
+		return sendRedirect;		
 	}
 	
 	public void mudarItem(){
 		
 		resetReservarItem();
 		
-		GenericBean.sendRedirect(PathRedirect.LISTARITEM);
+		GenericBean.sendRedirect(PathRedirect.LISTAR_ITEM);
 	}
 	
 	private void resetReservarItem() {
@@ -88,7 +94,7 @@ public class ReservarItemBean extends ReservaItem {
 
 	private ReservaItem getReservaItem(Date dataHoraInicio, Date dataHoraFim) {
 		ReservaItem reservaItem = new ReservaItem();
-		reservaItem.setUsuario(usuariosSelecionados.get(0));
+		reservaItem.setUsuarioReserva(usuariosSelecionados.get(0));
 		reservaItem.setItem(super.getItem());
 		reservaItem.setHoraDataInicio(dataHoraInicio);
 		reservaItem.setHoraDataFim(dataHoraFim);
@@ -113,7 +119,7 @@ public class ReservarItemBean extends ReservaItem {
 	
 	public void redirecionarReservaItem() {
 		
-		GenericBean.sendRedirect(PathRedirect.RESERVARITEM);
+		GenericBean.sendRedirect(PathRedirect.RESERVAR_ITEM);
 	}    
 
     public List<Usuario> completeUsuarios(String query) {
@@ -172,14 +178,6 @@ public class ReservarItemBean extends ReservaItem {
 
 	public void setHoraFim(Date horaFim) {
 		this.horaFim = horaFim;
-	}
-
-	public boolean isRetirarItem() {
-		return retirarItem;
-	}
-
-	public void setRetirarItem(boolean retirarItem) {
-		this.retirarItem = retirarItem;
 	}
 
 	public String getItemCategoriaDescricaoRegiao() {

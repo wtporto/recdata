@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import br.edu.ifpb.recdata.entidades.Categoria;
@@ -15,9 +15,9 @@ import br.edu.ifpb.recdata.entidades.Retirada;
 import br.edu.ifpb.recdata.service.ProviderServiceFactory;
 import br.edu.ifpb.recdata.service.ReCDATAService;
 
-@ManagedBean(name = "retirarItemBean")
-@SessionScoped
-public class RetirarItemBean extends Retirada {
+@ManagedBean(name = "listarItemReservadoBean")
+@ViewScoped
+public class ListarItemReservadoBean extends Retirada {
 
 	private List<SelectItem> categorias;
 

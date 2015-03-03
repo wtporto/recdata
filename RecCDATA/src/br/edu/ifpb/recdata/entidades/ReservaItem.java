@@ -8,12 +8,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ReservaItem implements Entidade {
 
 	private int id;
-	//TODO: private Usuario usuarioReserva; -- Usuário responsável por realizar a reserva.
-	private Usuario usuario;
+	
+	private Usuario usuarioAtendente;
+	
+	private Usuario usuarioReserva;
+	
 	private Item item;
+	
 	private String observacao;
+	
 	private Date horaDataInicio;
+	
 	private Date horaDataFim;
+	
 	private Date dataRegistro;
 	
 	public ReservaItem() {}
@@ -22,7 +29,7 @@ public class ReservaItem implements Entidade {
 			Date horaDataInicio, Date horaDataFim) {
 		super();
 		this.id = id;
-		this.usuario = usuario;
+		this.usuarioReserva = usuario;
 		this.item = item;
 		this.horaDataInicio = horaDataInicio;
 		this.horaDataFim = horaDataFim;
@@ -31,19 +38,19 @@ public class ReservaItem implements Entidade {
 
 	@Override
 	public String toString() {
-		return "ReservaItem [idReserva=" + id + ", usuario="
-				+ usuario + ", item=" + item +" observacao="+observacao
+		return "ReservaItem [idReserva=" + id + ", usuarioReserva="
+				+ usuarioReserva + ", item=" + item +" observacao="+observacao
 				+ ", horaDataInicio=" + horaDataInicio + ", horaDataFim="
 				+ horaDataFim + "]";
 	}
 
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Usuario getUsuarioReserva() {
+		return usuarioReserva;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarioReserva(Usuario usuarioReserva) {
+		this.usuarioReserva = usuarioReserva;
 	}
 
 	public Item getItem() {
@@ -92,5 +99,13 @@ public class ReservaItem implements Entidade {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public Usuario getUsuarioAtendente() {
+		return usuarioAtendente;
+	}
+
+	public void setUsuarioAtendente(Usuario usuarioAtendente) {
+		this.usuarioAtendente = usuarioAtendente;
 	}	
 }

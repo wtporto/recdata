@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div id='cadastraritem-form'>
+		<div class='inside'>
+			
+			<!-- Formulário -->
+			<p:panel id="pn_curso" header="Confirmar retirada do Item">				
+				<h:form>					
+					<h:messages id="messagesReservarItemRetirada" globalOnly="true" />
+	
+					<h:panelGrid columns="1">
+	    				
+	    				<h:panelGrid columns="2">
+	    					<input id="bt_clean" type="reset" value="Sair"/>	
+							<h:commandButton id="bt_send" value="Confirmar" action="#{retirarItemBean.retirarItem}"/>							
+						</h:panelGrid>
+										
+					</h:panelGrid>
+				</h:form>
+			</p:panel>
+			
+		</div>
+	</div>
+</ui:composition>

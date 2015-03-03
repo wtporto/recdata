@@ -19,8 +19,7 @@ public class BuscarUsuarioBean implements Serializable {
 
 	private List<Usuario> usuarios;
 
-	public BuscarUsuarioBean() {
-	}
+	public BuscarUsuarioBean() {}
 
 	private List<Usuario> populateUsuarios(String nome) {
 

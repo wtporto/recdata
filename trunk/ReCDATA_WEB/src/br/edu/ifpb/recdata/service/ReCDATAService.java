@@ -74,6 +74,5 @@ public interface ReCDATAService {
 	@Path("/reserva/consultarReservas")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public List<ReservaItem> consultarReservas(ReservaItem reserva);
-	
+	public List<ReservaItem> consultarReservas(ReservaItem reserva);	
 }

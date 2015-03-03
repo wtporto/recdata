@@ -29,44 +29,41 @@
 						value="#{listarItensBean.descricao}" size="45"
 						required="true">
 						<f:validateLength maximum="45" />
-						<p:ajax event="keyup" update="itens" listener="#{listarItensBean.listarItens}"></p:ajax>
+						<p:ajax event="keyup" update="tb_itens" listener="#{listarItensBean.listarItens}"></p:ajax>
 					</h:inputText>
 					<h:message for="descricao" />					
 				</h:panelGrid>
-								
-				<!-- Listagem dos itens-->
-				<p:dataScroller value="#{listarItensBean.itens}" var="item" chunkSize="10" id="itens">
-			        <f:facet name="header">
-			            Lista dos itens
-			        </f:facet>
-			 
-			        <h:panelGrid columns="3" columnClasses="logo, detail, link">
-			            
-			            <p:graphicImage value="resources/imagens/missingphoto.png"/> 
-			 
-			            <p:outputPanel>
-			                <h:panelGrid columns="1">
-			                    <h:outputText value="Descrição:" />
-			                    <h:outputText value="#{item.descricao}"/>
-			 
-			                    <h:outputText value="Categoria:" />
-			                    <h:outputText value="#{item.categoria.descricao}"/>
-			                    
-			                    <h:outputText value="Região:" />
-			                    <h:outputText value="#{item.regiao.nome}"/>
-			                </h:panelGrid>
-			            </p:outputPanel>
-			            
-			            <h:panelGrid  rocolumns="2" id="linksBuscaItem">
-				            <p:commandLink id="reservarItemLink" actionListener="#{listarItensBean.reservarItem(item)}" ajax="false">
-	        					<h:outputText value="Reservar" />
-	    					</p:commandLink>
-	    					<!-- p:commandLink id="detalharItemLink" actionListener="#{listarItensBean.detalharItem(item)}" ajax="false">
-	        					<h:outputText value="Detalhar" />
-	    					</p:commandLink -->
-    					</h:panelGrid>
-			        </h:panelGrid>
-			    </p:dataScroller>
+			    
+			    <!-- Listagem dos itens -->
+			    <p:dataTable id="tb_itens"
+					value="#{listarItensBean.itens}"
+					var="item">
+					
+					<p:column headerText="Descrição">
+						<p:graphicImage value="resources/imagens/nophoto.png"/>
+					</p:column>					
+					
+					<p:column headerText="Categoria">
+						<h:outputText value="#{item.categoria.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Descrição">
+						<h:outputText value="#{item.descricao}" />
+					</p:column>
+					
+					<p:column headerText="Região">
+						<h:outputText value="#{item.regiao.nome}" />
+					</p:column>				
+					
+					<p:column headerText="Opções">						
+							<p:commandLink id="reservarItemLink" 
+								actionListener="#{listarItensBean.reservarItem(item)}" 
+								ajax="false">
+								<h:outputText value="Reservar" />
+							</p:commandLink>					
+					</p:column>
+					
+				</p:dataTable>	
 			</h:form>
 		</div>
 	</div>

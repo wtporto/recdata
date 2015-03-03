@@ -14,6 +14,7 @@ import br.edu.ifpb.recdata.entidades.DevolucaoItem;
 
 @Path("/devolucao")
 public class DevolucaoResource {
+	
 	@POST
 	@Path("/criar")
 	@Consumes("application/json")

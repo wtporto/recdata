@@ -33,6 +33,7 @@ public class ReservaController {
 		builder.expires(new Date());
 
 		int validacao = Validar.validarItem();
+		
 		if (validacao == Validar.VALIDACAO_OK) {
 			
 			int idReserva = ReservaDAO.getInstance().creat(reserva);

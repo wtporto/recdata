@@ -6,7 +6,6 @@ import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-import br.edu.ifpb.recdata.entidades.Categoria;
 import br.edu.ifpb.recdata.entidades.Regiao;
 import br.edu.ifpb.recdata.service.ProviderServiceFactory;
 import br.edu.ifpb.recdata.service.ReCDATAService;

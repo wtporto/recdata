@@ -121,6 +121,13 @@
 			<artifactId>primefaces</artifactId>
 			<version>5.1</version>
 		</dependency>
+		
+		<!-- Primeface Extensions -->
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
 		<!-- JSF -->
 		<dependency>

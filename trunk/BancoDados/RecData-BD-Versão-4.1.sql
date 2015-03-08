@@ -161,6 +161,6 @@ INSERT INTO tb_tipousuario VALUES (3,"Administrador");
 
 INSERT INTO tb_tipousuario VALUES (4,"Aluno");
 
-INSERT INTO tb_regiao VALUES (1,"Área de Vivência ");
+INSERT INTO tb_regiao (cd_regiao,nm_regiao)  VALUES (1,"Área de Vivência ");
 
-INSERT INTO tb_regiao VALUES (2,"Central de Aulas");
+INSERT INTO tb_regiao (cd_regiao,nm_regiao)  VALUES (2,"Central de Aulas");

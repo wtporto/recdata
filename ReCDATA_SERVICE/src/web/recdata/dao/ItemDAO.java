@@ -156,7 +156,7 @@ public class ItemDAO {
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		String sql = String.format("%s",
-				"SELECT  I.cd_item, I.cd_categoria, I.cd_regiao, I.nm_item, I.dt_registro"
+				"SELECT  I.cd_item, I.cd_categoria, C.nm_descricao, I.cd_regiao, I.nm_item, I.dt_registro"
 				+ " FROM  tb_item as I, tb_categoria as C"
 				+ " WHERE I.cd_categoria = C.cd_categoria");
 
@@ -168,7 +168,7 @@ public class ItemDAO {
 		while (rs.next()) {
 			Item item = new Item();
 			item.setId(rs.getInt("cd_item"));
-			item.setDescricao(rs.getString("nm_descricao"));
+			item.setDescricao(rs.getString("nm_item"));
 			Categoria categoria = new Categoria();
 			categoria.setId(rs.getInt("cd_categoria"));
 			categoria

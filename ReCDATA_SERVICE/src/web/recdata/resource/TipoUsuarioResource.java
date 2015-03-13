@@ -17,7 +17,7 @@ public class TipoUsuarioResource {
 	@Path("/listar")
 	@Produces("application/json")
 	public List<TipoUsuario> listarTodos() throws SQLException {
-		List<TipoUsuario> categorias = new TipoUsarioController().listarTodos();
-		return categorias;
+		List<TipoUsuario> tiposUsuarios = new TipoUsarioController().listarTodos();
+		return tiposUsuarios;
 	}
 }

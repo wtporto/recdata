@@ -60,7 +60,7 @@ public class CadastraUsuarioAsyncTask extends
 
 			} else {
 				Toast.makeText(activity.getApplicationContext(),
-						jsonObject.getString("mensagem ERRO Ao Cadastra! "), //Confuso!
+						jsonObject.getString("ERRO Ao Cadastra! "), //Confuso!
 						Toast.LENGTH_SHORT).show();
 			}
 

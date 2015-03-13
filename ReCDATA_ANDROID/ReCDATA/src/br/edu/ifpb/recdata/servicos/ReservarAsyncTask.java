@@ -5,14 +5,11 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.edu.ifpb.recdata.telas.TelaLogin;
-import br.edu.ifpb.recdata.util.Constantes;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+import br.edu.ifpb.recdata.util.Constantes;
 
 public class ReservarAsyncTask extends
 		AsyncTask<JSONObject, Void, HttpResponse> {

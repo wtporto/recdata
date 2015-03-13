@@ -497,7 +497,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
     ImageView barcodeImageView = (ImageView) findViewById(R.id.barcode_image_view);
     if (barcode == null) {
       barcodeImageView.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-          R.drawable.launcher_icon));
+          R.drawable.ic_launcher));
     } else {
       barcodeImageView.setImageBitmap(barcode);
     }

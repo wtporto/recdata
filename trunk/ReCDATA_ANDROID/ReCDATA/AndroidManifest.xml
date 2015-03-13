@@ -26,7 +26,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="br.edu.ifpb.recdata.telas.TelaAbertura"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,15 +39,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.recdata.telas.TelaErroConexao"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="br.edu.ifpb.recdata.telas.TelaCadastraUsuario"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="br.edu.ifpb.recdata.telas.TelaListaFuncionalidadesPersonalizada"
+            android:name="br.edu.ifpb.recdata.telas.TelaListaFuncionalidades"
             android:label="@string/app_name" >
         </activity>
         <activity

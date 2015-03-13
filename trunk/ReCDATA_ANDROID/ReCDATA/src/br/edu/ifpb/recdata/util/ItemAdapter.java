@@ -63,7 +63,7 @@ public class ItemAdapter extends BaseAdapter {
 		categoria.setText("Categoria: "+item.getCategoria().getDescricao().toString());
 	
 		TextView regiao = (TextView) layout.findViewById(R.id.text_view_item_regiao);
-		regiao.setText("Região: "+item.getRegiao().getNome().toString());
+		regiao.setText("Região: "+item.getRegiao().getDescricao().toString());
 		
 		ImageView imagem = (ImageView) layout.findViewById(R.id.image_view_icon_item_lista_result);
 		imagem.setImageResource(item.getImagem(item.getCategoria().getId()));

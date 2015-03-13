@@ -6,28 +6,6 @@ import android.widget.TimePicker;
 
 public class Metodos {
 
-
-	public static boolean validaCampo(EditText campo) {
-		if ((campo.getText().toString().trim().equals(""))
-				|| (campo.getText().toString().equals(null))) {
-			campo.setError("Campo Não Preenchido!");
-			campo.setFocusable(true);
-			campo.requestFocus();
-			return false;
-		}
-		return true;
-	}
-
-	public static boolean validaSenha(EditText senha1, EditText senha2) {
-		if (!(senha1.getText().toString().equals(senha2.getText().toString()))) {
-			senha2.setError("As senhas não correspondem");
-			senha2.setFocusable(true);
-			senha2.requestFocus();
-			return false;
-		}
-		return true;
-	}
-
 	public static String montarDataPicker(DatePicker datepicker) {
 		// montar a data
 		int dataAno = datepicker.getYear();
@@ -44,10 +22,10 @@ public class Metodos {
 		// montar a data
 		int hora = timepicker.getCurrentHour();
 		int minuto = timepicker.getCurrentMinute();
-		int segundo =000;
+		int segundo = 000;
 
 		String dataNascimentoCompleto = String.valueOf(hora) + ":"
-				+ String.valueOf(minuto)+":"+ String.valueOf(segundo);
+				+ String.valueOf(minuto) + ":" + String.valueOf(segundo);
 
 		return dataNascimentoCompleto;
 	}

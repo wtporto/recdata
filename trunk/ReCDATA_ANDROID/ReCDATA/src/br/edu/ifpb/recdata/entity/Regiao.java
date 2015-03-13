@@ -11,13 +11,13 @@ public class Regiao implements Serializable{
 
 	private int id;
 	
-	private String nome;
+	private String descricao;
 
 	public int getId() {
 		return id;
 	}
 	public Regiao( String nome){
-		setNome(nome);
+		setDescricao(nome);
 	}
 	public Regiao( ){
 	}
@@ -25,16 +25,16 @@ public class Regiao implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String nome) {
+		this.descricao = nome;
 	}
 	@Override
 	public String toString() {
-		return "Regiao [id=" + id + ", nome=" + nome + "]";
+		return "Regiao [id=" + id + ", Descricao=" + descricao + "]";
 	}
 	
 }

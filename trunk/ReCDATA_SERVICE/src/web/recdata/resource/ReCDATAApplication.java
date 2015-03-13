@@ -13,6 +13,7 @@ public class ReCDATAApplication extends Application {
 	public ReCDATAApplication() {
 		// ADD YOUR RESTFUL RESOURCES HERE
 		this.singletons.add(new CategoriaResource());
+		this.singletons.add(new TipoUsuarioResource());
 		this.singletons.add(new DevolucaoResource());
 		this.singletons.add(new ItemResource());
 		this.singletons.add(new ReservaResource());

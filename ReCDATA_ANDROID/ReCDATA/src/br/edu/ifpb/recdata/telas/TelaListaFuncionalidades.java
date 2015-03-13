@@ -17,7 +17,7 @@ import br.edu.ifpb.recdata.util.GlobalState;
 import br.edu.ifpb.recdata.util.Model;
 import br.edu.ifpb.recdata.util.ModelAdapter;
 
-public class TelaListaFuncionalidadesPersonalizada extends Activity {
+public class TelaListaFuncionalidades extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +42,12 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity {
 
 		ListView listView = (ListView) findViewById(R.id.lv);
 		listView.setAdapter(new ModelAdapter(this, itens));
-
+		listView.setCacheColorHint(TRIM_MEMORY_COMPLETE);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-	                  int position, long id) {
+					int position, long id) {
 				Intent intent;
 
 				switch (position) {
@@ -62,7 +62,7 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity {
 					}
 
 					BuscaReservaAsyncTask buscareservarAsyncTask = new BuscaReservaAsyncTask(
-							TelaListaFuncionalidadesPersonalizada.this);
+							TelaListaFuncionalidades.this);
 					buscareservarAsyncTask.execute(usuarioJsonObject);
 
 					break;
@@ -79,6 +79,7 @@ public class TelaListaFuncionalidadesPersonalizada extends Activity {
 				case 3:
 					intent = new Intent(getBaseContext(), TelaLogin.class);
 					startActivity(intent);
+					finish();
 					break;
 				default:
 					finish();

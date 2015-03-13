@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import br.edu.ifpb.recdata.entity.Usuario;
-import br.edu.ifpb.recdata.telas.TelaListaFuncionalidadesPersonalizada;
+import br.edu.ifpb.recdata.telas.TelaListaFuncionalidades;
 import br.edu.ifpb.recdata.util.Constantes;
 import br.edu.ifpb.recdata.util.GlobalState;
 
@@ -64,7 +64,7 @@ public class UsuarioLoginAsyncTask extends
 						Toast.LENGTH_SHORT).show();
 
 				Intent intent = new Intent(activity,
-						TelaListaFuncionalidadesPersonalizada.class);
+						TelaListaFuncionalidades.class);
 				activity.startActivity(intent);
 				activity.finish();
 

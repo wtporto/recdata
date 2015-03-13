@@ -14,6 +14,7 @@ import android.widget.Toast;
 import br.edu.ifpb.recdata.excecao.HttpServiceException;
 import br.edu.ifpb.recdata.telas.TelaAbertura;
 import br.edu.ifpb.recdata.telas.TelaLogin;
+import br.edu.ifpb.recdata.util.SemConexaoAlertDialog;
 
 public class VerificaServidorOnlineAsyncTasck extends
 		AsyncTask<Void, Void, JSONObject> {
@@ -41,7 +42,7 @@ public class VerificaServidorOnlineAsyncTasck extends
 			// Enviar a requisição HTTP via GET.
 			HttpService httpService = new HttpService(this.activity);
 			HttpResponse response = httpService
-					.sendGETRequest("/servicos/servidorOnline");
+					.sendGETRequest("/servicos/servidorOnline/");
 
 			// Verificar se o servidor respondeu.
 			if (response!=null) {
@@ -95,44 +96,10 @@ public class VerificaServidorOnlineAsyncTasck extends
 				Log.e("ReCDATA", "Error parsing data " + e.toString());
 			}
 		} else {
-			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-					this.activity);
-
-			// Setting Dialog Title
-			alertDialog.setTitle("Problema na conexão");
-
-			// Setting Dialog Message
-			alertDialog.setMessage("Deseja tentar novamente?");
-
-			// Setting Icon to Dialog
-			// alertDialog.setIcon(android.R.drawable.delete);
-
-			// Setting Positive "Yes" Button
-			alertDialog.setPositiveButton("Sim",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							Intent intent = new Intent(activity,
-									TelaAbertura.class);
-							activity.startActivity(intent);
-							activity.finish();
-						}
-					});
-
-			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("Não",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							// Write your code here to invoke NO event
-							Toast.makeText(activity, "Saindo da aplicação",
-									Toast.LENGTH_SHORT).show();
-							dialog.cancel();
-
-							activity.finish();
-						}
-					});
-
-			// Showing Alert Message
-			alertDialog.show();
+				SemConexaoAlertDialog semConexao = 
+						new SemConexaoAlertDialog(activity);
+				semConexao.showDialog();
+		
 		}
 	}
 }

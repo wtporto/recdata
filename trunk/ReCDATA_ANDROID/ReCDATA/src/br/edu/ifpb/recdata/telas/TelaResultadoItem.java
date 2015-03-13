@@ -65,7 +65,7 @@ public class TelaResultadoItem extends Activity {
 				
             	JSONObject regiaoJsonObject= itemJsonObject.getJSONObject("regiao");
                 regiao.setId(regiaoJsonObject.getInt("id"));
-                regiao.setNome(regiaoJsonObject.getString("nome").toString());
+                regiao.setDescricao(regiaoJsonObject.getString("nome").toString());
 				item.setRegiao(regiao);
 
 				

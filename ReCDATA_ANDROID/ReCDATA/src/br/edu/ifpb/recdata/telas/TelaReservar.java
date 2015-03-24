@@ -1,6 +1,7 @@
 package br.edu.ifpb.recdata.telas;
 
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -86,37 +87,39 @@ public class TelaReservar extends Activity implements OnClickListener {
 		this.horaInicio = (EditText) findViewById(R.id.horaInicio);
 		this.dataFim = (EditText) findViewById(R.id.dataFim);
 		this.horaFim = (EditText) findViewById(R.id.horaFim);
-
 	}
 
 	private JSONObject montarJsonReserva() {
 
 		JSONObject reservaItemJson = null;
-		JSONObject usuarioJson = null;
-		JSONObject itemJson = null;
+		JSONObject idUsuarioJson = null;
+		JSONObject idItemJson = null;
 
 		try {
 
 			GlobalState gs = (GlobalState) getApplication();
 
 			reservaItemJson = new JSONObject();
-			usuarioJson = new JSONObject();
-			usuarioJson.put("id", gs.getUsuario().getId());
 
-			itemJson = new JSONObject();
+			idUsuarioJson = new JSONObject();
+			idUsuarioJson.put("id", gs.getUsuario().getId());
+			reservaItemJson.put("usuarioReserva", idUsuarioJson);
+			reservaItemJson.put("usuarioAtendente", idUsuarioJson);
 
-			itemJson.put("id", itemBundle.getId());
+			idItemJson = new JSONObject();
+			idItemJson.put("id", itemBundle.getId());
+			reservaItemJson.put("item", idItemJson);
 
-			
-			reservaItemJson.put("usuario", usuarioJson);
-			reservaItemJson.put("item", itemJson);
-			// TODO: colocar o campo texto para inserir obseevação
-			//reservaItemJson
-		 reservaItemJson.put("horaDataInicio", getValorEditTextDataInicio()+" "+getValorEditTextHoraInicio());
-			 reservaItemJson.put("horaDataFim",getValorEditTextDataFim()+" "+getValorEditTextHoraFim());
-			 Log.i("RecDATA - ReservaJSON", reservaItemJson.toString());
+			// TODO: Colocar o campo texto para inserir obseevação.
+			reservaItemJson.put("horaDataInicio",
+					getDataHora(dataInicio, horaInicio));
+			reservaItemJson.put("horaDataFim", 
+					getDataHora(dataFim, horaFim));
+
+			Log.i("RecDATA - ReservaJSON", reservaItemJson.toString());
 
 		} catch (JSONException e) {
+
 			Log.e("RecDATA", e.getMessage());
 		}
 
@@ -125,7 +128,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg) {
-		//TODO: colocar validação dos campos
+		// TODO: colocar validação dos campos
 		ReservarAsyncTask reservarAsyncTask = new ReservarAsyncTask(this);
 		JSONObject jsonObsect = montarJsonReserva();
 		reservarAsyncTask.execute(jsonObsect);
@@ -153,7 +156,6 @@ public class TelaReservar extends Activity implements OnClickListener {
 		DatePickerDialogAdapter dataInicoDatePicker = new DatePickerDialogAdapter(
 				this, dataInicio);
 		dataInicioPickerDialog = dataInicoDatePicker.builder();
-
 	}
 
 	// Métodos para a Captura da Hora Inicial da Reserva
@@ -179,11 +181,9 @@ public class TelaReservar extends Activity implements OnClickListener {
 		TimePickerDialogAdapter timeInicoDatePicker = new TimePickerDialogAdapter(
 				this, horaInicio);
 		horaInicioPickerDialog = timeInicoDatePicker.builder();
-
 	}
 
 	// Métodos para a Captura da Data Final da Reserva
-
 	public EditText getEditTextDataFim() {
 		return dataFim;
 	}
@@ -208,7 +208,6 @@ public class TelaReservar extends Activity implements OnClickListener {
 	}
 
 	// Métodos para a Captura da hora Final
-
 	public EditText getEditTextHoraFim() {
 		return horaFim;
 	}
@@ -231,18 +230,43 @@ public class TelaReservar extends Activity implements OnClickListener {
 		horaFimPickerDialog = timeFimDatePicker.builder();
 
 	}
+
 	
+	private Date getDataHora(EditText data, EditText hora) {
+/*
+ Date data = new SimpleDateFormat("dd/MM/yyyy").parse("11/05/2006");  
+String dataBanco = new SimpleDateFormat("yyyy-MM-dd").format(data);  
+ */
+		String dateInString = data.getText().toString() + " "
+				+ hora.getText().toString();
 
-    private Date getDataHora(int dia, int mes, int ano, int hora, int minuto) {
+		String dataBanco;
+		
+		Date date=null;
+		//Calendar calendar = Calendar.getInstance();
 
-            Calendar dataHoraCalendar = Calendar.getInstance();
-            dataHoraCalendar.add(Calendar.DAY_OF_MONTH, dia);
-            dataHoraCalendar.add(Calendar.DAY_OF_MONTH, mes);
-            dataHoraCalendar.add(Calendar.DAY_OF_MONTH, ano);
-            dataHoraCalendar.add(Calendar.HOUR_OF_DAY, hora);
-            dataHoraCalendar.add(Calendar.MINUTE, minuto);
+		try {
+			date = new SimpleDateFormat(
+					"yyyy-mm-dd hh:mm:ss").parse(dateInString);
+			
+			dataBanco=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
+			Log.i("Date Parce",dataBanco.toString());
+			date= new SimpleDateFormat().parse(dataBanco);
+			//calendar.setTime(date);
 
-            return dataHoraCalendar.getTime();
-    }
+			Log.i("Date Final",date.toString());
+			//Log.i("Calendar Final",calendar.toString());
+			
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Log.i("Data Formato", dateInString.toString());
+		
+
+			
+
+		return date;
+	}
 
 }

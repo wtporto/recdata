@@ -42,7 +42,7 @@ public class TelaListaFuncionalidades extends Activity {
 
 		ListView listView = (ListView) findViewById(R.id.lv);
 		listView.setAdapter(new ModelAdapter(this, itens));
-		listView.setCacheColorHint(TRIM_MEMORY_COMPLETE);
+		listView.setCacheColorHint(0);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override

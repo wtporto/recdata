@@ -48,6 +48,6 @@ public class TimePickerDialogAdapter implements OnTimeSetListener {
 
 	@Override
 	public void onTimeSet(TimePicker timePicker, int horasEscolhida, int MinutosEscolinho) {
-        timeEditText.setText(""+horasEscolhida + ":" + MinutosEscolinho);
+        timeEditText.setText(""+horasEscolhida + ":" + MinutosEscolinho +":00");
     }
 }

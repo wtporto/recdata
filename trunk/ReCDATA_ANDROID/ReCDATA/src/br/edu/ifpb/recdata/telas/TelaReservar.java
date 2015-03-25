@@ -112,9 +112,9 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 			// TODO: Colocar o campo texto para inserir observação.
 			reservaItemJson.put("horaDataInicio",
-					getDataHora(dataInicioEditText, horaInicioEditText));
+					getDataHoraMili(dataInicioEditText, horaInicioEditText));
 			reservaItemJson.put("horaDataFim", 
-					getDataHora(dataFimEditText, horaFimEditText));
+					getDataHoraMili(dataFimEditText, horaFimEditText));
 
 			Log.i("RecDATA - ReservaJSON", reservaItemJson.toString());
 
@@ -226,34 +226,25 @@ public class TelaReservar extends Activity implements OnClickListener {
 	}
 
 	
-	private Date getDataHora(EditText data, EditText hora) {
+	private long getDataHoraMili(EditText data, EditText hora) {
 		
 		String dateInString = data.getText().toString() + " "
 				+ hora.getText().toString();
-
-		String dataBanco;
 		
-		Date date=null;
-		//Calendar calendar = Calendar.getInstance();
+		long milli = 0;
 
 		try {
-			date = new SimpleDateFormat(
-					"yyyy-mm-dd hh:mm:ss").parse(dateInString);
 			
-			dataBanco=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
-			Log.i("Date Parce",dataBanco.toString());
-			date= new SimpleDateFormat().parse(dataBanco);
-			//calendar.setTime(date);
-
-			Log.i("Date Final",date.toString());
-			//Log.i("Calendar Final",calendar.toString());
+			Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(dateInString);
 			
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			milli = date.getTime();
+			
+		} catch (ParseException e) {
+			
+			Log.e("ReCDATA", "Problema no parser da data.");
+			//TODO: Exibir mensagem de erro para o usuário.
 		}
-		Log.i("Data Formato", dateInString.toString());
 
-		return date;
+		return milli;
 	}
 }

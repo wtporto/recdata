@@ -34,16 +34,16 @@ public class TelaReservar extends Activity implements OnClickListener {
 	Item itemBundle = null;
 	ReservaItem reserva = null;
 
-	EditText dataInicio;
+	private EditText dataInicioEditText;
 	private DatePickerDialog dataInicioPickerDialog;
 
-	EditText horaInicio;
+	private EditText horaInicioEditText;
 	private TimePickerDialog horaInicioPickerDialog;
 
-	EditText dataFim;
+	private EditText dataFimEditText;
 	private DatePickerDialog dataFimPickerDialog;
 
-	EditText horaFim;
+	private EditText horaFimEditText;
 	private TimePickerDialog horaFimPickerDialog;
 
 	@Override
@@ -52,8 +52,10 @@ public class TelaReservar extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reserva_item);
 		getViews();
-		setDatePickerDialog();
-		setHoraPickerDialog();
+		
+		setDateInicioPickerDialog();
+		setHoraInicioPickerDialog();
+		
 		setDateFimPickerDialog();
 		setHoraFimPickerDialog();
 
@@ -66,11 +68,10 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 		Button buscabutton = (Button) findViewById(R.id.buttonReserva);
 		buscabutton.setOnClickListener(this);
-
+		
 		// Voltar intent.
-		Button voltaListaItens = (Button) findViewById(R.id.buttonVoltarLista);
+		Button voltaListaItens = (Button) findViewById(R.id.buttonVoltarLista);		
 		voltaListaItens.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
 				Intent chamarTelaQr = new Intent(TelaReservar.this,
@@ -79,14 +80,13 @@ public class TelaReservar extends Activity implements OnClickListener {
 				finish();
 			}
 		});
-
 	}
 
 	public void getViews() {
-		this.dataInicio = (EditText) findViewById(R.id.dataInicio);
-		this.horaInicio = (EditText) findViewById(R.id.horaInicio);
-		this.dataFim = (EditText) findViewById(R.id.dataFim);
-		this.horaFim = (EditText) findViewById(R.id.horaFim);
+		this.dataInicioEditText = (EditText) findViewById(R.id.dataInicio);
+		this.horaInicioEditText = (EditText) findViewById(R.id.horaInicio);
+		this.dataFimEditText = (EditText) findViewById(R.id.dataFim);
+		this.horaFimEditText = (EditText) findViewById(R.id.horaFim);
 	}
 
 	private JSONObject montarJsonReserva() {
@@ -110,11 +110,11 @@ public class TelaReservar extends Activity implements OnClickListener {
 			idItemJson.put("id", itemBundle.getId());
 			reservaItemJson.put("item", idItemJson);
 
-			// TODO: Colocar o campo texto para inserir obseevação.
+			// TODO: Colocar o campo texto para inserir observação.
 			reservaItemJson.put("horaDataInicio",
-					getDataHora(dataInicio, horaInicio));
+					getDataHora(dataInicioEditText, horaInicioEditText));
 			reservaItemJson.put("horaDataFim", 
-					getDataHora(dataFim, horaFim));
+					getDataHora(dataFimEditText, horaFimEditText));
 
 			Log.i("RecDATA - ReservaJSON", reservaItemJson.toString());
 
@@ -128,68 +128,64 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg) {
-		// TODO: colocar validação dos campos
+		// TODO: Colocar validação dos campos
 		ReservarAsyncTask reservarAsyncTask = new ReservarAsyncTask(this);
 		JSONObject jsonObsect = montarJsonReserva();
 		reservarAsyncTask.execute(jsonObsect);
 	}
 
-	// Métodos para a Captura da Data Inicial da Reserva
-
 	public EditText getEditTextDataInicio() {
-		return dataInicio;
+		return dataInicioEditText;
 	}
 
 	public String getValorEditTextDataInicio() {
-		return dataInicio.getText().toString();
+		return dataInicioEditText.getText().toString();
 	}
 
 	public DatePickerDialog getDataInicioPickerDialog() {
 		return dataInicioPickerDialog;
 	}
 
-	private void setDatePickerDialog() {
+	private void setDateInicioPickerDialog() {
 		DataInicioReservaListener listener = new DataInicioReservaListener(this);
 
-		dataInicio.setOnClickListener(listener);
+		dataInicioEditText.setOnClickListener(listener);
 
 		DatePickerDialogAdapter dataInicoDatePicker = new DatePickerDialogAdapter(
-				this, dataInicio);
+				this, dataInicioEditText);
 		dataInicioPickerDialog = dataInicoDatePicker.builder();
 	}
 
-	// Métodos para a Captura da Hora Inicial da Reserva
-	// Métodos para a Captura da hora Inicial
-
 	public EditText getEditTextHoraInicio() {
-		return horaInicio;
+		return horaInicioEditText;
 	}
 
 	public String getValorEditTextHoraInicio() {
-		return horaInicio.getText().toString();
+		return horaInicioEditText.getText().toString();
 	}
 
 	public TimePickerDialog getHoraInicioPickerDialog() {
 		return horaInicioPickerDialog;
 	}
 
-	private void setHoraPickerDialog() {
+	private void setHoraInicioPickerDialog() {
+		
 		HoraInicioReservaListener listener = new HoraInicioReservaListener(this);
 
-		horaInicio.setOnClickListener(listener);
+		horaInicioEditText.setOnClickListener(listener);
 
 		TimePickerDialogAdapter timeInicoDatePicker = new TimePickerDialogAdapter(
-				this, horaInicio);
+				this, horaInicioEditText);
 		horaInicioPickerDialog = timeInicoDatePicker.builder();
 	}
 
 	// Métodos para a Captura da Data Final da Reserva
 	public EditText getEditTextDataFim() {
-		return dataFim;
+		return dataFimEditText;
 	}
 
 	public String getValorEditTextDataFim() {
-		return dataFim.getText().toString();
+		return dataFimEditText.getText().toString();
 	}
 
 	public DatePickerDialog getDataFimPickerDialog() {
@@ -199,21 +195,20 @@ public class TelaReservar extends Activity implements OnClickListener {
 	private void setDateFimPickerDialog() {
 		DataFimReservaListener listener = new DataFimReservaListener(this);
 
-		dataFim.setOnClickListener(listener);
+		dataFimEditText.setOnClickListener(listener);
 
 		DatePickerDialogAdapter dataFimDatePicker = new DatePickerDialogAdapter(
-				this, dataFim);
+				this, dataFimEditText);
 		dataFimPickerDialog = dataFimDatePicker.builder();
-
 	}
 
 	// Métodos para a Captura da hora Final
 	public EditText getEditTextHoraFim() {
-		return horaFim;
+		return horaFimEditText;
 	}
 
 	public String getValorEditTextHoraFim() {
-		return horaFim.getText().toString();
+		return horaFimEditText.getText().toString();
 	}
 
 	public TimePickerDialog getHoraFimPickerDialog() {
@@ -223,20 +218,16 @@ public class TelaReservar extends Activity implements OnClickListener {
 	private void setHoraFimPickerDialog() {
 		HoraFimReservaListener listener = new HoraFimReservaListener(this);
 
-		horaFim.setOnClickListener(listener);
+		horaFimEditText.setOnClickListener(listener);
 
 		TimePickerDialogAdapter timeFimDatePicker = new TimePickerDialogAdapter(
-				this, horaFim);
+				this, horaFimEditText);
 		horaFimPickerDialog = timeFimDatePicker.builder();
-
 	}
 
 	
 	private Date getDataHora(EditText data, EditText hora) {
-/*
- Date data = new SimpleDateFormat("dd/MM/yyyy").parse("11/05/2006");  
-String dataBanco = new SimpleDateFormat("yyyy-MM-dd").format(data);  
- */
+		
 		String dateInString = data.getText().toString() + " "
 				+ hora.getText().toString();
 
@@ -262,11 +253,7 @@ String dataBanco = new SimpleDateFormat("yyyy-MM-dd").format(data);
 			e1.printStackTrace();
 		}
 		Log.i("Data Formato", dateInString.toString());
-		
-
-			
 
 		return date;
 	}
-
 }

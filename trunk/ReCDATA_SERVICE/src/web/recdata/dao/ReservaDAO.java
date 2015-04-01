@@ -23,11 +23,9 @@ public class ReservaDAO {
 	static DBPool banco;
 	private static ReservaDAO instance;
 
-	public static ReservaDAO getInstance() {		
-		if (instance == null) {
-			banco = DBPool.getInstance();
-			instance = new ReservaDAO(banco);
-		}
+	public static ReservaDAO getInstance() {
+		banco = DBPool.getInstance();
+		instance = new ReservaDAO(banco);
 		return instance;
 	}
 

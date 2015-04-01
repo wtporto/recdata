@@ -2,6 +2,7 @@ package br.edu.ifpb.recdata.telas;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONException;
@@ -228,16 +229,26 @@ public class TelaReservar extends Activity implements OnClickListener {
 	
 	private long getDataHoraMili(EditText data, EditText hora) {
 		
+		/*
+		 Calendar cal = Calendar.getInstance();
+		  cal.setTime(dataEmDate); 
+		  long millis = cal.getTimeInMillis();
+		  */
 		String dateInString = data.getText().toString() + " "
 				+ hora.getText().toString();
+		
+		Calendar calendar = Calendar.getInstance();
 		
 		long milli = 0;
 
 		try {
 			
 			Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(dateInString);
+			calendar.setTime(date);
 			
-			milli = date.getTime();
+			milli= calendar.getTimeInMillis();
+			
+			
 			
 		} catch (ParseException e) {
 			

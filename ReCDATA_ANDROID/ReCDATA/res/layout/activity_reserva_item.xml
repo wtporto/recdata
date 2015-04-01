@@ -65,11 +65,11 @@
                 android:id="@+id/dataInicio"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight=".5"
-                android:background="#CCC"
-                android:inputType="date" />/>
+                android:background="@drawable/style_edittext"
+                android:inputType="date" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -86,10 +86,10 @@
                 android:id="@+id/horaInicio"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight=".5"
-                android:background="#CCC"
+                android:background="@drawable/style_edittext"
                 android:inputType="time" />
             </LinearLayout>
 
@@ -117,10 +117,10 @@
                 android:id="@+id/dataFim"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight=".5"
-                android:background="#CCC"
+                 android:background="@drawable/style_edittext"
                 android:inputType="date" />
 
                 <TextView
@@ -138,10 +138,10 @@
                 android:id="@+id/horaFim"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight=".5"
-                android:background="#CCC"
+                 android:background="@drawable/style_edittext"
                 android:inputType="date" />
                 <View
                     android:layout_width="wrap_content"
@@ -160,16 +160,20 @@
                 <Button
                     android:id="@+id/buttonReserva"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="38dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="20dp"
+                     android:background="@drawable/style_edittext"
                     android:text="Confirmar" />
 
                 <Button
                     android:id="@+id/buttonVoltarLista"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="46dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                     android:background="@drawable/style_edittext"
                     android:text="Voltar" />
             </LinearLayout>
         </RelativeLayout>

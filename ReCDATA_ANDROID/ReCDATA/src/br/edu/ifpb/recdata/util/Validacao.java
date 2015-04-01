@@ -4,7 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Validacao {
@@ -35,7 +38,7 @@ public class Validacao {
 	}
 
 	public static boolean validarSpinner(String campo, Context activity) {
-		if ((campo).equals("Selecionado..")) {
+		if ((campo).equals("Selecione..")) {
 			Toast toast = Toast.makeText(activity,
 					Constantes.MSG_ErroSpinnerEscolha, Toast.LENGTH_LONG);
 			toast.show();
@@ -58,7 +61,7 @@ public class Validacao {
 	public static boolean validaNome(EditText nome) {
 		String valor;
 		valor = nome.getText().toString().trim();
-		if ((valor.length() <=8 ) || (valor.length() >= 40)) {
+		if ((valor.length() <= 8) || (valor.length() >= 40)) {
 			nome.setError(Constantes.MSG_ErroTamanhoInvalidoNome);
 			nome.setFocusable(true);
 			nome.requestFocus();
@@ -99,7 +102,8 @@ public class Validacao {
 		String valor;
 		valor = cpf.getText().toString().trim();
 
-		if ((valor.length() < 11) || (valor.length() > 11) || (valor.equals(null))) {
+		if ((valor.length() < 11) || (valor.length() > 11)
+				|| (valor.equals(null))) {
 			cpf.setError(Constantes.MSG_ErroTamanhoInvalidoCPF);
 			cpf.setFocusable(true);
 			cpf.requestFocus();
@@ -112,11 +116,24 @@ public class Validacao {
 		return true;
 	}
 
+	public static boolean validaCampoItemBusca(EditText nomeItem) {
+		String valor;
+		valor = nomeItem.getText().toString().trim();
+		if ((valor.equals(null)) || (valor.equals(""))) {
+			nomeItem.setError(Constantes.MSG_ErroCampoItemInvalido);
+			nomeItem.setFocusable(true);
+			nomeItem.requestFocus();
+			return false;
+		}
+		return true;
+	}
+
 	public static boolean ValidarEndereco(EditText endereco) {
 		String valor;
 		valor = endereco.getText().toString().trim();
 
-		if ((valor.length() < 20) || (valor.length() >70) || valor.equals(null)) {
+		if ((valor.length() < 20) || (valor.length() > 70)
+				|| valor.equals(null)) {
 			endereco.setError(Constantes.MSG_ErroTamanhoInvalidoFone);
 			endereco.setFocusable(true);
 			endereco.requestFocus();
@@ -129,6 +146,22 @@ public class Validacao {
 		 */
 		return true;
 
+	}
+	
+	public static boolean ValidarSpinner2(Spinner spinner){
+		
+		View selectedView = spinner.getSelectedView();
+		if (selectedView != null && selectedView instanceof TextView) {
+		    TextView selectedTextView = (TextView) selectedView;
+		    if (spinner.getSelectedItem() == "Selecionado..") {
+		        String errorString = Constantes.MSG_ErroSpinnerEscolha;
+		        selectedTextView.setError(errorString);
+		    }
+		    else {
+		        selectedTextView.setError(null);
+		    }
+		}
+		return true;
 	}
 }
 

@@ -21,7 +21,7 @@ public class Constantes {
 	
 	// Campos não preenchidos corretamente
 	public static String MSG_ErroPreencheCampo = "CAMPO NÃO PREENCHIDO";
-	public static String MSG_ErroSpinnerEscolha = "Escolha Outro Item.";
+	public static String MSG_ErroSpinnerEscolha = "Por Favor, Selecione outro item da Lista..";
 	public static String MSG_ErroSenhaDiferentes ="As senhas não correspondem";
 	public static String MSG_ErroEmailInvalido ="E-mail inválido";	
 	public static String MSG_ErroTamanhoInvalidoNome ="Campo com Tamanho inválido(MIN 8/Max 40)";
@@ -29,6 +29,7 @@ public class Constantes {
 	public static String MSG_ErroTamanhoInvalidoCPF ="Tamanho inválido(Min,Max 11)";
 	public static String MSG_ErroTamanhoInvalidoFone ="Tamanho inválido(Max 10)";
 	public static String MSG_ErroIdadeInvalida ="Idade entre 14 - 100 Anos";
+	public static String MSG_ErroCampoItemInvalido ="Descrição do Item não preenchida!";
 	
 	//String para avaliação do conteúdo dos campos
 	 public static final String STRING_PATTERN = "[0-9a-zA-ZáàâãéèêíïóôõöúüçñÁÀÂÃÉÈÍÏÓÔÕÖÚÜÇÑ ,-]*";

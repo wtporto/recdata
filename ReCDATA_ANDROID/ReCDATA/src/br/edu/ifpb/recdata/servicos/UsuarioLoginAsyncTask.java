@@ -69,17 +69,17 @@ public class UsuarioLoginAsyncTask extends
 				activity.finish();
 
 			} else {
-				if (httpCode >=403) {
-					Toast.makeText(activity.getApplicationContext(),Constantes.ERRO_LOGAR,
-							Toast.LENGTH_SHORT).show();
-				
-				//	EditText login = (EditText) findViewById(R.id.LoginApp);
-					//EditText senha = (EditText) findViewById(R.id.SenhaApp);
-					
-					//login.setText("");
-				//	senha.setText("");
+				if (httpCode >= 403) {
+					Toast.makeText(activity.getApplicationContext(),
+							Constantes.ERRO_LOGAR, Toast.LENGTH_SHORT).show();
+
+					// EditText login = (EditText) findViewById(R.id.LoginApp);
+					// EditText senha = (EditText) findViewById(R.id.SenhaApp);
+
+					// login.setText("");
+					// senha.setText("");
 				}
-					
+
 			}
 
 		} catch (JSONException e) {

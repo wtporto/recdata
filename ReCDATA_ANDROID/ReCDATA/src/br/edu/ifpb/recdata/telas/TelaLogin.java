@@ -85,11 +85,10 @@ public class TelaLogin extends Activity implements OnClickListener {
 				login.setText("");
 
 			} else {
-				if (Validacao.validaCampo(login) == false) {
+				
 
 					EditText senha = (EditText) findViewById(R.id.SenhaApp);
 					senha.setText("");
-				}
 			}
 
 		}

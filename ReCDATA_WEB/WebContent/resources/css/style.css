@@ -1,116 +1,184 @@
-html {
-	width:100%;
-	height:100%;
+body {
+	font-family: "Helvetica Neue", Helvetica, Tahoma, sans-serif;
+	font-size: 20px;
 }
 
- body{
-    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	background-color:#191919;
-	color:#fff;
-	margin:0 0 1px; height:100%; 
-	line-height: 1.5;
+.welcome {
+	text-align: justify;
+	padding: 45px 50px 45px 50px;
 }
 
-p {
-	margin-bottom:7px;
-}
-	
-a {
-	text-decoration:none;
-	color:white;
-	}
-	a:hover {color:white;}
 
-h1{
-	font-size: 45px;
-	line-height:0.9;
-	color:#fff;
-	text-align:left;
-	margin-bottom:10px;
-	padding-bottom:10px;
-	position:relative;
-   	float:left;
-   	top:15px;
-	left:-75px;
-	width:250px;
-	height:160px;
-	
-}
-
-#header{
+#content {
 	position: relative;
+	top: 20%;
+	margin-top: 5%;
+	width: 930px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menu {
+	text-align: center;
+}
+
+#header {
+	display: block;
+	background: white;
+	box-shadow: 0px 5px 5px #888888;
+}
+
+.menu ul {
+	visibility: hidden;
+	display: inline;
+}
+
+/*.menu.menu-open {
+    visibility: visible;
+    z-index: 2;
+    width: 100%;
+}*/
+.menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	z-index: 1;
+}
+
+.menu>ul {
+	position: relative;
+}
+
+.menu-open>ul {
+	left: 0;
+	top: 0;
+	visibility: visible;
+}
+
+.menu-open>ul:focus {
+	outline: 0;
+}
+
+.menu li {
+	position: relative;
+}
+
+.menu a {
+	display: block;
+	color: inherit;
+	line-height: 1.5em;
+	padding: 5px 20px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.menu.menu-horizontal>.menu-heading {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	margin: 0;
+	vertical-align: middle;
+}
+
+.menu.menu-horizontal>ul {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	vertical-align: middle;
+	left: 90px;
+}
+
+.menu li a {
+	font-family: Arial;
+	font-size: 20px;
+	padding: 45px 30px 45px 30px;
+	text-decoration: none;
+}
+
+.menu-horizontal li {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	vertical-align: middle;
+}
+
+.menu-horizontal li li {
+	display: block;
+}
+
+.menu li a:hover, .menu li a:focus {
+	color: #8AC6D0;
+}
+
+.logo {
+	background: -webkit-linear-gradient(top, #1F8DD6, #1F8DD6 15%, white 15%, white);
+	position: absolute;
+	background-color: white;
+	margin-left: 5%;
+	width: 220px;
+	height: 190px;
+	box-shadow: 0px 5px 5px #888888;
+}
+
+.logoIF {
+	width: 120px;
+	height: 100px;
+	margin-left: 20%;
+}
+
+.logoLADOSS {
+	width: 200px;
+	height: 50px;
+	margin-left: 2%;
+}
+
+.logoImg {
+	width: 220px;
+	height: 190px;
+}
+
+label {
+	margin-top: 2%;
+	position: relative;
+}
+
+form input {
+	color: #666666;
+	border: 1px solid #CCCCCC;
+	border-left: 6px solid #CCCCCC;
+	padding: 6px;
+	margin: 5px 5 0 0;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-khtml-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
+}
+
+form input, form label, form select {
+	padding: 0 auto;
+	position: relative;
+	margin-top: 3%;
+}
+
+form input, form select {
+	margin-bottom: 5%;
+}
+
+.bt {
+	padding: 0 auto;
+	left: 50%;
+	position: relative;
+}
+
+#footer {
+	background-color: #F5F5F5;
+	position: absolute;
+	bottom: 0;
 	width: 100%;
-	height:100px;
-	background:url(../imagens/bg.png) no-repeat;
-	background-position: center;	
-	border-bottom: 3px solid #9acd32;
-	display:block;
 }
 
-#footer{
-	height:100px;
-	clear:both;
-	width:100%;
-	margin:0 auto;
-	background-color:#111;
-	border-top: 3px solid #9acb32;
-}
-
-#container, #container_left, #container_right{
+.textFooter {
+	text-align: justify;
+	float: right;
 	position: relative;
-	width:100%;
-	
-	}
-	
-.container{
-			position:relative;
-			width:980px;
-			margin:0 auto;
-			background-color:transparent;
-			min-height:100%;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-#content{
-	position:relative;
-	width:600px;
-	height:40px;
-	margin:0 auto;
-	padding-top: 40px;
-}
-
-
-#content ul li{
-	float: left;
-	line-height:normal;
-	margin-left:15px;
-}
-
-#content ul li a{
-	font-size: 30px;
-	font-family:"BebasNeueRegular", Arial, Helvetica, sans-serif;
-	color:#fff;
-	text-transform:capitalize;
-	font-weight:normal;
-	display:block;	/* IE6, IE7 line height fix */
-	background-color:transparent;
-	text-decoration:none;
-	margin-top:3px;
-	padding:5px;
-	
-}
-
-#content ul li a:hover{
-	color:#9acd32;
-	
-
-}
-
-span {
-	color:#9acd32;
 }

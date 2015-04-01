@@ -8,7 +8,7 @@
 	<div id='cadastraritem-form'>
 		<div class='inside'>
 					
-			<h1>Cadastrar Item</h1>					
+			<h1>Cadastrar Item</h1><br/>					
 			<h:form>
 				<h:messages id="messagesCadastrarItem" globalOnly="true"/>
 				<h:panelGrid columns="1">
@@ -17,31 +17,31 @@
 					<h:outputLabel value="Categorias" for="categorias"/>
 			        <h:selectOneMenu id="categorias"
 			                         value="#{cadastrarItemBean.categoria}"
-			                         required="true">
+			                         required="true"> 
 			            <f:converter converterId="br.edu.ifpb.recdata.convert.CategoriasConverter"/>
 			            <f:selectItems value="#{cadastrarItemBean.categorias}" />
-			        </h:selectOneMenu>
-			        <h:message for="categorias"/>
+			        </h:selectOneMenu> <br/>
+			        <h:message for="categorias"/> 
 			        
 			        <!-- Região do Item -->
-					<h:outputLabel value="Regiões" for="regioes"/>
+					<h:outputLabel value="Regiões" for="regioes"/> 
 			        <h:selectOneMenu id="regioes"
 			                         value="#{cadastrarItemBean.regiao}"
 			                         required="true">
-			            <f:converter converterId="br.edu.ifpb.recdata.convert.RegioesConverter"/>
-			            <f:selectItems value="#{cadastrarItemBean.regioes}" />
-			        </h:selectOneMenu>
+			            <f:converter converterId="br.edu.ifpb.recdata.convert.RegioesConverter"/> 
+			            <f:selectItems value="#{cadastrarItemBean.regioes}" /> 
+			        </h:selectOneMenu> <br/>
 			        <h:message for="regioes"/>
 					
 					<!-- Nome do Item -->
-					<h:outputLabel value="Item" for="descricao"/>							
+					<h:outputLabel value="Item" for="descricao"/> 						
 					<h:inputText class="defaultBoxRadius" id="descricao" value="#{cadastrarItemBean.descricao}" size="45" required="true">
 						<f:validateLength maximum="45"/>
 					</h:inputText>
 					<h:message for="descricao"/>
 					
 				</h:panelGrid>
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="2" styleClass="bt">
 					<input id="bt_clean" type="reset" value="Limpar"/>		
 					<h:commandButton id="bt_send" value="Cadastrar" action="#{cadastrarItemBean.cadastrarItem}"/>					
 				</h:panelGrid>

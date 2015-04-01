@@ -1,5 +1,9 @@
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, ol, ul, li, form, label, legend, caption, aside, details, figcaption, figure, footer,header, hgroup, menu, nav, section, summary {
-    margin: 0;
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+	em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup,
+	tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+	caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
 	padding: 0;
 	border: 0;
 	outline: 0;
@@ -10,25 +14,59 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, ol, ul, li, form, label, legen
 	vertical-align: baseline;
 }
 
+:focus {
+	outline: 0;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+
+a img, iframe {
+	border: none;
+}
+
 ol, ul {
 	list-style: none;
 }
 
+input, textarea, select, button {
+	font-size: 100%;
+	font-family: inherit;
+}
 
-a img {border:none}
+select {
+	margin: inherit;
+}
 
+/* Fixes incorrect placement of numbers in ol’s in IE6/7 */
+ol {
+	margin-left: 2em;
+}
 
-aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {display: block}
+/* == clearfix == */
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
 
-/* --------------------------------- */
+.clearfix {
+	display: inline-block;
+}
 
-.container{
-    width:980px;
-   margin: 0 auto;
+* html .clearfix {
+	height: 1%;
+}
 
-	background-color:transparent;
-	padding-top: 20px;
-
-
+.clearfix {
+	display: block;
 }

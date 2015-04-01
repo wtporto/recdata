@@ -11,9 +11,10 @@
 			Home - Home
 		</ui:define>
 		
-		<ui:define name="header-menu">			
-			<div id="menu">
-				Menu Home
+		<ui:define name="header-menu">	
+		<a href="welcome.xhtml" class="logo"><img class="logoImg" src="resources/imagens/logoprojeto.png" alt="logo"/></a>		
+			<div id="menu" class="menu menu-open menu-horizontal">
+			
 				<ul>
 					<li><h:link outcome="cadastrarItem">Cadastrar Item</h:link></li>
 					<li><h:link outcome="buscarItem">Buscar Item</h:link></li>					
@@ -23,5 +24,4 @@
 				</ul>
 			</div>
 		</ui:define>
-		
 </ui:composition>

@@ -30,7 +30,7 @@ public class ReservarAsyncTask extends
 
 		// Enviar a requisição HTTP via GET.
 		HttpResponse response = HttpService.sendJsonPostRequest(
-				"/reserva/criar", jsonObjects[0]);
+				"/reserva/cadastrar", jsonObjects[0]);
 		return response;
 	}
 
@@ -48,7 +48,7 @@ public class ReservarAsyncTask extends
 				JSONObject jsonObject = new JSONObject(json);
 
 				if (httpCode == HttpStatus.SC_CREATED) {
-				
+					//TODO: troca está parte por um Dialog
 					Toast.makeText(activity.getApplicationContext(), Constantes.RESERVA_CONCLUIDA,
 							Toast.LENGTH_SHORT).show();
 

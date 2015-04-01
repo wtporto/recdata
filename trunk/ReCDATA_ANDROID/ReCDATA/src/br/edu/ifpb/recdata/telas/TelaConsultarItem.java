@@ -26,6 +26,7 @@ import br.edu.ifpb.recdata.servicos.BuscaItensServidorAsyncTask;
 import br.edu.ifpb.recdata.servicos.PreencherSpinnerCategoriaAsyncTask;
 import br.edu.ifpb.recdata.servicos.PreencherSpinnerRegiaoAsyncTask;
 import br.edu.ifpb.recdata.util.Constantes;
+import br.edu.ifpb.recdata.util.Validacao;
 
 public class TelaConsultarItem extends Activity implements OnClickListener {
 
@@ -248,11 +249,23 @@ public class TelaConsultarItem extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		JSONObject jsonObject = montarObjetoJSON();
-		Log.i("JsonItem - ", jsonObject.toString());
-		BuscaItensServidorAsyncTask buscaItem = new BuscaItensServidorAsyncTask(
-				this);
-		buscaItem.execute(jsonObject);
+
+		//TODO: rever as condições de lógica aqui!
+	if ((Validacao.validarSpinner(categoriaSpinner.getSelectedItem()
+				.toString(), getApplicationContext()) == true)
+				&& (Validacao.validarSpinner(regiaoSpinner.getSelectedItem()
+						.toString(), getApplicationContext()) == true)
+				&& (Validacao.validaCampoItemBusca(descricaoItem) == true)) {
+			JSONObject jsonObject = montarObjetoJSON();
+			Log.i("JsonItem - ", jsonObject.toString());
+			BuscaItensServidorAsyncTask buscaItem = new BuscaItensServidorAsyncTask(
+					this);
+			buscaItem.execute(jsonObject);
+		} else {
+
+			EditText nomeItem = (EditText) findViewById(R.id.editText_descricaoItem);
+			nomeItem.setFocusableInTouchMode(true);
+		}
 
 	}
 

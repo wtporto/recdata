@@ -36,6 +36,19 @@ ol, ul {
 	list-style: none;
 }
 
+ul{
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	outline: 0 !important;
+	font-weight: inherit !important;
+	font-style: inherit !important;
+	font-size: 100% !important;
+	font-family: inherit !important;
+	vertical-align: baseline !important;
+	box-shadow : none !important;
+}
+
 input, textarea, select, button {
 	font-size: 100%;
 	font-family: inherit;

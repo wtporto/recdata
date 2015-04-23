@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.protocol.HTTP;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -17,24 +18,26 @@ public class HttpUtil {
 
 	public static String entityToString(HttpResponse response) {
 
+		InputStream content = null;
+		
 		HttpEntity httpEntity = response.getEntity();
 
 		StringBuilder builder = new StringBuilder();
 
 		try {
-			InputStream content = httpEntity.getContent();
+			content = httpEntity.getContent();
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					content, "iso-8859-1"), 8);
+					content, HTTP.UTF_8), 8);
 
 			String line;
 
 			while ((line = reader.readLine()) != null) {
 				builder.append(line);
-			}
+			}		
 
 			content.close();
-
+			
 		} catch (IllegalStateException e) {
 			Log.e("AsyncTaskKJson", "Error converting result " + e.toString());
 		} catch (IOException e) {

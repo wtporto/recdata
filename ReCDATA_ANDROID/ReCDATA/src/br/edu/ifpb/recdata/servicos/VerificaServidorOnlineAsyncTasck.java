@@ -5,16 +5,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import br.edu.ifpb.recdata.excecao.HttpServiceException;
-import br.edu.ifpb.recdata.telas.TelaAbertura;
 import br.edu.ifpb.recdata.telas.TelaLogin;
-import br.edu.ifpb.recdata.util.SemConexaoAlertDialog;
+import br.edu.ifpb.recdata.widgets.SemConexaoAlertDialog;
 
 public class VerificaServidorOnlineAsyncTasck extends
 		AsyncTask<Void, Void, JSONObject> {
@@ -45,7 +42,7 @@ public class VerificaServidorOnlineAsyncTasck extends
 					.sendGETRequest("/servicos/servidorOnline/");
 
 			// Verificar se o servidor respondeu.
-			if (response!=null) {
+			if (response != null) {
 				// Conversão do response ( resposta HTTP) para String.
 				String json = HttpUtil.entityToString(response);
 				Log.i("ReCDATA", "Resquest - GET: " + json);
@@ -69,8 +66,7 @@ public class VerificaServidorOnlineAsyncTasck extends
 	@Override
 	protected void onPostExecute(JSONObject serverJsonObject) {
 
-		if (this.existeConexao 
-				&& serverJsonObject != null) {
+		if (this.existeConexao && serverJsonObject != null) {
 			try {
 				boolean online = serverJsonObject.getBoolean("online");
 
@@ -96,10 +92,10 @@ public class VerificaServidorOnlineAsyncTasck extends
 				Log.e("ReCDATA", "Error parsing data " + e.toString());
 			}
 		} else {
-				SemConexaoAlertDialog semConexao = 
-						new SemConexaoAlertDialog(activity);
-				semConexao.showDialog();
-		
+			SemConexaoAlertDialog semConexao = new SemConexaoAlertDialog(
+					activity);
+			semConexao.showDialog();
+
 		}
 	}
 }

@@ -1,4 +1,6 @@
-package br.edu.ifpb.recdata.util;
+package br.edu.ifpb.recdata.widgets;
+
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -6,14 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.Toast;
 import br.edu.ifpb.R.drawable;
-import br.edu.ifpb.recdata.telas.TelaAbertura;
+import br.edu.ifpb.recdata.telas.TelaLogin;
 
-public class SemConexaoAlertDialog {
+
+
+public class ConfirmaReservaAlertDialog {
 	
 	private Activity activity;
 	
 
-	public SemConexaoAlertDialog(Activity activity){
+	public ConfirmaReservaAlertDialog(Activity activity){
 		this.activity = activity;
 	}
 	
@@ -23,14 +27,14 @@ public class SemConexaoAlertDialog {
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 				this.activity);
 
-		alertDialog.setTitle("Problema na conexão");
-		alertDialog.setIcon(drawable.icon_errodefault);
-		alertDialog.setMessage("Deseja tentar novamente?");
+		alertDialog.setTitle("Reserva do Item");//TODO: troca este valor por constantes.
+		alertDialog.setIcon(drawable.icon_pergunta);
+		alertDialog.setMessage("Deseja Confirma sua reserva neste Horário?");
 		alertDialog.setPositiveButton("Sim",
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				Intent intent = new Intent(activity,
-						TelaAbertura.class);
+						TelaLogin.class);//nova activity
 				activity.startActivity(intent);
 				activity.finish();
 			}
@@ -41,11 +45,11 @@ public class SemConexaoAlertDialog {
 				new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 		
-				Toast.makeText(activity, "Saindo da aplicação",
+				Toast.makeText(activity, "Informe Um novo horário!",
 						Toast.LENGTH_SHORT).show();
 				dialog.cancel();
 				
-				activity.finish();
+			
 			}
 		});
 		
@@ -56,3 +60,4 @@ public class SemConexaoAlertDialog {
 
 
 }
+

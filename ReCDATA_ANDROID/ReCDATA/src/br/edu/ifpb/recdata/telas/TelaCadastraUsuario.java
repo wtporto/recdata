@@ -26,9 +26,9 @@ import br.edu.ifpb.recdata.listener.CadastroUsuarioListener;
 import br.edu.ifpb.recdata.servicos.CadastraUsuarioAsyncTask;
 import br.edu.ifpb.recdata.servicos.PreencherSpinnerTipoUsuarioAsyncTask;
 import br.edu.ifpb.recdata.util.Constantes;
-import br.edu.ifpb.recdata.util.DatePickerDialogAdapter;
 import br.edu.ifpb.recdata.util.Mascara;
 import br.edu.ifpb.recdata.util.Validacao;
+import br.edu.ifpb.recdata.widgets.DatePickerDialogAdapter;
 
 public class TelaCadastraUsuario extends Activity implements OnClickListener {
 
@@ -244,6 +244,7 @@ public class TelaCadastraUsuario extends Activity implements OnClickListener {
 
 		DatePickerDialogAdapter dataNascimentoDatePicker = new DatePickerDialogAdapter(
 				this, dataNascimento);
+		dataNascimentoDatePicker.setTitleDate("Data de Nascimento");
 		dataNascimentoPickerDialog = dataNascimentoDatePicker.builder();
 
 	}

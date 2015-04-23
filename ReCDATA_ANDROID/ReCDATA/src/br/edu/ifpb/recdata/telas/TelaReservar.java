@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,14 +27,17 @@ import br.edu.ifpb.recdata.listener.DataInicioReservaListener;
 import br.edu.ifpb.recdata.listener.HoraFimReservaListener;
 import br.edu.ifpb.recdata.listener.HoraInicioReservaListener;
 import br.edu.ifpb.recdata.servicos.ReservarAsyncTask;
-import br.edu.ifpb.recdata.util.DatePickerDialogAdapter;
 import br.edu.ifpb.recdata.util.GlobalState;
-import br.edu.ifpb.recdata.util.TimePickerDialogAdapter;
+import br.edu.ifpb.recdata.util.Validacao;
+import br.edu.ifpb.recdata.widgets.DatePickerDialogAdapter;
+import br.edu.ifpb.recdata.widgets.TimePickerDialogAdapter;
 
 public class TelaReservar extends Activity implements OnClickListener {
 
 	Item itemBundle = null;
 	ReservaItem reserva = null;
+
+	private EditText observacao;
 
 	private EditText dataInicioEditText;
 	private DatePickerDialog dataInicioPickerDialog;
@@ -53,10 +57,10 @@ public class TelaReservar extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_reserva_item);
 		getViews();
-		
+
 		setDateInicioPickerDialog();
 		setHoraInicioPickerDialog();
-		
+
 		setDateFimPickerDialog();
 		setHoraFimPickerDialog();
 
@@ -69,9 +73,9 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 		Button buscabutton = (Button) findViewById(R.id.buttonReserva);
 		buscabutton.setOnClickListener(this);
-		
+
 		// Voltar intent.
-		Button voltaListaItens = (Button) findViewById(R.id.buttonVoltarLista);		
+		Button voltaListaItens = (Button) findViewById(R.id.buttonVoltarLista);
 		voltaListaItens.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -88,6 +92,11 @@ public class TelaReservar extends Activity implements OnClickListener {
 		this.horaInicioEditText = (EditText) findViewById(R.id.horaInicio);
 		this.dataFimEditText = (EditText) findViewById(R.id.dataFim);
 		this.horaFimEditText = (EditText) findViewById(R.id.horaFim);
+		this.observacao = (EditText) findViewById(R.id.observacao);
+	}
+
+	private String getObservacao() {
+		return this.observacao.getText().toString();
 	}
 
 	private JSONObject montarJsonReserva() {
@@ -102,19 +111,24 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 			reservaItemJson = new JSONObject();
 
+			// usuario para a reserva
 			idUsuarioJson = new JSONObject();
 			idUsuarioJson.put("id", gs.getUsuario().getId());
 			reservaItemJson.put("usuarioReserva", idUsuarioJson);
 			reservaItemJson.put("usuarioAtendente", idUsuarioJson);
 
+			// item para a reserva
 			idItemJson = new JSONObject();
 			idItemJson.put("id", itemBundle.getId());
 			reservaItemJson.put("item", idItemJson);
 
-			// TODO: Colocar o campo texto para inserir observação.
+			// campo com alguma objeção ou informação relaciona a mesma
+
+			reservaItemJson.put("observacao", getObservacao());
+			// datas e hora da reserva do item
 			reservaItemJson.put("horaDataInicio",
 					getDataHoraMili(dataInicioEditText, horaInicioEditText));
-			reservaItemJson.put("horaDataFim", 
+			reservaItemJson.put("horaDataFim",
 					getDataHoraMili(dataFimEditText, horaFimEditText));
 
 			Log.i("RecDATA - ReservaJSON", reservaItemJson.toString());
@@ -129,10 +143,41 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg) {
+
 		// TODO: Colocar validação dos campos
-		ReservarAsyncTask reservarAsyncTask = new ReservarAsyncTask(this);
-		JSONObject jsonObsect = montarJsonReserva();
-		reservarAsyncTask.execute(jsonObsect);
+		if ((Validacao.validarCampoDataHora(dataInicioEditText) == true)
+				&& (Validacao.validarCampoDataHora(dataFimEditText) == true)
+				&& (Validacao.validarCampoDataHora(horaInicioEditText) == true)
+				&& (Validacao.validarCampoDataHora(horaFimEditText) == true)
+				&& (Validacao.validaIntervaloData(dataInicioEditText,
+						dataFimEditText) == true)
+				&& (Validacao.validaIntervaloHora(horaInicioEditText,
+						horaFimEditText) == true)
+				&& (Validacao.validaIntervaloData(dataInicioEditText,
+						dataFimEditText) == true)
+				&& (Validacao
+						.validaPeriodo(horaInicioEditText, horaFimEditText) == true)) {
+
+			ReservarAsyncTask reservarAsyncTask = new ReservarAsyncTask(this);
+			JSONObject jsonObsect = montarJsonReserva();
+			reservarAsyncTask.execute(jsonObsect);
+		} else {
+			if ((Validacao.validarCampoDataHora(dataInicioEditText) == false)
+					|| (Validacao.validarCampoDataHora(dataFimEditText) == false)
+					|| (Validacao.validarCampoDataHora(horaInicioEditText) == false)
+					|| (Validacao.validarCampoDataHora(horaFimEditText) == false)
+
+					|| (Validacao.validaIntervaloData(dataInicioEditText,
+							dataFimEditText) == false)
+					|| (Validacao.validaIntervaloHora(horaInicioEditText,
+							horaFimEditText) == false)
+					|| (Validacao.validaIntervaloData(dataInicioEditText,
+							dataFimEditText) == false)
+					|| (Validacao.validaPeriodo(horaInicioEditText,
+							horaFimEditText) == false))
+
+				getViews();
+		}
 	}
 
 	public EditText getEditTextDataInicio() {
@@ -154,6 +199,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 		DatePickerDialogAdapter dataInicoDatePicker = new DatePickerDialogAdapter(
 				this, dataInicioEditText);
+		dataInicoDatePicker.setTitleDate("Data Inicial");
 		dataInicioPickerDialog = dataInicoDatePicker.builder();
 	}
 
@@ -170,13 +216,14 @@ public class TelaReservar extends Activity implements OnClickListener {
 	}
 
 	private void setHoraInicioPickerDialog() {
-		
+
 		HoraInicioReservaListener listener = new HoraInicioReservaListener(this);
 
 		horaInicioEditText.setOnClickListener(listener);
 
 		TimePickerDialogAdapter timeInicoDatePicker = new TimePickerDialogAdapter(
 				this, horaInicioEditText);
+		timeInicoDatePicker.setTitleTimer("Hora Inicial");
 		horaInicioPickerDialog = timeInicoDatePicker.builder();
 	}
 
@@ -200,6 +247,7 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 		DatePickerDialogAdapter dataFimDatePicker = new DatePickerDialogAdapter(
 				this, dataFimEditText);
+		dataFimDatePicker.setTitleDate("Data Final");
 		dataFimPickerDialog = dataFimDatePicker.builder();
 	}
 
@@ -223,37 +271,33 @@ public class TelaReservar extends Activity implements OnClickListener {
 
 		TimePickerDialogAdapter timeFimDatePicker = new TimePickerDialogAdapter(
 				this, horaFimEditText);
+		timeFimDatePicker.setTitleTimer("Hora Final");
 		horaFimPickerDialog = timeFimDatePicker.builder();
 	}
 
-	
 	private long getDataHoraMili(EditText data, EditText hora) {
-		
-		/*
-		 Calendar cal = Calendar.getInstance();
-		  cal.setTime(dataEmDate); 
-		  long millis = cal.getTimeInMillis();
-		  */
+
 		String dateInString = data.getText().toString() + " "
 				+ hora.getText().toString();
-		
-		Calendar calendar = Calendar.getInstance();
-		
+
+		TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
+		TimeZone.setDefault(tz);
+		Calendar calendar = Calendar.getInstance(tz);
+
 		long milli = 0;
 
 		try {
-			
-			Date date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").parse(dateInString);
+
+			Date date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+					.parse(dateInString);
 			calendar.setTime(date);
-			
-			milli= calendar.getTimeInMillis();
-			
-			
-			
+
+			milli = calendar.getTimeInMillis();
+
 		} catch (ParseException e) {
-			
+
 			Log.e("ReCDATA", "Problema no parser da data.");
-			//TODO: Exibir mensagem de erro para o usuário.
+			// TODO: Exibir mensagem de erro para o usuário.
 		}
 
 		return milli;

@@ -59,6 +59,7 @@ public class CadastraUsuarioAsyncTask extends
 				activity.finish();
 
 			} else {
+				//TODO: criar uma dialog
 				Toast.makeText(activity.getApplicationContext(),
 						jsonObject.getString("ERRO Ao Cadastra! "), //Confuso!
 						Toast.LENGTH_SHORT).show();

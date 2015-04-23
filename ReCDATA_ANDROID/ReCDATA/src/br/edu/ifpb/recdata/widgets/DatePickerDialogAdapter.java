@@ -1,4 +1,4 @@
-package br.edu.ifpb.recdata.util;
+package br.edu.ifpb.recdata.widgets;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,6 +16,8 @@ public class DatePickerDialogAdapter implements OnDateSetListener {
 
 	private EditText dateEditText;
 
+	private String title;
+
 	SimpleDateFormat dateFormatter;
 
 	public DatePickerDialogAdapter(Activity activity, EditText dateEditText) {
@@ -26,7 +28,18 @@ public class DatePickerDialogAdapter implements OnDateSetListener {
 			String dateFormat) {
 		this.activity = activity;
 		this.dateEditText = dateEditText;
-		dateFormatter = new SimpleDateFormat(dateFormat, Locale.US);
+
+		Locale ptBr = new Locale("pt", "BR"); // Locale para o Brasil
+
+		dateFormatter = new SimpleDateFormat(dateFormat, ptBr);
+	}
+
+	public void setTitleDate(String title) {
+		this.title = title;
+	}
+
+	public String getTitleDate() {
+		return this.title;
 	}
 
 	public DatePickerDialog builder() {
@@ -38,7 +51,9 @@ public class DatePickerDialogAdapter implements OnDateSetListener {
 				this, newCalendar.get(Calendar.YEAR),
 				newCalendar.get(Calendar.MONTH),
 				newCalendar.get(Calendar.DAY_OF_MONTH));
+		dataPickerDialog.setTitle(getTitleDate());// constante
 
+		
 		return dataPickerDialog;
 	}
 

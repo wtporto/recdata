@@ -70,11 +70,11 @@ public class ReservaResource {
 	}
 	
 	@POST
-	@Path("/leitor")
+	@Path("/listaReservaUsuarioID")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public ArrayList<ReservaItem> readById(ReservaItem reserva) {
-		return new ReservaController().readById(reserva);
+		return new ReservaController().readUsuarioById(reserva);
 	}
 
 	 @POST

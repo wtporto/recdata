@@ -23,8 +23,8 @@ public class ReservaController {
 		return ReservaDAO.getInstance().consultarReservas(reserva);
 	}
 
-	public ArrayList<ReservaItem> readById(ReservaItem reserva) {
-		return ReservaDAO.getInstance().readById(reserva);
+	public ArrayList<ReservaItem> readUsuarioById(ReservaItem reserva) {
+		return ReservaDAO.getInstance().readUsuarioById(reserva);
 	}
 
 	public Response creat(ReservaItem reserva) {

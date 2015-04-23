@@ -55,9 +55,11 @@ public class BuscaReservaAsyncTask extends
 				if (reservasJsonArray.length() > 0) {
 					Intent intent = new Intent(this.activity,
 							TelaResultadosReserva.class);
+					
 					Bundle bundle = new Bundle();
 					bundle.putString("reservas", reservasJson);
 					intent.putExtras(bundle);
+					
 					this.activity.startActivity(intent);
 
 				} else {

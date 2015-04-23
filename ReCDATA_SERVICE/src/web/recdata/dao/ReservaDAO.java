@@ -64,7 +64,7 @@ public class ReservaDAO {
 			String observacao = reserva.getObservacao();
 			
 			if (!StringUtil.ehVazio(observacao)) {
-				sql = String.format(sql, ", nm_observacao", 
+				sql = String.format(sql, ", nm_observacao_reserva", 
 						", '" + reserva.getObservacao() + "'");
 			} else {
 				sql = String.format(sql, BancoUtil.STRING_VAZIA, 
@@ -132,14 +132,19 @@ public class ReservaDAO {
 
 	}
 
-	public ArrayList<ReservaItem> readById(ReservaItem reserva) {
+	public ArrayList<ReservaItem> readUsuarioById(ReservaItem reserva) {
 
 		ReservaItem reservaAux = null;
 		ArrayList<ReservaItem> reservas = new ArrayList<ReservaItem>();
 
 		try {
 
-			String sql = "SELECT * FROM tb_reserva WHERE tb_usuario_idUsuario = ?";
+			String sql = "SELECT R.cd_reserva, R.cd_item, "
+					+ "R.cd_usuario_reserva, R.nm_observacao_reserva, "
+					+ "R.data_inicio, R.hora_inicio, "
+					+ "R.data_fim,R.hora_fim "
+					+ " FROM tb_reserva as R WHERE R.cd_usuario_reserva= ?"
+					+" ORDER BY dt_registro";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -158,7 +163,7 @@ public class ReservaDAO {
 				reservaAux.setItem(item);
 
 				Usuario usuario = new Usuario();
-				usuario.setId(rs.getInt("cd_usuario"));
+				usuario.setId(rs.getInt("cd_usuario_reserva"));
 				reservaAux.setUsuarioReserva(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()

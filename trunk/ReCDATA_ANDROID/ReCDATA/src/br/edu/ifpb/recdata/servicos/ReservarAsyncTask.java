@@ -10,12 +10,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 import br.edu.ifpb.recdata.util.Constantes;
+import br.edu.ifpb.recdata.widgets.ConfirmaReservaAlertDialog;
 
 public class ReservarAsyncTask extends
 		AsyncTask<JSONObject, Void, HttpResponse> {
 
 	Activity activity;
-
 	public ReservarAsyncTask(Activity activity) {
 		this.activity = activity;
 	}
@@ -45,12 +45,13 @@ public class ReservarAsyncTask extends
 				String json = HttpUtil.entityToString(response);
 				Log.i("ReCDATA ", "Resquest - POST: " + json);
 
-				JSONObject jsonObject = new JSONObject(json);
+				new JSONObject(json);
 
 				if (httpCode == HttpStatus.SC_CREATED) {
 					//TODO: troca está parte por um Dialog
-					Toast.makeText(activity.getApplicationContext(), Constantes.RESERVA_CONCLUIDA,
-							Toast.LENGTH_SHORT).show();
+					ConfirmaReservaAlertDialog  confirmaReserva = new ConfirmaReservaAlertDialog(this.activity);
+					confirmaReserva.showDialog();
+					
 
 				} else {
 					Toast.makeText(activity.getApplicationContext(),Constantes.RESERVA_NAO_CONCLUIDA, Toast.LENGTH_SHORT)

@@ -1,9 +1,15 @@
 package br.edu.ifpb.recdata.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -147,19 +153,198 @@ public class Validacao {
 		return true;
 
 	}
-	
-	public static boolean ValidarSpinner2(Spinner spinner){
-		
+
+	public static boolean ValidarSpinner2(Spinner spinner) {
+
 		View selectedView = spinner.getSelectedView();
 		if (selectedView != null && selectedView instanceof TextView) {
-		    TextView selectedTextView = (TextView) selectedView;
-		    if (spinner.getSelectedItem() == "Selecionado..") {
-		        String errorString = Constantes.MSG_ErroSpinnerEscolha;
-		        selectedTextView.setError(errorString);
-		    }
-		    else {
-		        selectedTextView.setError(null);
-		    }
+			TextView selectedTextView = (TextView) selectedView;
+			if (spinner.getSelectedItem() == "Selecionado..") {
+				String errorString = Constantes.MSG_ErroSpinnerEscolha;
+				selectedTextView.setError(errorString);
+			} else {
+				selectedTextView.setError(null);
+			}
+		}
+		return true;
+	}
+
+	public  static boolean validaIntervaloData(EditText dataInicio, EditText dataFinal) {
+
+		boolean dataValida = false;
+
+		// Atribui os valores dos editText para conversão
+		String dataInStringInicio = dataInicio.getText().toString();
+		String dataInStringFinal = dataFinal.getText().toString();
+
+		// converte os editText em datas
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			// Converte para Date
+			Date dateIndataInicio = df.parse(dataInStringInicio);
+			Date dateIndataFinal = df.parse(dataInStringFinal);
+
+			if (dateIndataInicio.equals(dateIndataFinal)) {
+				Log.i("Data Valida", "Data é do mesmo Dia!");
+				dataValida = true;
+			} else if (dateIndataInicio.before(dateIndataFinal)) {
+				dataFinal.setError(Constantes.MSG_ErroCampoDataFinalAntes);
+				dataFinal.setFocusable(true);
+				dataFinal.requestFocus();
+				Log.e("Data invalida!", "Data Final Antes da Inicial");
+				dataValida = false;
+			} else if (dateIndataInicio.after(dateIndataFinal)) {
+				dataInicio.setError(Constantes.MSG_ErroCampoDataInicioDepois);
+				dataInicio.setFocusable(true);
+				dataInicio.requestFocus();
+				Log.e("Data invalida", "Data Inicio Após a da Final ");
+				dataValida = false;
+			}
+
+		} catch (ParseException e) {
+			Log.e("ERRO:", "Parcer na Datas");
+
+			e.printStackTrace();
+		}
+
+		return dataValida;
+	}
+
+	public static boolean validaIntervaloHora(EditText horaInicio, EditText horaFinal) {
+
+		boolean horaValida = false;
+
+		// Atribui os valores dos editText para conversão
+		String horaInStringInicio = horaInicio.getText().toString();
+		String horaInStringFinal = horaFinal.getText().toString();
+
+		// converte os editText em datas
+		DateFormat df = new SimpleDateFormat("HH:mm:ss");
+
+		try {
+
+			// Converte para Date
+			Date horaIndataInicio = df.parse(horaInStringInicio);
+			Date horaIndataFinal = df.parse(horaInStringFinal);
+
+			if (horaIndataInicio.equals(horaIndataFinal)) {
+
+				Log.e("Horário Inválido ", "Horas Iguais!");
+				horaInicio.setError(Constantes.MSG_ErroCampoHorasEquals);
+				horaFinal.setFocusable(true);
+				horaFinal.requestFocus();
+
+				horaValida = false;
+
+			} else
+
+			if (horaIndataInicio.before(horaIndataFinal)) {
+
+				Log.e("Data Inválida", "Hora Final antes da Hora Inicial");
+				horaFinal.setError(Constantes.MSG_ErroCampoHoraFinalAntes);
+				horaFinal.setFocusable(true);
+				horaFinal.requestFocus();
+
+				horaValida = false;
+
+			} else if (horaIndataInicio.after(horaIndataFinal)) {
+				Log.i("Hora Valida", "Hora Final Após a hora Inicial");
+				horaValida = true;
+			}
+		} catch (ParseException e) {
+			Log.e("ERRO:", "Parcer na Datas");
+			e.printStackTrace();
+		}
+
+		return horaValida;
+	}
+
+	public  static boolean validaPeriodo(EditText horaInicio, EditText horaFinal) {
+
+		Calendar calendarInicio = Calendar.getInstance();
+		Calendar calendarFinal = Calendar.getInstance();
+
+		String horaInStringInicio = horaInicio.getText().toString();
+
+		String horaInStringFinal = horaFinal.getText().toString();
+
+		boolean validar = false;
+
+		long diferencaMilli = 0;
+		long milliInicio = 0;
+		long milliFinal = 0;
+
+		try {
+
+			Date horaInicioIndate = new SimpleDateFormat("HH:mm:ss")
+					.parse(horaInStringInicio);
+			calendarInicio.setTime(horaInicioIndate);
+
+			Date horaFinalIndate = new SimpleDateFormat("HH:mm:ss")
+					.parse(horaInStringFinal);
+			calendarFinal.setTime(horaFinalIndate);
+
+			milliInicio = calendarInicio.getTimeInMillis();
+			milliFinal = calendarFinal.getTimeInMillis();
+
+			diferencaMilli = (milliFinal - milliInicio);
+
+			int minutos = (int) ((diferencaMilli / 60000) % 60);
+			int horas = (int) (diferencaMilli / 3600000);
+
+			if ((horas > 15) && (minutos > 59)) {
+				horaFinal.setError(Constantes.MSG_ErroIntervaloMaior);
+				horaFinal.setFocusable(true);
+				horaFinal.requestFocus();
+				Log.e("Intervalo Maior",
+						"Diferença e Maior que 15 horas!, Diferença é");
+
+				return validar = false;
+
+			} else if ((horas == 0) && (minutos == 00)) {
+				horaInicio.setError(Constantes.MSG_ErroIntervaloIgualZERO);
+				horaInicio.setFocusable(true);
+				horaInicio.requestFocus();
+				Log.e("Intervalo Nulo",
+						"Diferença e igual há Zero, Mesmas horas!, Diferença é");
+
+				return validar = false;
+			} else if ((horas <= 15) && (minutos <= 60)) {
+				Log.i("Intervalo Permitido ",
+						"Diferença Menor que 15!, Diferença é");
+
+				return validar = true;
+			}
+		} catch (ParseException e) {
+			Log.e("ReCDATA", "Problema no parser da data.");
+		}
+		return validar;
+	}
+
+	public static boolean validarCampoDataHora(EditText data) {
+		String valor;
+		valor = data.getText().toString().trim();
+		if ((valor.equals(null)) || (valor.equals(""))) {
+			data.setError(Constantes.MSG_ErroCampoData);
+			data.setFocusable(true);
+			data.requestFocus();
+			return false;
+		}
+		return true;
+	}
+
+	//TODO:criar validação para reserva no mesmo horario;
+
+	public boolean validarCampoHora(EditText hora) {
+		String valor;
+		valor = hora.getText().toString().trim();
+		if ((valor.equals(null)) || (valor.equals(""))) {
+			hora.setError(Constantes.MSG_ErroCampoHora);
+			hora.setFocusable(true);
+			hora.requestFocus();
+			return false;
 		}
 		return true;
 	}

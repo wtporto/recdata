@@ -34,7 +34,7 @@ public class BuscaReservaAsyncTask extends
 
 		// Enviar a requisição HTTP via GET.
 		HttpResponse response = HttpService.sendJsonPostRequest(
-				"/reserva/listaReservaUser", jsonObjects[0]);
+				"/reserva/listaReservaUsuarioID", jsonObjects[0]);
 		return response;
 	}
 

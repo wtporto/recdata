@@ -143,6 +143,31 @@
                 android:layout_weight=".5"
                  android:background="@drawable/style_edittext"
                 android:inputType="date" />
+
+               <TextView
+                   android:id="@+id/textView7"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:layout_marginTop="30dp"
+                   android:layout_weight="0.13"
+                   android:text="Alguma Observação?"
+                   android:textColor="#000"
+                   android:textSize="16dp"
+                   android:typeface="monospace" />
+
+               <EditText
+                   android:id="@+id/observacao"
+                   android:layout_width="254dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="30dp"
+                   android:layout_marginTop="15dp"
+                   android:background="@drawable/style_edittext"
+                   android:ems="10"
+                   android:inputType="textPersonName" >
+
+               </EditText>
+
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="2dip"

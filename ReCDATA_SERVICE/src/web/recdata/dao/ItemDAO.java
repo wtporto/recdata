@@ -17,19 +17,18 @@ import br.edu.ifpb.recdata.entidades.Regiao;
 
 public class ItemDAO {
 	
-	static DBPool banco;
+	private static DBPool banco;
+	
 	private static ItemDAO instance;
+	
+	// Conexão com o banco de dados
+	public Connection connection;
 
 	public static ItemDAO getInstance() {
-		if (instance == null) {
-			banco = DBPool.getInstance();
-			instance = new ItemDAO(banco);
-		}
+		banco = DBPool.getInstance();
+		instance = new ItemDAO(banco);
 		return instance;
-	}
-
-	// a conexão com o banco de dados
-	public Connection connection;
+	}	
 
 	public ItemDAO(DBPool banco) {
 		this.connection = (Connection) banco.getConn();
@@ -156,7 +155,12 @@ public class ItemDAO {
 		ArrayList<Item> itens = new ArrayList<Item>();
 
 		String sql = String.format("%s",
-				"SELECT  I.cd_item, I.cd_categoria, C.nm_descricao, I.cd_regiao, I.nm_item, I.dt_registro"
+				"SELECT  I.cd_item,"
+				+ " I.cd_categoria,"
+				+ " C.nm_descricao,"
+				+ " I.cd_regiao,"
+				+ " I.nm_item,"
+				+ " I.dt_registro"
 				+ " FROM  tb_item as I, tb_categoria as C"
 				+ " WHERE I.cd_categoria = C.cd_categoria");
 
@@ -171,8 +175,7 @@ public class ItemDAO {
 			item.setDescricao(rs.getString("nm_item"));
 			Categoria categoria = new Categoria();
 			categoria.setId(rs.getInt("cd_categoria"));
-			categoria
-					.setDescricao(rs.getString("nm_descricao"));
+			categoria.setDescricao(rs.getString("nm_descricao"));
 			item.setCategoria(categoria);
 			itens.add(item);
 		}
@@ -183,11 +186,8 @@ public class ItemDAO {
 	public List<Item> listarItens(Item item) throws SQLException {
 		
 		List<Item> itens = new ArrayList<Item>();
-
-		String descricao = BancoUtil.STRING_VAZIA;
-		if (!StringUtil.ehVazio(item.getDescricao())) {
-			descricao = "I.nm_item LIKE '" + item.getDescricao().trim() + "%'";
-		}
+		
+		String descricao = "I.nm_item LIKE '" + item.getDescricao().trim() + "%'";
 		
 		Categoria categoria = item.getCategoria();
 		String idCategoria = BancoUtil.STRING_VAZIA;
@@ -203,9 +203,14 @@ public class ItemDAO {
 		
 		String sql = String.format("%s %s %s %s %s %s",
 				"SELECT I.cd_item, I.nm_item,"
-				+ " I.dt_registro, C.cd_categoria, C.nm_descricao,"
-				+ " R.cd_regiao, R.nm_regiao"
-				+ " FROM tb_item as I, tb_categoria as C, tb_regiao as R"
+				+ " I.dt_registro,"
+				+ " C.cd_categoria,"
+				+ " C.nm_descricao,"
+				+ " R.cd_regiao,"
+				+ " R.nm_regiao"
+				+ " FROM tb_item as I,"
+				+ " tb_categoria as C,"
+				+ " tb_regiao as R"
 				+ " WHERE ",
 				descricao,
 				idCategoria,

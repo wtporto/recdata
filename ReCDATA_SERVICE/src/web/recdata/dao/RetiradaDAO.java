@@ -12,17 +12,16 @@ import br.edu.ifpb.recdata.entidades.Retirada;
 public class RetiradaDAO {
 
 	static DBPool banco;
+	
 	private static RetiradaDAO instance;
+	
+	public Connection connection;
 
 	public static RetiradaDAO getInstance() {
-		if (instance == null) {
-			banco = DBPool.getInstance();
-			instance = new RetiradaDAO(banco);
-		}
+		banco = DBPool.getInstance();
+		instance = new RetiradaDAO(banco);
 		return instance;
-	}
-
-	public Connection connection;
+	}	
 
 	public RetiradaDAO(DBPool banco) {
 		this.connection = (Connection) banco.getConn();
@@ -54,6 +53,7 @@ public class RetiradaDAO {
 			stmt.close();
 
 		} catch (SQLException sqle) {
+			
 			throw new RuntimeException(sqle);
 		}
 

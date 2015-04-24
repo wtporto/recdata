@@ -139,12 +139,14 @@ public class ReservaDAO {
 
 		try {
 
-			String sql = "SELECT R.cd_reserva, R.cd_item, "
+			String sql = "SELECT R.cd_reserva, R.cd_item, I.nm_item, "
 					+ "R.cd_usuario_reserva, R.nm_observacao_reserva, "
 					+ "R.data_inicio, R.hora_inicio, "
-					+ "R.data_fim,R.hora_fim "
-					+ " FROM tb_reserva as R WHERE R.cd_usuario_reserva= ?"
-					+" ORDER BY dt_registro";
+					+ "R.data_fim, R.hora_fim"
+					+ "FROM  tb_reserva as R  tb_item as I"
+					+ "WHERE R.cd_usuario_reserva= ?"
+					+" AND R.cd_item = I.cd_item";
+					
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -160,6 +162,7 @@ public class ReservaDAO {
 
 				Item item = new Item();
 				item.setId(rs.getInt("cd_item"));
+				item.setDescricao(rs.getString("nm_item"));
 				reservaAux.setItem(item);
 
 				Usuario usuario = new Usuario();

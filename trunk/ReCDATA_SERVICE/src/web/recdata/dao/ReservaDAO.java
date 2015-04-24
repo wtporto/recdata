@@ -20,17 +20,18 @@ import br.edu.ifpb.recdata.entidades.Usuario;
 
 public class ReservaDAO {
 
-	static DBPool banco;
+	private static DBPool banco;
+	
 	private static ReservaDAO instance;
+	
+	// Conexão com o banco de dados
+	public Connection connection;
 
 	public static ReservaDAO getInstance() {
 		banco = DBPool.getInstance();
 		instance = new ReservaDAO(banco);
 		return instance;
 	}
-
-	// a conexão com o banco de dados
-	public Connection connection;
 
 	public ReservaDAO(DBPool banco) {
 		this.connection = (Connection) banco.getConn();
@@ -43,28 +44,29 @@ public class ReservaDAO {
 	public int creat(ReservaItem reserva) {
 
 		int idReserva = BancoUtil.IDVAZIO;
+		
 		try {
 			
 			String sql = "INSERT INTO tb_reserva (cd_item,"
-					+ " cd_usuario_reserva, data_inicio, hora_inicio,"
-					+ " data_fim, hora_fim %s) "
-					+ "VALUES ("
-					+ " " + reserva.getItem().getId() + ","
-					+ " " + reserva.getUsuarioReserva().getId() + ","
-					+ " '" + new java.sql.Date(reserva.getHoraDataInicio()
-							.getTime()) + "',"
-					+ " '" + new java.sql.Time(reserva.getHoraDataInicio()
-							.getTime()) + "',"
-					+ " '" + new java.sql.Date(reserva.getHoraDataFim()
-							.getTime()) + "',"
-					+ " '" + new java.sql.Time(reserva.getHoraDataFim()
-							.getTime()) + "'"
+					+ " cd_usuario_reserva,"
+					+ " data_inicio,"
+					+ " hora_inicio,"
+					+ " data_fim,"
+					+ " hora_fim"
+					+ " %s)"
+					+ " VALUES ("+ reserva.getItem().getId() 
+					+ "," + reserva.getUsuarioReserva().getId() 
+					+ ",'" + new java.sql.Date(reserva.getHoraDataInicio().getTime()) + "'"
+					+ ",'" + new java.sql.Time(reserva.getHoraDataInicio().getTime()) + "'"
+					+ ",'" + new java.sql.Date(reserva.getHoraDataFim().getTime()) + "'"
+					+ ",'" + new java.sql.Time(reserva.getHoraDataFim().getTime()) + "'"
 					+ " %s )";
 			
+			// Adicionar uma observação na reserva.
 			String observacao = reserva.getObservacao();
 			
 			if (!StringUtil.ehVazio(observacao)) {
-				sql = String.format(sql, ", nm_observacao_reserva", 
+				sql = String.format(sql, ", nm_observacao", 
 						", '" + reserva.getObservacao() + "'");
 			} else {
 				sql = String.format(sql, BancoUtil.STRING_VAZIA, 
@@ -81,18 +83,19 @@ public class ReservaDAO {
 			stmt.close();
 
 		} catch (SQLException sqle) {
+			
 			throw new RuntimeException(sqle);
 		}
 		
 		return idReserva;
-
 	}
 
 	public void delete(ReservaItem reserva) {
 
 		try {
 
-			String sql = "DELETE FROM tb_reserva WHERE idReserva = ?";
+			String sql = "DELETE FROM tb_reserva"
+					+ " WHERE idReserva = ?";
 
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
@@ -104,16 +107,18 @@ public class ReservaDAO {
 			stmt.close();
 
 		} catch (SQLException sqle) {
+			
 			sqle.printStackTrace();
 		}
-
 	}
 
 	public void update(ReservaItem reserva) {
 
 		try {
 
-			String sql = "UPDATE tb_reserva SET tb_item_idItem = ? WHERE idReserva = ?";
+			String sql = "UPDATE tb_reserva"
+					+ " SET tb_item_idItem = ?"
+					+ " WHERE idReserva = ?";
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -127,26 +132,35 @@ public class ReservaDAO {
 			stmt.close();
 
 		} catch (SQLException sqle) {
+			
 			throw new RuntimeException(sqle);
 		}
-
 	}
 
-	public ArrayList<ReservaItem> readUsuarioById(ReservaItem reserva) {
+	public ArrayList<ReservaItem> readById(ReservaItem reserva) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public ArrayList<ReservaItem> listarReservasUsuarioById(ReservaItem reserva) {
 
 		ReservaItem reservaAux = null;
 		ArrayList<ReservaItem> reservas = new ArrayList<ReservaItem>();
 
 		try {
 
-			String sql = "SELECT R.cd_reserva, R.cd_item, I.nm_item, "
-					+ "R.cd_usuario_reserva, R.nm_observacao_reserva, "
-					+ "R.data_inicio, R.hora_inicio, "
-					+ "R.data_fim, R.hora_fim"
-					+ "FROM  tb_reserva as R  tb_item as I"
-					+ "WHERE R.cd_usuario_reserva= ?"
-					+" AND R.cd_item = I.cd_item";
-					
+			String sql = "SELECT R.cd_reserva,"
+					+ " R.cd_item,"
+					+ " I.nm_item, "
+					+ " R.cd_usuario_reserva,"
+					+ " R.nm_observacao, "
+					+ " R.data_inicio,"
+					+ " R.hora_inicio, "
+					+ " R.data_fim,"
+					+ " R.hora_fim"
+					+ " FROM  tb_reserva as R  tb_item as I"
+					+ " WHERE R.cd_usuario_reserva= ?"
+					+ " AND R.cd_item = I.cd_item";					
 
 			// prepared statement para inserção
 			PreparedStatement stmt = (PreparedStatement) connection
@@ -183,6 +197,7 @@ public class ReservaDAO {
 			}
 
 		} catch (SQLException sqle) {
+			
 			throw new RuntimeException(sqle);
 		}
 
@@ -194,11 +209,15 @@ public class ReservaDAO {
 		List<ReservaItem> reservas = new ArrayList<ReservaItem>();
 		
 		ReservaItem reservaAux = null;
-		String sql = "SELECT R.cd_reserva, R.cd_item, "
-					+ "R.cd_usuario_reserva, R.nm_observacao_reserva, "
-					+ "R.data_inicio, R.hora_inicio, "
-					+ "R.data_fim,hora_fim "
-					+ "FROM tb_reserva as R";
+		String sql = "SELECT R.cd_reserva," 
+				+ " R.cd_item, "
+				+ " R.cd_usuario_reserva,"
+				+ " R.nm_observacao, "
+				+ " R.data_inicio,"
+				+ " R.hora_inicio, " 
+				+ " R.data_fim,"
+				+ " R.hora_fim "
+				+ " FROM tb_reserva as R";
 
 		// prepared statement para inseeção
 		PreparedStatement stmt = (PreparedStatement) connection
@@ -234,7 +253,8 @@ public class ReservaDAO {
 		return reservas;
 	}
 	
-	public List<ReservaItem> consultarReservas(ReservaItem reserva) throws SQLException {
+	public List<ReservaItem> consultarReservas(ReservaItem reserva) 
+			throws SQLException {
 		
 		List<ReservaItem> reservas = new ArrayList<ReservaItem>();		
 		
@@ -267,10 +287,17 @@ public class ReservaDAO {
 		String dataReserva = BancoUtil.STRING_VAZIA;
 		
 		String sql = String.format("%s %s %s %s %s %s", 
-				"SELECT R.cd_reserva, R.cd_item,"
-				+ " I.nm_item, R.cd_usuario_reserva, R.nm_observacao, "
-				+ "R.data_inicio, R.hora_inicio,  R.data_fim, R.hora_fim "
-				+ "FROM tb_reserva as R, tb_item as I"
+				"SELECT R.cd_reserva,"
+				+ " R.cd_item,"
+				+ " I.nm_item,"
+				+ " R.cd_usuario_reserva,"
+				+ " R.nm_observacao,"
+				+ " R.data_inicio,"
+				+ " R.hora_inicio,"
+				+ " R.data_fim,"
+				+ " R.hora_fim "
+				+ " FROM tb_reserva as R,"
+				+ " tb_item as I"
 				+ " WHERE ",
 				juncaoItem,
 				idCategoria,
@@ -314,5 +341,44 @@ public class ReservaDAO {
 		rs.close();
 		
 		return reservas;
+	}
+	
+	public boolean isPossivelReservar(int codItem, long reservaInicio, long reservaFim)
+			throws SQLException {
+		
+		boolean isPossivelReservar = true;
+		
+		String sql = "SELECT data_inicio,"
+				+ " hora_inicio,"
+				+ " data_fim,"
+				+ " hora_fim"
+				+ " FROM tb_reserva"
+				+ " WHERE cd_item = ?";
+
+		PreparedStatement stmt = (PreparedStatement) connection
+				.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next() && isPossivelReservar) {
+			
+			long dataHoraInicio = rs.getDate("data_inicio").getTime()
+					+ rs.getTime("hora_inicio").getTime();
+			
+			long dataHoraFim = rs.getDate("data_fim").getTime()
+					+ rs.getTime("hora_fim").getTime();
+
+			if ((dataHoraInicio < reservaInicio && reservaInicio > dataHoraFim)
+					&& (dataHoraInicio < reservaFim && reservaFim > dataHoraFim)) {
+				
+				isPossivelReservar = true;
+				
+			} else {
+				
+				isPossivelReservar = false;
+			}
+		}
+		
+		return isPossivelReservar;
 	}
 }

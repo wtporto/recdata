@@ -27,33 +27,33 @@ public class ReservaResource {
 	public Response entidade() throws SQLException {
 		ResponseBuilder builder = Response.status(Response.Status.OK);
 		builder.expires(new Date());
-		
+
 		Date data = new Date();
 		ReservaItem reserva = new ReservaItem();
 		reserva.setDataRegistro(data);
 		reserva.setHoraDataFim(data);
 		reserva.setHoraDataInicio(data);
 		reserva.setId(1);
-		reserva.setObservacao("Observação da reserva");
-		
+		reserva.setObservacao("Observacao da reserva");
+
 		Item item = new Item();
 		item.setId(2);
-		item.setDescricao("Descrição do item");
-		
+		item.setDescricao("Descricao do item");
+
 		reserva.setItem(item);
-		
+
 		Usuario usuario = new Usuario();
 		usuario.setId(3);
 		usuario.setNome("Wemerson");
-		
+
 		reserva.setUsuarioAtendente(usuario);
 		reserva.setUsuarioReserva(usuario);
-		
+
 		builder.entity(reserva);
-		
+
 		return builder.build();
 	}
-	
+
 	@GET
 	@Path("/listar")
 	@Produces("application/json")
@@ -65,26 +65,35 @@ public class ReservaResource {
 	@Path("/consultarReservas")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public List<ReservaItem> consultarReservas(ReservaItem reserva) throws SQLException {
+	public List<ReservaItem> consultarReservas(ReservaItem reserva)
+			throws SQLException {
 		return new ReservaController().consultarReservas(reserva);
 	}
-	
+
 	@POST
-	@Path("/listaReservaUsuarioID")
+	@Path("/buscar")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public ArrayList<ReservaItem> readById(ReservaItem reserva) {
-		return new ReservaController().readUsuarioById(reserva);
+		return new ReservaController().readById(reserva);
 	}
 
-	 @POST
-     @Path("/cadastrar")
-     @Consumes("application/json")
-     @Produces("application/json")
+	@POST
+	@Path("/listarReservasUsuarioById")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public ArrayList<ReservaItem> listarReservasUsuarioById(ReservaItem reserva) {
+		return new ReservaController().listarReservasUsuarioById(reserva);
+	}
+
+	@POST
+	@Path("/cadastrar")
+	@Consumes("application/json")
+	@Produces("application/json")
 	public Response creat(ReservaItem reserva) {
-		
+
 		Response response = new ReservaController().creat(reserva);
-		
+
 		return response;
 	}
 

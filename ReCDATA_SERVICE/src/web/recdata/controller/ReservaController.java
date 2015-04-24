@@ -23,8 +23,12 @@ public class ReservaController {
 		return ReservaDAO.getInstance().consultarReservas(reserva);
 	}
 
-	public ArrayList<ReservaItem> readUsuarioById(ReservaItem reserva) {
-		return ReservaDAO.getInstance().readUsuarioById(reserva);
+	public ArrayList<ReservaItem> readById(ReservaItem reserva) {
+		return ReservaDAO.getInstance().readById(reserva);
+	}
+	
+	public ArrayList<ReservaItem> listarReservasUsuarioById(ReservaItem reserva) {
+		return ReservaDAO.getInstance().listarReservasUsuarioById(reserva);
 	}
 
 	public Response creat(ReservaItem reserva) {
@@ -32,6 +36,7 @@ public class ReservaController {
 		ResponseBuilder builder = Response.status(Response.Status.BAD_REQUEST);
 		builder.expires(new Date());
 
+		// Verificar se existe reserva para o item no horário predefinido.
 		int validacao = Validar.validarItem();
 		
 		if (validacao == Validar.VALIDACAO_OK) {

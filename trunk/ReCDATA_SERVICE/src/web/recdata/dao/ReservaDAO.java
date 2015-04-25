@@ -142,9 +142,8 @@ public class ReservaDAO {
 		return null;
 	}
 	
-	public ArrayList<ReservaItem> listarReservasUsuarioById(ReservaItem reserva) {
+	public ArrayList<ReservaItem> listarReservasUsuarioById(Usuario usuario) {
 
-		ReservaItem reservaAux = null;
 		ArrayList<ReservaItem> reservas = new ArrayList<ReservaItem>();
 
 		try {
@@ -166,34 +165,35 @@ public class ReservaDAO {
 			PreparedStatement stmt = (PreparedStatement) connection
 					.prepareStatement(sql);
 
-			stmt.setInt(1, reserva.getUsuarioReserva().getId());
+			stmt.setInt(1, usuario.getId());
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				reservaAux = new ReservaItem();
-				reservaAux.setId(rs.getInt("cd_reserva"));
+				
+				ReservaItem reserva = new ReservaItem();
+				reserva.setId(rs.getInt("cd_reserva"));
 
 				Item item = new Item();
 				item.setId(rs.getInt("cd_item"));
 				item.setDescricao(rs.getString("nm_item"));
-				reservaAux.setItem(item);
+				reserva.setItem(item);
 
-				Usuario usuario = new Usuario();
+				usuario = new Usuario();
 				usuario.setId(rs.getInt("cd_usuario_reserva"));
-				reservaAux.setUsuarioReserva(usuario);
+				reserva.setUsuarioReserva(usuario);
 
 				long dateHoraInicio = rs.getDate("data_inicio").getTime()
 						+ rs.getTime("hora_inicio").getTime();
 
-				reservaAux.setHoraDataInicio(new Date(dateHoraInicio));
+				reserva.setHoraDataInicio(new Date(dateHoraInicio));
 
 				long dateHoraFim = rs.getDate("data_fim").getTime()
 						+ rs.getTime("hora_fim").getTime();
 
-				reservaAux.setHoraDataFim(new Date(dateHoraFim));
+				reserva.setHoraDataFim(new Date(dateHoraFim));
 
-				reservas.add(reservaAux);
+				reservas.add(reserva);
 			}
 
 		} catch (SQLException sqle) {

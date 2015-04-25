@@ -82,8 +82,8 @@ public class ReservaResource {
 	@Path("/listarReservasUsuarioById")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public ArrayList<ReservaItem> listarReservasUsuarioById(ReservaItem reserva) {
-		return new ReservaController().listarReservasUsuarioById(reserva);
+	public ArrayList<ReservaItem> listarReservasUsuarioById(Usuario usuario) {
+		return new ReservaController().listarReservasUsuarioById(usuario);
 	}
 
 	@POST

@@ -12,6 +12,7 @@ import web.recdata.dao.ReservaDAO;
 import web.recdata.validacao.Validar;
 import br.edu.ifpb.recdata.entidades.Erro;
 import br.edu.ifpb.recdata.entidades.ReservaItem;
+import br.edu.ifpb.recdata.entidades.Usuario;
 
 public class ReservaController {
 	
@@ -27,8 +28,8 @@ public class ReservaController {
 		return ReservaDAO.getInstance().readById(reserva);
 	}
 	
-	public ArrayList<ReservaItem> listarReservasUsuarioById(ReservaItem reserva) {
-		return ReservaDAO.getInstance().listarReservasUsuarioById(reserva);
+	public ArrayList<ReservaItem> listarReservasUsuarioById(Usuario usuario) {
+		return ReservaDAO.getInstance().listarReservasUsuarioById(usuario);
 	}
 
 	public Response creat(ReservaItem reserva) {

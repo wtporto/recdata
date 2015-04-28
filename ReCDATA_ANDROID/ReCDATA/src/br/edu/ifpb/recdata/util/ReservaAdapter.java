@@ -55,15 +55,18 @@ public class ReservaAdapter extends BaseAdapter {
 		else{
 			layout = convertView;
 		}
+	
+		String dataHoraInicial = Metodos.converteTomillInDate(reserva.getHoraDataInicio().toString());
+		String dataHoraFinal = Metodos.converteTomillInDate(reserva.getHoraDataFim().toString());
 		
 		TextView descricao = (TextView) layout.findViewById(R.id.textView_descricaoItem);
-		descricao.setText("Descrição: "+String.valueOf(reserva.getId()));
+		descricao.setText("Descrição: "+String.valueOf(reserva.getItem().getDescricao()));
 	
 		TextView horaDataInicio = (TextView) layout.findViewById(R.id.text_view_horaDataInicio);
-		horaDataInicio.setText("Hora/Data Inicio: "+reserva.getHoraDataInicio().toString());
+		horaDataInicio.setText("Hora/Data Inicio: "+dataHoraInicial);
 	
 		TextView horaDataFim = (TextView) layout.findViewById(R.id.text_view_horaDataFim);
-		horaDataFim.setText("Hora/Data Fim: "+reserva.getHoraDataFim().toString());
+		horaDataFim.setText("Hora/Data Fim: "+dataHoraFinal);
 	
 		
 		ImageView imagem = (ImageView) layout.findViewById(R.id.imageView_iconReserva);

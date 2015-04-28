@@ -56,7 +56,7 @@ public class TelaListaFuncionalidades extends Activity {
 
 					JSONObject usuarioJsonObject = new JSONObject();
 					try {
-						usuarioJsonObject.put("usuarioReserva", gs.getUsuario().getId());
+						usuarioJsonObject.put("id", gs.getUsuario().getId());
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

@@ -13,13 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import br.edu.ifpb.R;
+import br.edu.ifpb.recdata.entity.Usuario;
 import br.edu.ifpb.recdata.servicos.UsuarioLoginAsyncTask;
 import br.edu.ifpb.recdata.util.*;
 
 public class TelaLogin extends Activity implements OnClickListener {
 
-	EditText login;
-	EditText senha;
+	private EditText login;
+	private EditText senha;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,9 @@ public class TelaLogin extends Activity implements OnClickListener {
 
 		login = (EditText) findViewById(R.id.LoginApp);
 		senha = (EditText) findViewById(R.id.SenhaApp);
+		
 
-		//Login usuário
+		// Login usuário
 		final Button logarbutton = (Button) findViewById(R.id.LoginButton);
 		logarbutton.setOnClickListener(this);
 
@@ -75,7 +78,7 @@ public class TelaLogin extends Activity implements OnClickListener {
 			usuarioLogar.execute(jsonObject);
 			
 		} else {
-			
+
 			Button butonLogar = (Button) findViewById(R.id.LoginButton);
 			butonLogar.setVisibility(0);
 			// pegar o campo errado e limpar só ele!
@@ -85,10 +88,9 @@ public class TelaLogin extends Activity implements OnClickListener {
 				login.setText("");
 
 			} else {
-				
 
-					EditText senha = (EditText) findViewById(R.id.SenhaApp);
-					senha.setText("");
+				EditText senha = (EditText) findViewById(R.id.SenhaApp);
+				senha.setText("");
 			}
 
 		}

@@ -1,32 +1,29 @@
 package br.edu.ifpb.recdata.util;
 
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TimePicker;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Metodos {
 
-	public static String montarDataPicker(DatePicker datepicker) {
-		// montar a data
-		int dataAno = datepicker.getYear();
-		int dataMes = datepicker.getMonth();
-		int dataDia = datepicker.getDayOfMonth();
+public static String converteTomillInDate(String dateInMillis){
+		
+		TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
+		TimeZone.setDefault(tz);
+		Calendar calendar = Calendar.getInstance(tz);
 
-		String dataNascimentoCompleto = String.valueOf(dataAno) + "-"
-				+ String.valueOf(dataMes) + "-" + String.valueOf(dataDia);
+		long milli = Long.valueOf(dateInMillis).longValue();
 
-		return dataNascimentoCompleto;
-	}
+				calendar.setTimeInMillis(milli);
+		
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				Date date = calendar.getTime();
+				String strDate = sdf.format(date);
 
-	public static String montarTimePicker(TimePicker timepicker) {
-		// montar a data
-		int hora = timepicker.getCurrentHour();
-		int minuto = timepicker.getCurrentMinute();
-		int segundo = 000;
-
-		String dataNascimentoCompleto = String.valueOf(hora) + ":"
-				+ String.valueOf(minuto) + ":" + String.valueOf(segundo);
-
-		return dataNascimentoCompleto;
+				System.out.println("Date>>"+strDate);
+				 
+		return strDate;
+		
 	}
 }

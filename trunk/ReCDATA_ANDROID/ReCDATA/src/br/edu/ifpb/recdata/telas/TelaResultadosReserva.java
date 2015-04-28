@@ -55,6 +55,7 @@ public class TelaResultadosReserva extends Activity {
 				JSONObject itemJsonObject = reservaJsonObject
 						.getJSONObject("item");
 				item.setId(itemJsonObject.getInt("id"));
+				item.setDescricao(itemJsonObject.getString("descricao"));
 				reserva.setItem(item);
 
 				this.reservas.add(reserva);

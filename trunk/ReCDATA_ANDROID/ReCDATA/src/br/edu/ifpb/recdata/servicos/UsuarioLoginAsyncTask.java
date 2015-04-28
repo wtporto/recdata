@@ -13,16 +13,27 @@ import br.edu.ifpb.recdata.entity.Usuario;
 import br.edu.ifpb.recdata.telas.TelaListaFuncionalidades;
 import br.edu.ifpb.recdata.util.Constantes;
 import br.edu.ifpb.recdata.util.GlobalState;
+import br.edu.ifpb.recdata.util.SessionReCDATA;
 
 public class UsuarioLoginAsyncTask extends
 		AsyncTask<JSONObject, Void, HttpResponse> {
 
 	private Activity activity;
-
+	private JSONObject jsonObject;
 	GlobalState gs;
+	private SessionReCDATA sessionRecdata;
 
 	public UsuarioLoginAsyncTask(Activity activity) {
 		this.activity = activity;
+		sessionRecdata = new SessionReCDATA(this.activity);
+	}
+
+	public void setResult(JSONObject jsonObject) {
+		this.jsonObject = jsonObject;
+	}
+
+	public JSONObject getResult() {
+		return this.jsonObject;
 	}
 
 	@Override
@@ -58,6 +69,12 @@ public class UsuarioLoginAsyncTask extends
 				usuario.setNome(jsonObject.getString("nome"));
 				gs = (GlobalState) activity.getApplication();
 				gs.setUsuario(usuario);
+
+				if (gs.getUsuario() != null) {
+
+					sessionRecdata.createLoginSession(gs.getUsuario().getId());
+					Log.i("Sesion:",sessionRecdata.toString());
+				}
 
 				Toast.makeText(activity.getApplicationContext(),
 						Constantes.USUARIO_EXISTE + usuario.getNome(),

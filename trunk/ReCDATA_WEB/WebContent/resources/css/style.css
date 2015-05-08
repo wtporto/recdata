@@ -137,8 +137,8 @@ html, body {
 }
 
 .logoIF {
-	width: 140px;
-	height: 120px;
+	width: 100px;
+	height: 60px;
 	margin-left: 20%;
 	margin-top: 1%;
 }
@@ -190,11 +190,12 @@ form input, form select {
 #footer{
 	background-color: #F5F5F5;
 	position: relative;
-	height: 140px;
+	height: 100px;
+	bottom: 0;
 }
 
 .push{
-	height: 167px;
+	height: 510px;
 
 }
 

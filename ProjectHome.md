@@ -1,0 +1,1 @@
+Neste projeto temos como objetivo proporcionar aos professores e servidores da coordenação de turno uma melhor e maior acessibilidade dos mesmos para a solicitação e reserva de chaves de laboratórios e/ou salas e também a reserva de data shows disponibilizados pela instituição, assim o almoxarifado terá maior controle das reservas e entrega de chaves e data shows.
